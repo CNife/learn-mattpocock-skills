@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADR-FORMAT · domain-modeling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      margin: 2rem 0 0.5rem;
+      border-bottom: 1px solid var(--warm-mid);
+      padding-bottom: 0.3rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .pair-heading {
+      margin-top: 0.6rem;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p,
+    .col-en ul, .col-zh ul,
+    .col-en ol, .col-zh ol {
+      margin: 0.6rem 0;
+    }
+
+    .col-en ul, .col-zh ul {
+      padding-left: 1.4rem;
+      list-style: disc;
+    }
+    .col-en ol, .col-zh ol {
+      padding-left: 1.4rem;
+    }
+
+    .col-en li, .col-zh li {
+      margin: 0.25rem 0;
+    }
+
+    .col-en h2, .col-zh h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .col-en h3, .col-zh h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en pre, .col-zh pre {
+      background: #ece9e0;
+      border-left: 2px solid var(--warm-mid);
+      padding: 0.6rem 1rem;
+      margin: 0.6rem 0;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+    }
+
+    .col-en strong, .col-zh strong {
+      color: var(--ink-blue);
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ADR Format</h1>
+    <p class="subtitle">ADR 的格式规范 — 属于 domain-modeling 技能</p>
+
+    <!-- 开篇 -->
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>ADRs live in <code>docs/adr/</code> and use sequential numbering: <code>0001-slug.md</code>, <code>0002-slug.md</code>, etc.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>ADR 存放在 <code>docs/adr/</code> 目录下，使用顺序编号：<code>0001-slug.md</code>、<code>0002-slug.md</code>，以此类推。</p>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Create the <code>docs/adr/</code> directory lazily — only when the first ADR is needed.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p><code>docs/adr/</code> 目录惰性创建——只在需要第一个 ADR 时才创建。</p>
+      </div>
+    </div>
+
+    <!-- ## Template -->
+    <div class="section-label">Template</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Template</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>模板</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code># {Short title of the decision}
+
+{1-3 sentences: what's the context, what did we decide, and why.}</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code># {决策的简短标题}
+
+{1-3 句话：背景是什么、我们决定了什么、为什么。}</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>That's it. An ADR can be a single paragraph. The value is in recording <em>that</em> a decision was made and <em>why</em> — not in filling out sections.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>就这样。一个 ADR 可以只是一个段落。价值在于记录<strong>做了决策</strong>以及<strong>为什么</strong>——而不是填满各个章节。</p>
+      </div>
+    </div>
+
+    <!-- ## Optional sections -->
+    <div class="section-label">Optional sections</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Optional sections</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>可选章节</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Only include these when they add genuine value. Most ADRs won't need them.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>只在对理解决策确实有价值时才包含这些。大部分 ADR 不需要它们。</p>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Status</strong> frontmatter (<code>proposed | accepted | deprecated | superseded by ADR-NNNN</code>) — useful when decisions are revisited</li>
+          <li><strong>Considered Options</strong> — only when the rejected alternatives are worth remembering</li>
+          <li><strong>Consequences</strong> — only when non-obvious downstream effects need to be called out</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>Status</strong> 前置元数据（<code>proposed | accepted | deprecated | superseded by ADR-NNNN</code>）—— 当决策会被重新审视时有用</li>
+          <li><strong>Considered Options</strong> —— 只有当被否决的备选方案值得记住时才包含</li>
+          <li><strong>Consequences</strong> —— 只有当需要指出不明显的下游影响时才包含</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ## Numbering -->
+    <div class="section-label">Numbering</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Numbering</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>编号</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Scan <code>docs/adr/</code> for the highest existing number and increment by one.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>扫描 <code>docs/adr/</code> 目录找到现有最高编号，加一。</p>
+      </div>
+    </div>
+
+    <!-- ## When to offer an ADR -->
+    <div class="section-label">When to offer an ADR</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>When to offer an ADR</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时提议创建 ADR</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>All three of these must be true:</p>
+        <ol>
+          <li><strong>Hard to reverse</strong> — the cost of changing your mind later is meaningful</li>
+          <li><strong>Surprising without context</strong> — a future reader will look at the code and wonder "why on earth did they do it this way?"</li>
+          <li><strong>The result of a real trade-off</strong> — there were genuine alternatives and you picked one for specific reasons</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>以下三个条件<strong>必须全部满足</strong>：</p>
+        <ol>
+          <li><strong>难以撤销</strong> —— 事后改变想法的成本很高</li>
+          <li><strong>脱离上下文会令人费解</strong> —— 未来的读者看到代码会疑惑"他们到底为什么这么做？"</li>
+          <li><strong>真实权衡的结果</strong> —— 存在真正的备选方案，你基于具体理由选择了其中之一</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>If a decision is easy to reverse, skip it — you'll just reverse it. If it's not surprising, nobody will wonder why. If there was no real alternative, there's nothing to record beyond "we did the obvious thing."</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>如果一个决策很容易撤销，跳过它——你将来会把它改掉的。如果不令人意外，没人会追问为什么。如果没有真正的备选方案，除了"我们做了显而易见的事"之外没什么可记录的。</p>
+      </div>
+    </div>
+
+    <!-- ### What qualifies -->
+    <div class="section-label">What qualifies</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>What qualifies</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>哪些情况符合条件</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Architectural shape.</strong> "We're using a monorepo." "The write model is event-sourced, the read model is projected into Postgres."</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>架构形态。</strong> "我们使用 monorepo。" "写模型是事件溯源，读模型投影到 Postgres。"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Integration patterns between contexts.</strong> "Ordering and Billing communicate via domain events, not synchronous HTTP."</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>上下文之间的集成模式。</strong> "Ordering 和 Billing 通过领域事件通信，而非同步 HTTP。"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Technology choices that carry lock-in.</strong> Database, message bus, auth provider, deployment target. Not every library — just the ones that would take a quarter to swap out.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>带有锁定效应的技术选型。</strong> 数据库、消息总线、认证提供商、部署目标。不是每个库——只是那些换掉需要一个季度的。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Boundary and scope decisions.</strong> "Customer data is owned by the Customer context; other contexts reference it by ID only." The explicit no-s are as valuable as the yes-s.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>边界和范围决策。</strong> "客户数据由 Customer 上下文拥有；其他上下文仅通过 ID 引用。" 明确说"不"和说"是"同样有价值。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Deliberate deviations from the obvious path.</strong> "We're using manual SQL instead of an ORM because X." Anything where a reasonable reader would assume the opposite. These stop the next engineer from "fixing" something that was deliberate.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>有意偏离显而易见路径的选择。</strong> "我们使用手写 SQL 而非 ORM，因为 X。" 任何合理的读者会假设相反方向的事情。这些能阻止下一位工程师"修复"某个有意的选择。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Constraints not visible in the code.</strong> "We can't use AWS because of compliance requirements." "Response times must be under 200ms because of the partner API contract."</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>代码中不可见的约束。</strong> "由于合规要求，我们不能使用 AWS。" "由于合作伙伴 API 合同，响应时间必须在 200ms 以内。"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Rejected alternatives when the rejection is non-obvious.</strong> If you considered GraphQL and picked REST for subtle reasons, record it — otherwise someone will suggest GraphQL again in six months.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>被否决的备选方案，当否决理由不显而易见时。</strong> 如果你考虑过 GraphQL 但因微妙的理由选择了 REST，记录下来——否则六个月后又会有人提议 GraphQL。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

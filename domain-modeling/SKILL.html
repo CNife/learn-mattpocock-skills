@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>domain-modeling · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      margin: 2rem 0 0.5rem;
+      border-bottom: 1px solid var(--warm-mid);
+      padding-bottom: 0.3rem;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .pair-heading {
+      margin-top: 0.6rem;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p,
+    .col-en ul, .col-zh ul,
+    .col-en ol, .col-zh ol {
+      margin: 0.6rem 0;
+    }
+
+    .col-en ul, .col-zh ul {
+      padding-left: 1.4rem;
+      list-style: disc;
+    }
+
+    .col-en li, .col-zh li {
+      margin: 0.25rem 0;
+    }
+
+    .col-en h3, .col-zh h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en pre, .col-zh pre {
+      background: #ece9e0;
+      border-left: 2px solid var(--warm-mid);
+      padding: 0.6rem 1rem;
+      margin: 0.6rem 0;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+    }
+
+    .col-en a, .col-zh a {
+      color: var(--ink-blue);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <table class="fm-table">
+      <tr><td>name</td><td>domain-modeling</td></tr>
+      <tr><td>description</td><td>Build and sharpen a project's domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.</td></tr>
+      <tr><td>invocation</td><td>model-invoked</td></tr>
+    </table>
+
+    <h1>domain-modeling</h1>
+    <p class="subtitle">Build and sharpen a project's domain model.</p>
+
+    <!-- 开篇段落 -->
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Actively build and sharpen the project's domain model as you design. This is the <em>active</em> discipline — challenging terms, inventing edge-case scenarios, and writing the glossary and decisions down the moment they crystallise. (Merely <em>reading</em> <code>CONTEXT.md</code> for vocabulary is not this skill — that's a one-line habit any skill can do. This skill is for when you're changing the model, not just consuming it.)</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>在设计过程中主动构建和打磨项目领域模型。这是<em>主动的</em>训练——质疑术语、构思边缘场景、在词汇和决策形成的瞬间就把它们写下来。（仅仅<em>读</em> <code>CONTEXT.md</code> 来获取词汇不算这个技能——那是任何技能都能做的一行功夫。这个技能是为<strong>改变模型</strong>而存在的，不只是消费它。）</p>
+      </div>
+    </div>
+
+    <!-- ## File structure -->
+    <div class="section-label">File structure</div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>/
+├── CONTEXT.md
+├── docs/
+│   └── adr/
+│       ├── 0001-event-sourced-orders.md
+│       └── 0002-postgres-for-write-model.md
+└── src/</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>/
+├── CONTEXT.md
+├── docs/
+│   └── adr/
+│       ├── 0001-event-sourced-orders.md
+│       └── 0002-postgres-for-write-model.md
+└── src/</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>If a <code>CONTEXT-MAP.md</code> exists at the root, the repo has multiple contexts. The map points to where each one lives:</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>如果根目录存在 <code>CONTEXT-MAP.md</code>，说明仓库有多个上下文。映射表指明了每个上下文的位置：</p>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>/
+├── CONTEXT-MAP.md
+├── docs/
+│   └── adr/                          ← system-wide decisions
+├── src/
+│   ├── ordering/
+│   │   ├── CONTEXT.md
+│   │   └── docs/adr/                 ← context-specific decisions
+│   └── billing/
+│       ├── CONTEXT.md
+│       └── docs/adr/</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>/
+├── CONTEXT-MAP.md
+├── docs/
+│   └── adr/                          ← 全系统级决策
+├── src/
+│   ├── ordering/
+│   │   ├── CONTEXT.md
+│   │   └── docs/adr/                 ← 上下文专属决策
+│   └── billing/
+│       ├── CONTEXT.md
+│       └── docs/adr/</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Create files lazily — only when you have something to write. If no <code>CONTEXT.md</code> exists, create one when the first term is resolved. If no <code>docs/adr/</code> exists, create it when the first ADR is needed.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>惰性创建文件——只在有内容要写的时候才创建。如果还不存在 <code>CONTEXT.md</code>，在第一个术语确定时创建它。如果还没有 <code>docs/adr/</code> 目录，在需要第一个 ADR 时创建它。</p>
+      </div>
+    </div>
+
+    <!-- ## During the session -->
+    <div class="section-label">During the session</div>
+
+    <!-- Challenge against the glossary -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Challenge against the glossary</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>对照词汇表提出质疑</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When the user uses a term that conflicts with the existing language in <code>CONTEXT.md</code>, call it out immediately. "Your glossary defines 'cancellation' as X, but you seem to mean Y — which is it?"</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>当用户使用的术语与 <code>CONTEXT.md</code> 中已有的语言冲突时，立即指出来。"你的词汇表把 'cancellation' 定义为 X，但你似乎指的是 Y —— 到底是哪个？"</p>
+      </div>
+    </div>
+
+    <!-- Sharpen fuzzy language -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Sharpen fuzzy language</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>打磨模糊语言</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When the user uses vague or overloaded terms, propose a precise canonical term. "You're saying 'account' — do you mean the Customer or the User? Those are different things."</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>当用户使用模糊或过载的术语时，提出一个精确的规范术语。"你说的 'account' —— 是指 Customer 还是 User？这是两个不同的东西。"</p>
+      </div>
+    </div>
+
+    <!-- Discuss concrete scenarios -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Discuss concrete scenarios</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>讨论具体场景</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When domain relationships are being discussed, stress-test them with specific scenarios. Invent scenarios that probe edge cases and force the user to be precise about the boundaries between concepts.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>在讨论领域关系时，用具体场景进行压力测试。编造能够探索边缘情况的场景，迫使用户精确说明概念之间的边界。</p>
+      </div>
+    </div>
+
+    <!-- Cross-reference with code -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Cross-reference with code</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>与代码交叉引用</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When the user states how something works, check whether the code agrees. If you find a contradiction, surface it: "Your code cancels entire Orders, but you just said partial cancellation is possible — which is right?"</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>当用户说明某个东西如何工作时，检查代码是否一致。如果发现矛盾，提出来："你的代码取消了整个订单，但你刚才说可以部分取消 —— 哪个是对的？"</p>
+      </div>
+    </div>
+
+    <!-- Update CONTEXT.md inline -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Update CONTEXT.md inline</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>即时更新 CONTEXT.md</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When a term is resolved, update <code>CONTEXT.md</code> right there. Don't batch these up — capture them as they happen. Use the format in <a href="./CONTEXT-FORMAT.md">CONTEXT-FORMAT.md</a>.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>术语一旦确定，立即更新 <code>CONTEXT.md</code>。不要等到最后批量处理——随发生随记录。使用 <a href="./CONTEXT-FORMAT.md">CONTEXT-FORMAT.md</a> 中的格式。</p>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p><code>CONTEXT.md</code> should be totally devoid of implementation details. Do not treat <code>CONTEXT.md</code> as a spec, a scratch pad, or a repository for implementation decisions. It is a glossary and nothing else.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p><code>CONTEXT.md</code> 必须完全不含实现细节。不要将 <code>CONTEXT.md</code> 当作规格说明、草稿纸或实现决策的仓库。它只是一个词汇表，仅此而已。</p>
+      </div>
+    </div>
+
+    <!-- Offer ADRs sparingly -->
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h3>Offer ADRs sparingly</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>审慎提供 ADR</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>Only offer to create an ADR when all three are true:</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>仅当以下三个条件<strong>全部满足</strong>时才提议创建 ADR：</p>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li><strong>Hard to reverse</strong> — the cost of changing your mind later is meaningful</li>
+          <li><strong>Surprising without context</strong> — a future reader will wonder "why did they do it this way?"</li>
+          <li><strong>The result of a real trade-off</strong> — there were genuine alternatives and you picked one for specific reasons</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li><strong>难以撤销</strong> —— 事后改变主意的成本很高</li>
+          <li><strong>脱离上下文会令人费解</strong> —— 未来的读者会疑惑"他们为什么这么做？"</li>
+          <li><strong>真实权衡的结果</strong> —— 存在真正的备选方案，你基于具体理由选择了其中之一</li>
+        </ol>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>If any of the three is missing, skip the ADR. Use the format in <a href="./ADR-FORMAT.md">ADR-FORMAT.md</a>.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>三个条件中缺少任意一条，就跳过 ADR。使用 <a href="./ADR-FORMAT.md">ADR-FORMAT.md</a> 中的格式。</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

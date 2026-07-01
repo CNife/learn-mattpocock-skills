@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CONTEXT-FORMAT · domain-modeling</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-soft);
+      margin: 2rem 0 0.5rem;
+      border-bottom: 1px solid var(--warm-mid);
+      padding-bottom: 0.3rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .pair-heading {
+      margin-top: 0.6rem;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p,
+    .col-en ul, .col-zh ul,
+    .col-en ol, .col-zh ol {
+      margin: 0.6rem 0;
+    }
+
+    .col-en ul, .col-zh ul {
+      padding-left: 1.4rem;
+      list-style: disc;
+    }
+    .col-en ol, .col-zh ol {
+      padding-left: 1.4rem;
+    }
+
+    .col-en li, .col-zh li {
+      margin: 0.25rem 0;
+    }
+
+    .col-en h2, .col-zh h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .col-en h3, .col-zh h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 0.6rem 0 0.2rem;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en pre, .col-zh pre {
+      background: #ece9e0;
+      border-left: 2px solid var(--warm-mid);
+      padding: 0.6rem 1rem;
+      margin: 0.6rem 0;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+    }
+
+    .col-en strong, .col-zh strong {
+      color: var(--ink-blue);
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CONTEXT.md Format</h1>
+    <p class="subtitle">CONTEXT.md 的格式规范 — 属于 domain-modeling 技能</p>
+
+    <!-- ## Structure -->
+    <div class="section-label">Structure</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Structure</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>结构</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code># {Context Name}
+
+{One or two sentence description of what this context is and why it exists.}
+
+## Language
+
+**Order**:
+{A one or two sentence description of the term}
+_Avoid_: Purchase, transaction
+
+**Invoice**:
+A request for payment sent to a customer after delivery.
+_Avoid_: Bill, payment request
+
+**Customer**:
+A person or organization that places orders.
+_Avoid_: Client, buyer, account</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code># {上下文名称}
+
+{一两句话描述该上下文的含义及其存在理由。}
+
+## Language
+
+**Order**:
+{对术语的一两句描述}
+_Avoid_: Purchase, transaction
+
+**Invoice**:
+向客户发送的付款请求，在交付之后发出。
+_Avoid_: Bill, payment request
+
+**Customer**:
+下单的个人或组织。
+_Avoid_: Client, buyer, account</code></pre></div>
+    </div>
+
+    <!-- ## Rules -->
+    <div class="section-label">Rules</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Rules</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>规则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Be opinionated.</strong> When multiple words exist for the same concept, pick the best one and list the others under <code>_Avoid_</code>.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>要有主见。</strong> 当一个概念存在多个词时，选出最佳的一个，把其余列在 <code>_Avoid_</code> 下。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Keep definitions tight.</strong> One or two sentences max. Define what it IS, not what it does.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>定义要精炼。</strong> 最多一两句话。定义它<strong>是什么</strong>，而不是它做什么。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Only include terms specific to this project's context.</strong> General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="ZH-CN">
+        <ul>
+          <li><strong>只包含本项目上下文特有的术语。</strong> 通用编程概念（超时、错误类型、工具模式）即使项目广泛使用也不应收录。添加术语前问自己：这是该上下文独有的概念，还是通用编程概念？只有前者才属于这里。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Group terms under subheadings</strong> when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>术语可按子标题分组</strong>，当自然形成聚类时。如果所有术语都属于同一个连贯领域，平铺列表即可。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ## Single vs multi-context repos -->
+    <div class="section-label">Single vs multi-context repos</div>
+
+    <div class="pair pair-heading">
+      <div class="col-en" lang="en"><h2>Single vs multi-context repos</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>单上下文 vs 多上下文仓库</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p><strong>Single context (most repos):</strong> One <code>CONTEXT.md</code> at the repo root.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p><strong>单上下文（大部分仓库）：</strong> 一个 <code>CONTEXT.md</code> 放在仓库根目录。</p>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p><strong>Multiple contexts:</strong> A <code>CONTEXT-MAP.md</code> at the repo root lists the contexts, where they live, and how they relate to each other:</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p><strong>多上下文：</strong> <code>CONTEXT-MAP.md</code> 放在仓库根目录，列出各上下文的位置及其相互关系：</p>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code># Context Map
+
+## Contexts
+
+- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
+- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
+- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
+
+## Relationships
+
+- **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
+- **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices
+- **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code># Context Map
+
+## Contexts
+
+- [Ordering](./src/ordering/CONTEXT.md) — 接收和跟踪客户订单
+- [Billing](./src/billing/CONTEXT.md) — 生成发票和处理付款
+- [Fulfillment](./src/fulfillment/CONTEXT.md) — 管理仓库拣货和发货
+
+## Relationships
+
+- **Ordering → Fulfillment**: Ordering 发出 `OrderPlaced` 事件；Fulfillment 消费后开始拣货
+- **Fulfillment → Billing**: Fulfillment 发出 `ShipmentDispatched` 事件；Billing 消费后生成发票
+- **Ordering ↔ Billing**: 共享 `CustomerId` 和 `Money` 类型</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>The skill infers which structure applies:</p>
+        <ul>
+          <li>If <code>CONTEXT-MAP.md</code> exists, read it to find contexts</li>
+          <li>If only a root <code>CONTEXT.md</code> exists, single context</li>
+          <li>If neither exists, create a root <code>CONTEXT.md</code> lazily when the first term is resolved</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>技能自动推断适用哪种结构：</p>
+        <ul>
+          <li>如果存在 <code>CONTEXT-MAP.md</code>，读取它来查找上下文</li>
+          <li>如果只有根目录的 <code>CONTEXT.md</code>，则是单上下文</li>
+          <li>如果两者都不存在，在第一个术语确定时惰性创建根 <code>CONTEXT.md</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <p>When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.</p>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <p>存在多个上下文时，推断当前话题属于哪一个。如果不确定，就问用户。</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
