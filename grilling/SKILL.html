@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>grilling · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p {
+      margin: 0.6rem 0;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <table class="fm-table">
+      <tr><td>name</td><td>grilling</td></tr>
+      <tr><td>description</td><td>Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.</td></tr>
+      <tr><td>invocation</td><td>model-invoked</td></tr>
+    </table>
+
+    <h1>grilling</h1>
+    <p class="subtitle">Interview the user relentlessly about a plan or design. Use when the user wants to stress-test a plan before building, or uses any 'grill' trigger phrases.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Interview me relentlessly about every aspect of this plan until we reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one. For each question, provide your recommended answer.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对这个方案的每个方面进行不留情面的拷问，直到我们达成共识。沿设计树的每一分支逐一深入，逐个解决决策之间的依赖关系。对每个问题，给出你的推荐答案。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Ask the questions one at a time, waiting for feedback on each question before continuing. Asking multiple questions at once is bewildering.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一次只问一个问题，等你对每个问题做出反馈后再继续。同时抛出多个问题只会让人无所适从。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If a question can be answered by exploring the codebase, explore the codebase instead.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果某个问题可以通过查阅代码库来回答，那就去查代码库，而不是来问我。</p></div>
+    </div>
+  </div>
+</body>
+</html>
