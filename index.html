@@ -47,19 +47,18 @@
       font-size: 16px;
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
       padding: 2.5rem 1rem 3rem;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
-      position: relative;
     }
 
+    /* ─── Header ─── */
     header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
 
     h1 {
@@ -67,6 +66,7 @@
       font-weight: 700;
       color: var(--ink-blue);
       letter-spacing: 0.04em;
+      line-height: 1.1;
     }
 
     .subtitle {
@@ -75,67 +75,57 @@
       margin-top: 0.3rem;
     }
 
-    /* ─── SVG connection layer ─── */
-    .connections {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: visible;
+    /* ─── Precondition ─── */
+    .precondition {
+      text-align: center;
+      margin-bottom: 0.8rem;
     }
 
-    .connections line,
-    .connections path {
-      fill: none;
-      stroke: var(--highway);
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .precondition a {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      border: 1.5px dashed var(--warm-gray);
+      border-radius: 4px;
+      padding: 0.3rem 1rem;
+      transition: border-color 0.12s, background 0.12s;
     }
 
-    .connections .spine {
-      stroke: var(--highway);
-      stroke-width: 3;
+    .precondition a:hover {
+      border-color: var(--warm-mid);
+      background: rgba(160, 152, 128, 0.06);
     }
 
-    .connections .merge {
-      stroke: var(--warm-mid);
-      stroke-width: 2;
+    .precondition .label { font-weight: 600; }
+
+    .precondition .tag {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      margin-top: 0.05rem;
     }
 
-    .connections .flow {
-      stroke: var(--highway);
-      stroke-width: 2;
-    }
-
-    .connections .arrow-head {
-      fill: var(--highway);
-      stroke: none;
-    }
-
-    .connections .service-line {
-      stroke: var(--service);
-      stroke-width: 1.5;
-      stroke-dasharray: 3 2;
+    .precondition-hint {
+      font-size: 0.62rem;
+      color: var(--warm-mid);
+      margin-top: 0.25rem;
+      letter-spacing: 0.02em;
     }
 
     /* ─── Entry sign ─── */
     .entry {
       display: flex;
       justify-content: center;
-      position: relative;
-      z-index: 2;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .sign {
       background: var(--ink-blue);
       color: #fff;
       padding: 0.7rem 2.2rem;
-      border-radius: 6px;
+      border-radius: 5px;
       text-align: center;
       text-decoration: none;
       display: inline-block;
@@ -163,216 +153,82 @@
       margin-top: 0.1rem;
     }
 
-    /* ─── Highway layout ─── */
-    .map {
+    /* ─── Zone container ─── */
+    .zone {
       position: relative;
-      z-index: 1;
+      margin-bottom: 1.8rem;
     }
 
+    .zone-label {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+      padding-left: 0.2rem;
+    }
+
+    /* ─── Highway ─── */
     .highway {
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0;
-      padding: 0.5rem 0 1rem;
-    }
-
-    .highway-road {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 280px;
-      height: 100%;
+      padding: 1rem 0 0.8rem;
+      border: 1.5px dashed var(--warm-mid);
+      border-radius: 8px;
       background: var(--highway-bg);
-      border-radius: 12px;
-      border: 1px solid rgba(138, 126, 106, 0.25);
-      z-index: 0;
-    }
-
-    .highway-road::before {
-      content: "";
-      position: absolute;
-      top: 12px;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      border-left: 2px dashed rgba(255, 255, 255, 0.55);
     }
 
     .hwy-row {
       position: relative;
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 280px 1fr;
+      grid-template-columns: 1fr 300px 1fr;
       align-items: center;
-      min-height: 64px;
-      z-index: 1;
-    }
-
-    .hwy-row + .hwy-row {
-      margin-top: 0.2rem;
-    }
-
-    .col-left,
-    .col-right {
-      display: flex;
-      align-items: center;
-      padding: 0 0.8rem;
+      min-height: 58px;
+      padding: 0.3rem 0.8rem;
     }
 
     .col-left {
+      display: flex;
       justify-content: flex-end;
-    }
-
-    .col-right {
-      justify-content: flex-start;
+      align-items: center;
+      padding-right: 0.6rem;
     }
 
     .col-center {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
     }
 
-    /* ─── Nodes ─── */
-    .node {
-      display: inline-flex;
-      flex-direction: column;
+    .col-right {
+      display: flex;
+      justify-content: flex-start;
       align-items: center;
-      background: #fbfaf6;
-      border: 1px solid var(--warm-gray);
-      border-left: 4px solid var(--ink-blue);
-      border-radius: 5px;
-      padding: 0.5rem 1rem;
-      min-width: 120px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text);
-      box-shadow: 0 2px 5px rgba(44, 36, 24, 0.06);
-      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
-      position: relative;
-      z-index: 2;
+      padding-left: 0.6rem;
     }
 
-    .node:hover {
-      background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 14px rgba(44, 36, 24, 0.1);
-    }
-
-    .node .label {
-      font-weight: 600;
-      color: var(--ink-blue);
-      font-size: 0.95rem;
-      line-height: 1.25;
-    }
-
-    .node .tag {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      margin-top: 0.15rem;
-    }
-
-    .node.pending {
-      border-left-color: var(--warm-mid);
-      background: #f3f2ec;
-      cursor: default;
-    }
-
-    .node.pending:hover {
-      background: #f3f2ec;
-      transform: none;
-      box-shadow: 0 2px 5px rgba(44, 36, 24, 0.06);
-    }
-
-    .node.pending .label {
-      color: var(--text-soft);
-    }
-
-    .node.service {
-      border-left-color: var(--service);
-      background: var(--service-bg);
-    }
-
-    .node.service .label {
-      color: var(--service);
-    }
-
-    .node.service:hover {
-      background: #eef4e8;
-    }
-
-    .node.small {
-      padding: 0.35rem 0.8rem;
-      min-width: 90px;
-    }
-
-    .node.small .label {
-      font-size: 0.82rem;
-    }
-
-    .node.small .tag {
-      font-size: 0.62rem;
-    }
-
-    /* Pair grouping with bidirectional arrow */
-    .pair {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .pair-arrow {
-      color: var(--warm-mid);
-      font-size: 0.85rem;
-      user-select: none;
-    }
-
-    .pair.main-pair {
-      width: 100%;
-      justify-content: space-between;
-      padding: 0 0.2rem;
-      gap: 0;
-    }
-
-    .pair.main-pair .pair-arrow.muted {
-      color: var(--warm-gray);
-      font-size: 1.1rem;
-      line-height: 1;
-      padding: 0 0.1rem;
-    }
-
-    /* Side note labels */
-    .side-note {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-      padding-left: 0.5rem;
-    }
-
-    /* Ramp labels that merge into highway */
-    .ramp-label {
+    /* Center spine line */
+    .highway::before {
+      content: "";
       position: absolute;
-      right: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      background: var(--parchment);
-      padding: 0 0.2rem;
-      z-index: 2;
+      top: 16px;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      border-left: 2px dashed rgba(255, 255, 255, 0.5);
+      z-index: 0;
     }
 
-    /* ─── Flow arrows between rows ─── */
+    /* ─── Flow arrow ─── */
     .flow-arrow {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 18px;
+      height: 16px;
       position: relative;
       z-index: 1;
     }
@@ -392,16 +248,170 @@
       height: 0;
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-top: 6px solid var(--highway);
+      border-top: 5px solid var(--highway);
     }
 
-    /* ─── Foundation layer ─── */
+    /* ─── Nodes ─── */
+    .node {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fbfaf6;
+      border: 1px solid var(--warm-gray);
+      border-left: 4px solid var(--ink-blue);
+      border-radius: 4px;
+      padding: 0.45rem 0.9rem;
+      min-width: 110px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(44, 36, 24, 0.06);
+      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .node:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(44, 36, 24, 0.1);
+    }
+
+    .node .label {
+      font-weight: 600;
+      color: var(--ink-blue);
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    .node .tag {
+      font-size: 0.66rem;
+      color: var(--text-soft);
+      margin-top: 0.1rem;
+    }
+
+    .node.small {
+      padding: 0.3rem 0.7rem;
+      min-width: 88px;
+    }
+
+    .node.small .label { font-size: 0.8rem; }
+    .node.small .tag { font-size: 0.6rem; }
+
+    .node.service {
+      border-left-color: var(--service);
+      background: var(--service-bg);
+    }
+
+    .node.service .label { color: var(--service); }
+    .node.service:hover { background: #eef4e8; }
+
+    .node.on-ramp {
+      border-left-color: var(--warm-mid);
+    }
+
+    /* Pair group */
+    .pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pair-arrow {
+      color: var(--warm-mid);
+      font-size: 0.85rem;
+      user-select: none;
+    }
+
+    .pair.main-pair {
+      width: 100%;
+      justify-content: space-between;
+      padding: 0 0.15rem;
+      gap: 0;
+    }
+
+    .pair.main-pair .pair-arrow {
+      font-size: 1rem;
+      padding: 0 0.1rem;
+      color: var(--warm-gray);
+    }
+
+    /* Primitive annotation */
+    .primitive-annotation {
+      text-align: center;
+      margin-top: 0.3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .primitive-annotation a {
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      border-bottom: 1px dotted var(--warm-gray);
+      padding-bottom: 1px;
+      transition: color 0.12s, border-color 0.12s;
+    }
+
+    .primitive-annotation a:hover {
+      color: var(--ink-blue);
+      border-bottom-color: var(--ink-blue);
+    }
+
+    /* Ramp cluster (left column) */
+    .ramp-cluster {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+    }
+
+    /* Side note */
+    .side-note {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── Horizontal zone ─── */
+    .h-zone {
+      border: 2px dashed var(--warm-mid);
+      border-radius: 6px;
+      padding: 0.8rem 1rem 0.7rem;
+      background: var(--parchment-dark);
+    }
+
+    .h-zone .h-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .h-zone .h-note {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.4rem;
+      letter-spacing: 0.01em;
+    }
+
+    .h-zone .node.standalone {
+      border-left-color: var(--highway);
+    }
+
+    .h-zone .node.meta {
+      border-left-color: var(--text-muted);
+    }
+
+    /* ─── Foundation ─── */
     .foundation {
       position: relative;
-      margin-top: 2.2rem;
-      padding-top: 1.2rem;
+      padding-top: 1rem;
       text-align: center;
-      z-index: 1;
     }
 
     .foundation::before {
@@ -417,17 +427,18 @@
     }
 
     .foundation-title {
-      font-size: 0.72rem;
-      color: var(--text-soft);
-      letter-spacing: 0.08em;
-      margin-bottom: 0.7rem;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
     }
 
     .foundation-row {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
 
@@ -438,7 +449,7 @@
       background: transparent;
       border: 1.5px dashed var(--warm-mid);
       border-radius: 4px;
-      padding: 0.35rem 0.8rem;
+      padding: 0.3rem 0.7rem;
       text-decoration: none;
       color: var(--text-soft);
       transition: background 0.12s, border-color 0.12s;
@@ -450,32 +461,24 @@
     }
 
     .foundation-node .label {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 400;
     }
 
-    .foundation-node.pending {
-      color: var(--text-muted);
-      border-color: var(--warm-gray);
-    }
-
-    .foundation-node.pending .label {
-      color: var(--text-muted);
-    }
-
     .foundation-note {
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
-      margin-left: 0.3rem;
+      margin-left: 0.2rem;
+      letter-spacing: 0.01em;
     }
 
     /* ─── Legend ─── */
     .legend {
-      margin-top: 2.2rem;
-      padding-top: 1.2rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--warm-gray);
       text-align: center;
-      font-size: 0.74rem;
+      font-size: 0.7rem;
       color: var(--text-soft);
       line-height: 1.9;
     }
@@ -483,34 +486,30 @@
     .legend-item {
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      margin: 0 0.6rem;
+      gap: 0.25rem;
+      margin: 0 0.45rem;
     }
 
     .legend-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--highway);
     }
 
-    .legend-dot.ramp {
-      background: var(--warm-mid);
-    }
-
-    .legend-dot.service {
-      background: var(--service);
-    }
+    .legend-dot.ramp { background: var(--warm-mid); }
+    .legend-dot.service { background: var(--service); }
+    .legend-dot.standalone { background: var(--highway); opacity: 0.6; }
+    .legend-dot.meta { background: var(--text-muted); }
 
     .legend-dash {
-      width: 16px;
-      height: 6px;
+      width: 14px;
+      height: 5px;
       border: 1.5px dashed var(--warm-mid);
       border-radius: 2px;
     }
 
     .legend .translated { color: var(--ink-blue); font-weight: 600; }
-    .legend .pending { color: var(--text-soft); }
 
     /* ─── Responsive ─── */
     @media (max-width: 720px) {
@@ -519,8 +518,8 @@
 
       .hwy-row {
         grid-template-columns: 1fr;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
+        gap: 0.4rem;
+        padding: 0.5rem;
       }
 
       .col-left,
@@ -529,90 +528,76 @@
         padding: 0;
       }
 
-      .col-center {
-        order: -1;
+      .col-center { order: -1; }
+
+      .ramp-cluster {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
-      .highway-road {
-        width: 220px;
+      .side-note { display: none; }
+
+      .pair.main-pair {
+        flex-direction: column;
+        gap: 0.3rem;
       }
 
-      .side-note,
-      .ramp-label {
-        display: none;
+      .h-zone .h-row {
+        flex-direction: column;
+        align-items: center;
       }
 
-      .connections .merge,
-      .connections .spine,
-      .connections .flow {
-        display: none;
+      .foundation-row {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
+
+    <!-- ─── 页头 ─── -->
     <header>
-      <h1>技能图谱</h1>
+      <h1>Matt Pocock 技能图谱</h1>
       <div class="subtitle">mattpocock/skills · 中英对照阅读</div>
     </header>
 
-    <div class="map">
-      <!-- SVG connection lines -->
-      <svg class="connections" viewBox="0 0 900 620" preserveAspectRatio="none">
-        <!-- Main highway spine -->
-        <line class="spine" x1="450" y1="70" x2="450" y2="560" />
+    <main>
 
-        <!-- Entry arrow from ask-matt to highway -->
-        <line class="flow" x1="450" y1="58" x2="450" y2="70" />
-        <polygon class="arrow-head" points="450,76 446,68 454,68" />
+    <!-- ─── 前置条件 ─── -->
+    <div class="precondition" data-component="precondition">
+      <a href="setup-matt-pocock-skills/SKILL.html">
+        <span class="label">setup-matt-pocock-skills</span>
+        <span class="tag">首次使用前运行 · 前置条件</span>
+      </a>
+      <div class="precondition-hint">↑ 首次使用前需运行</div>
+    </div>
 
-        <!-- Vertical flow arrows between main nodes -->
-        <polygon class="arrow-head" points="450,155 446,147 454,147" />
-        <polygon class="arrow-head" points="450,225 446,217 454,217" />
-        <polygon class="arrow-head" points="450,295 446,287 454,287" />
-        <polygon class="arrow-head" points="450,365 446,357 454,357" />
-        <polygon class="arrow-head" points="450,435 446,427 454,427" />
+    <!-- ─── 入口 ─── -->
+    <div class="entry" data-component="entry">
+      <a class="sign" href="ask-matt/SKILL.html">
+        <span class="label">ask-matt</span>
+        <span class="tag">技能路由器 · 高速入口</span>
+      </a>
+    </div>
 
-        <!-- Service bypass stubs: prototype <-> handoff -->
-        <line class="service-line" x1="382" y1="176" x2="382" y2="192" />
-        <line class="service-line" x1="518" y1="176" x2="518" y2="192" />
-
-        <!-- Merge arrows from left ramps -->
-        <!-- diagnosing-bugs -> grill-with-docs -->
-        <path class="merge" d="M 300 108 C 330 108, 320 116, 310 116" />
-        <polygon class="arrow-head" points="310,116 302,112 302,120" fill="#a09880" />
-
-        <!-- improve-codebase-architecture -> grill-with-docs -->
-        <path class="merge" d="M 300 148 C 330 148, 320 132, 310 132" />
-        <polygon class="arrow-head" points="310,132 302,128 302,136" fill="#a09880" />
-
-        <!-- triage (entrance) -> to-issues -->
-        <path class="merge" d="M 603 124 C 603 220, 550 320, 374 320" />
-        <polygon class="arrow-head" points="374,320 366,316 366,324" fill="#a09880" />
-      </svg>
-
-      <!-- Entry -->
-      <div class="entry">
-        <a class="sign" href="ask-matt/SKILL.html">
-          <span class="label">ask-matt</span>
-          <span class="tag">技能路由器 · 高速入口</span>
-        </a>
-      </div>
-
-      <!-- Highway -->
+    <!-- ─── 主干公路 (idea → ship) ─── -->
+    <div class="zone" data-component="highway">
+      <div class="zone-label">主干公路 · idea → ship</div>
       <div class="highway">
-        <div class="highway-road"></div>
 
-        <!-- Row 1: grill-with-docs + grill-me -->
+        <!-- Row 1: grill-with-docs + grill-me | ramps | triage -->
         <div class="hwy-row">
           <div class="col-left">
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;">
-              <a class="node small" href="diagnosing-bugs/SKILL.html">
+            <div class="ramp-cluster">
+              <a class="node small on-ramp" href="diagnosing-bugs/SKILL.html">
                 <span class="label">diagnosing-bugs</span>
                 <span class="tag">故障诊断</span>
               </a>
-              <a class="node small" href="improve-codebase-architecture/SKILL.html">
+              <a class="node small on-ramp" href="improve-codebase-architecture/SKILL.html">
                 <span class="label">improve-codebase-architecture</span>
                 <span class="tag">代码库维护</span>
               </a>
@@ -631,16 +616,21 @@
             </div>
           </div>
           <div class="col-right">
-            <a class="node" href="triage/SKILL.html">
+            <a class="node on-ramp" href="triage/SKILL.html">
               <span class="label">triage</span>
               <span class="tag">分诊 · 入口</span>
             </a>
           </div>
         </div>
 
+        <!-- grilling shared primitive annotation -->
+        <div class="primitive-annotation">
+          <a href="grilling/SKILL.html">↑ 共享访谈原语 · grilling</a>
+        </div>
+
         <div class="flow-arrow"></div>
 
-        <!-- Row 2: prototype ↔ handoff -->
+        <!-- Row 2: prototype ↔ handoff (service) -->
         <div class="hwy-row">
           <div class="col-left"></div>
           <div class="col-center">
@@ -725,11 +715,14 @@
           </div>
           <div class="col-right"></div>
         </div>
-      </div>
 
-      <!-- Foundation layer -->
+      </div>
+    </div>
+
+    <!-- ─── 词汇层 ─── -->
+    <div class="zone" data-component="foundation">
       <div class="foundation">
-        <div class="foundation-title">▃ 词汇层（路基）— 主干流程运行的底层支撑</div>
+        <div class="foundation-title">词汇层（路基）— 主干流程运行的底层支撑</div>
         <div class="foundation-row">
           <a class="foundation-node" href="domain-modeling/SKILL.html">
             <span class="label">domain-modeling</span>
@@ -748,14 +741,55 @@
       </div>
     </div>
 
-    <div class="legend">
-      <span class="legend-item"><span class="legend-dot"></span>主干流程（idea → ship）</span>
-      <span class="legend-item"><span class="legend-dot ramp"></span>入口匝道（从支路汇入）</span>
-      <span class="legend-item"><span class="legend-dot service"></span>绕道 / 服务区</span>
-      <span class="legend-item"><span class="legend-dash"></span>词汇层（路基）</span>
+    <!-- ─── 图例 ─── -->
+    <div class="legend" data-component="legend">
+      <span class="legend-item"><span class="legend-dot"></span>主干流程</span>
+      <span class="legend-item"><span class="legend-dot ramp"></span>入口匝道</span>
+      <span class="legend-item"><span class="legend-dot service"></span>服务区</span>
+      <span class="legend-item"><span class="legend-dot standalone"></span>独立技能</span>
+      <span class="legend-item"><span class="legend-dot meta"></span>元技能</span>
+      <span class="legend-item"><span class="legend-dash"></span>词汇层</span>
       <br>
       <span class="translated">蓝色</span> = 已翻译可阅读（全部技能已收录）
     </div>
+
+    <!-- ─── 独立技能区 ─── -->
+    <div class="zone" data-component="standalone">
+      <div class="zone-label">独立可用 · 不依赖主干流程</div>
+      <div class="h-zone">
+        <div class="h-row">
+          <a class="node standalone" href="research/SKILL.html">
+            <span class="label">research</span>
+            <span class="tag">后台代理阅读</span>
+          </a>
+          <a class="node standalone" href="teach/SKILL.html">
+            <span class="label">teach</span>
+            <span class="tag">多会话教学</span>
+          </a>
+          <a class="node standalone" href="resolving-merge-conflicts/SKILL.html">
+            <span class="label">resolving-merge-conflicts</span>
+            <span class="tag">合并冲突解决</span>
+          </a>
+        </div>
+        <div class="h-note">可独立使用，无需进入主干流程</div>
+      </div>
+    </div>
+
+    <!-- ─── 元技能区 ─── -->
+    <div class="zone" data-component="meta">
+      <div class="zone-label">元技能 · 写作参考</div>
+      <div class="h-zone">
+        <div class="h-row">
+          <a class="node meta" href="writing-great-skills/SKILL.html">
+            <span class="label">writing-great-skills</span>
+            <span class="tag">技能写作参考</span>
+          </a>
+        </div>
+        <div class="h-note">关于技能系统本身的技能</div>
+      </div>
+    </div>
+
+    </main>
   </div>
 </body>
 </html>
