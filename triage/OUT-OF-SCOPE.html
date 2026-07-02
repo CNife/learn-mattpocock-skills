@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Out-of-Scope Knowledge Base · triage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.8rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    strong { color: var(--ink-blue); }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="SKILL.html">← triage</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Out-of-Scope Knowledge Base</h1>
+    <p class="subtitle">超出范围知识库</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The <code>.out-of-scope/</code> directory in a repo stores persistent records of rejected feature requests. It serves two purposes:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>仓库中的 <code>.out-of-scope/</code> 目录存储被拒绝功能请求的持久记录。它有两个用途：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Institutional memory</strong> — why a feature was rejected, so the reasoning isn't lost when the issue is closed</li>
+        <li><strong>Deduplication</strong> — when a new issue comes in that matches a prior rejection, the skill can surface the previous decision instead of re-litigating it</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>组织记忆</strong>——功能为何被拒绝，这样当 issue 关闭时理由不会丢失</li>
+        <li><strong>去重</strong>——当新 issue 与先前的拒绝匹配时，技能可以展示之前的决策，而不是重新争论</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Directory structure</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>目录结构</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>.out-of-scope/
+├── dark-mode.md
+├── plugin-system.md
+└── graphql-api.md</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>.out-of-scope/
+├── dark-mode.md
+├── plugin-system.md
+└── graphql-api.md</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>One file per <strong>concept</strong>, not per issue. Multiple issues requesting the same thing are grouped under one file.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个<strong>概念</strong>一个文件，而非每个 issue 一个文件。请求相同内容的多个 issue 归入同一文件。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>File format</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>文件格式</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The file should be written in a relaxed, readable style — more like a short design document than a database entry. Use paragraphs, code samples, and examples to make the reasoning clear and useful to someone encountering it for the first time.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>文件应以轻松、可读的风格编写——更像简短的设计文档而非数据库条目。使用段落、代码示例和实例，使推理清晰且对第一次遇到的人有用。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code># Dark Mode
+
+This project does not support dark mode or user-facing theming.
+
+## Why this is out of scope
+
+The rendering pipeline assumes a single color palette defined in
+`ThemeConfig`. Supporting multiple themes would require:
+
+- A theme context provider wrapping the entire component tree
+- Per-component theme-aware style resolution
+- A persistence layer for user theme preferences
+
+This is a significant architectural change that doesn't align with the
+project's focus on content authoring. Theming is a concern for downstream
+consumers who embed or redistribute the output.
+
+```ts
+// The current ThemeConfig interface is not designed for runtime switching:
+interface ThemeConfig {
+  colors: ColorPalette; // single palette, resolved at build time
+  fonts: FontStack;
+}
+```
+
+## Prior requests
+
+- #42 — "Add dark mode support"
+- #87 — "Night theme for accessibility"
+- #134 — "Dark theme option"</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code># Dark Mode（深色模式）
+
+本项目不支持深色模式或面向用户的主题定制。
+
+## 为什么这超出了范围
+
+渲染管线假定在 `ThemeConfig` 中定义单一调色板。
+支持多个主题将需要：
+
+- 包装整个组件树的主题上下文提供者
+- 每个组件的主题感知样式解析
+- 用户主题偏好的持久化层
+
+这是一个重大的架构变更，与项目专注于内容创作的方向不符。
+主题化是嵌入或重新分发输出的下游消费者关心的问题。
+
+```ts
+// 当前的 ThemeConfig 接口并非为运行时切换而设计：
+interface ThemeConfig {
+  colors: ColorPalette; // 单一调色板，在构建时解析
+  fonts: FontStack;
+}
+```
+
+## 先前的请求
+
+- #42 — "添加深色模式支持"
+- #87 — "无障碍夜间主题"
+- #134 — "深色主题选项"</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Naming the file</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>文件命名</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Use a short, descriptive kebab-case name for the concept: <code>dark-mode.md</code>, <code>plugin-system.md</code>, <code>graphql-api.md</code>. The name should be recognizable enough that someone browsing the directory understands what was rejected without opening the file.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>为概念使用简短、描述性的 kebab-case 名称：<code>dark-mode.md</code>、<code>plugin-system.md</code>、<code>graphql-api.md</code>。名称应足够可识别，使得浏览目录的人无需打开文件就能理解被拒绝的是什么。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Writing the reason</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>编写理由</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The reason should be substantive — not "we don't want this" but why. Good reasons reference:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>理由应有实质内容——不是"我们不想要这个"，而是为什么。好的理由参考：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Project scope or philosophy ("This project focuses on X; theming is a downstream concern")</li>
+        <li>Technical constraints ("Supporting this would require Y, which conflicts with our Z architecture")</li>
+        <li>Strategic decisions ("We chose to use A instead of B because...")</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>项目范围或理念（"本项目专注于 X；主题化是下游关注点"）</li>
+        <li>技术约束（"支持这个需要 Y，这与我们的 Z 架构冲突"）</li>
+        <li>战略决策（"我们选择使用 A 而不是 B，因为……"）</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The reason should be durable. Avoid referencing temporary circumstances ("we're too busy right now") — those aren't real rejections, they're deferrals.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>理由应持久耐用。避免引用临时情况（"我们现在太忙了"）——那些不是真正的拒绝，而是推迟。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When to check <code>.out-of-scope/</code></h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时检查 <code>.out-of-scope/</code></h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>During triage (Step 1: Gather context), read all files in <code>.out-of-scope/</code>. When evaluating a new issue:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在分诊期间（步骤 1：收集上下文），读取 <code>.out-of-scope/</code> 中的所有文件。在评估新 issue 时：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Check if the request matches an existing out-of-scope concept</li>
+        <li>Matching is by concept similarity, not keyword — "night theme" matches <code>dark-mode.md</code></li>
+        <li>If there's a match, surface it to the maintainer: "This is similar to <code>.out-of-scope/dark-mode.md</code> — we rejected this before because [reason]. Do you still feel the same way?"</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>检查请求是否匹配现有的超出范围概念</li>
+        <li>匹配是按概念相似度，而非关键词——"夜间主题"匹配 <code>dark-mode.md</code></li>
+        <li>如果有匹配，向维护者展示："这与 <code>.out-of-scope/dark-mode.md</code> 相似——我们之前拒绝过，因为[理由]。你仍然这么认为吗？"</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The maintainer may:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>维护者可以：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Confirm</strong> — the new issue gets added to the existing file's "Prior requests" list, then closed</li>
+        <li><strong>Reconsider</strong> — the out-of-scope file gets deleted or updated, and the issue proceeds through normal triage</li>
+        <li><strong>Disagree</strong> — the issues are related but distinct, proceed with normal triage</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>确认</strong>——新 issue 被添加到现有文件的"先前请求"列表，然后关闭</li>
+        <li><strong>重新考虑</strong>——超出范围文件被删除或更新，issue 通过正常分诊流程继续</li>
+        <li><strong>不同意</strong>——这些 issue 相关但不同，按正常分诊继续</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When to write to <code>.out-of-scope/</code></h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时写入 <code>.out-of-scope/</code></h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Only when an <strong>enhancement</strong> (not a bug) is <em>rejected</em> as <code>wontfix</code>. This applies to enhancement PRs exactly as it does to issues — a rejected PR is recorded here so the same request doesn't return as fresh code.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>仅当<strong>enhancement</strong>（而非 bug）被<em>拒绝</em>为 <code>wontfix</code> 时。这同样适用于 enhancement PR——被拒绝的 PR 在此记录，这样相同的请求不会以新代码的形式再次出现。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Do <strong>not</strong> write here when something is closed as <code>wontfix</code> because it's <strong>already implemented</strong>. That's a built feature, not a rejected one; recording it would poison the dedup checks with false rejections. Instead, the closing comment points to where the feature already lives.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>不要</strong>在因<strong>已实现</strong>而关闭为 <code>wontfix</code> 时写入此处。那是已构建的功能，而非被拒绝的；记录它会用错误的拒绝污染去重检查。取而代之，关闭评论指向该功能已存在的位置。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The flow:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>流程：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li>Maintainer decides a feature request is out of scope</li>
+        <li>Check if a matching <code>.out-of-scope/</code> file already exists</li>
+        <li>If yes: append the new issue to the "Prior requests" list</li>
+        <li>If no: create a new file with the concept name, decision, reason, and first prior request</li>
+        <li>Post a comment on the issue explaining the decision and mentioning the <code>.out-of-scope/</code> file</li>
+        <li>Close the issue with the <code>wontfix</code> label</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li>维护者决定功能请求超出范围</li>
+        <li>检查匹配的 <code>.out-of-scope/</code> 文件是否已存在</li>
+        <li>如果是：将新 issue 追加到"Prior requests"列表</li>
+        <li>如果否：使用概念名称、决策、理由和第一个先前请求创建新文件</li>
+        <li>在 issue 上发布评论解释决策并提及 <code>.out-of-scope/</code> 文件</li>
+        <li>使用 <code>wontfix</code> 标签关闭 issue</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Updating or removing out-of-scope files</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>更新或删除超出范围文件</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the maintainer changes their mind about a previously rejected concept:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果维护者改变了之前拒绝的概念的决定：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Delete the <code>.out-of-scope/</code> file</li>
+        <li>The skill does not need to reopen old issues — they're historical records</li>
+        <li>The new issue that triggered the reconsideration proceeds through normal triage</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>删除 <code>.out-of-scope/</code> 文件</li>
+        <li>技能不需要重新打开旧的 issue——它们是历史记录</li>
+        <li>触发重新考虑的新 issue 通过正常分诊流程继续</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

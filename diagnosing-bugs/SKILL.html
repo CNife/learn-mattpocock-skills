@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>diagnosing-bugs · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p {
+      margin: 0.6rem 0;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en ol, .col-zh ol,
+    .col-en ul, .col-zh ul {
+      margin: 0.6rem 0;
+      padding-left: 1.5rem;
+    }
+    .col-en li, .col-zh li {
+      margin: 0.3rem 0;
+    }
+    .col-en blockquote, .col-zh blockquote {
+      margin: 0.6rem 0;
+      padding: 0 1rem;
+      border-left: 3px solid var(--warm-mid);
+      color: var(--text-soft);
+      font-style: italic;
+    }
+    .col-en h2, .col-zh h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.2rem 0 0.4rem;
+    }
+    .col-en h3, .col-zh h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.3rem;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a>
+    <table class="fm-table">
+      <tr><td>name</td><td>diagnosing-bugs</td></tr>
+      <tr><td>description</td><td>Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.</td></tr>
+      <tr><td>触发词</td><td>针对棘手 bug 和性能回退的诊断循环。当用户说「诊断」/「调试这个」，或报告某些东西已损坏/抛异常/失败/缓慢时使用。</td></tr>
+    </table>
+
+    <h1>diagnosing-bugs</h1>
+    <p class="subtitle">Diagnosis loop for hard bugs and performance regressions. Use when the user says "diagnose"/"debug this", or reports something broken/throwing/failing/slow.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A discipline for hard bugs. Skip phases only when explicitly justified.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>针对棘手 bug 的一套方法论。只有明确理由时才跳过阶段。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When exploring the codebase, read <code>CONTEXT.md</code> (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在查阅代码库时，先阅读 <code>CONTEXT.md</code>（如果存在）以建立相关模块的清晰心智模型，并检查你涉及区域的 ADR。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 1 — Build a feedback loop</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 1 — 构建反馈循环</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>This is the skill.</strong> Everything else is mechanical. If you have a <strong>tight</strong> pass/fail signal for the bug — one that goes red on <em>this</em> bug — you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>这才是技能核心。</strong> 其他都只是机械步骤。如果你有一个针对该 bug 的<strong>紧凑</strong>的通过/失败信号——一个能在<em>这个</em> bug 上变红的信号——你就会找到根因；二分法、假设检验、插桩都只是消耗这个信号而已。如果你没有这个信号，盯着代码看再多也无济于事。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Spend disproportionate effort here. <strong>Be aggressive. Be creative. Refuse to give up.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p>在此处投入不成比例的努力。<strong>要激进。要创造。拒绝放弃。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Ways to construct one — try them in roughly this order</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>构建反馈循环的方法——大致按此顺序尝试</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li><strong>Failing test</strong> at whatever seam reaches the bug — unit, integration, e2e.</li>
+          <li><strong>Curl / HTTP script</strong> against a running dev server.</li>
+          <li><strong>CLI invocation</strong> with a fixture input, diffing stdout against a known-good snapshot.</li>
+          <li><strong>Headless browser script</strong> (Playwright / Puppeteer) — drives the UI, asserts on DOM/console/network.</li>
+          <li><strong>Replay a captured trace.</strong> Save a real network request / payload / event log to disk; replay it through the code path in isolation.</li>
+          <li><strong>Throwaway harness.</strong> Spin up a minimal subset of the system (one service, mocked deps) that exercises the bug code path with a single function call.</li>
+          <li><strong>Property / fuzz loop.</strong> If the bug is &ldquo;sometimes wrong output&rdquo;, run 1000 random inputs and look for the failure mode.</li>
+          <li><strong>Bisection harness.</strong> If the bug appeared between two known states (commit, dataset, version), automate &ldquo;boot at state X, check, repeat&rdquo; so you can <code>git bisect run</code> it.</li>
+          <li><strong>Differential loop.</strong> Run the same input through old-version vs new-version (or two configs) and diff outputs.</li>
+          <li><strong>HITL bash script.</strong> Last resort. If a human must click, drive <em>them</em> with <code>scripts/hitl-loop.template.sh</code> so the loop is still structured. Captured output feeds back to you.</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li><strong>失败的测试</strong>——在触及 bug 的任意接缝处——单元、集成、端到端。</li>
+          <li><strong>Curl / HTTP 脚本</strong>——针对运行中的开发服务器。</li>
+          <li><strong>CLI 调用</strong>——使用固定输入，将标准输出与已知正常的快照进行 diff。</li>
+          <li><strong>无头浏览器脚本</strong>（Playwright / Puppeteer）——驱动 UI，对 DOM/控制台/网络进行断言。</li>
+          <li><strong>回放捕获的跟踪。</strong> 将真实的网络请求/载荷/事件日志保存到磁盘；通过隔离的代码路径回放。</li>
+          <li><strong>一次性测试架。</strong> 启动系统的最小子集（一个服务，模拟的依赖），用单个函数调用执行 bug 代码路径。</li>
+          <li><strong>属性/模糊测试循环。</strong> 如果 bug 是「有时输出错误」，运行 1000 个随机输入并寻找失败模式。</li>
+          <li><strong>二分测试架。</strong> 如果 bug 出现在两个已知状态（提交、数据集、版本）之间，自动化「在状态 X 启动、检查、重复」，以便可以 <code>git bisect run</code> 它。</li>
+          <li><strong>差异循环。</strong> 对旧版本与新版本（或两种配置）运行相同输入，并对输出进行 diff。</li>
+          <li><strong>HITL bash 脚本。</strong> 最后手段。如果必须由人来点击，用 <code>scripts/hitl-loop.template.sh</code> 驱动<em>他们</em>，使循环仍然结构化。捕获的输出反馈给你。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Tighten the loop</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>收紧反馈循环</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Treat the loop as a product. Once you have <em>a</em> loop, <strong>tighten</strong> it:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将反馈循环当作产品来对待。一旦你有了<em>一个</em>循环，就<strong>收紧</strong>它：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>Can I make it faster? (Cache setup, skip unrelated init, narrow the test scope.)</li>
+          <li>Can I make the signal sharper? (Assert on the specific symptom, not &ldquo;didn't crash&rdquo;.)</li>
+          <li>Can I make it more deterministic? (Pin time, seed RNG, isolate filesystem, freeze network.)</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>能更快吗？（缓存设置、跳过无关初始化、缩小测试范围。）</li>
+          <li>信号能更清晰吗？（对具体症状断言，而不是「没崩溃」。）</li>
+          <li>能更确定吗？（固定时间、设定随机种子、隔离文件系统、冻结网络。）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight — a debugging superpower.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一个 30 秒的不稳定循环比没有循环好不到哪去；而一个 2 秒的确定性循环才是紧凑的——调试的超能力。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Non-deterministic bugs</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>非确定性 bug</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The goal is not a clean repro but a <strong>higher reproduction rate</strong>. Loop the trigger 100×, parallelise, add stress, narrow timing windows, inject sleeps. A 50%-flake bug is debuggable; 1% is not — keep raising the rate until it's debuggable.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>目标不是完美的复现，而是<strong>更高的复现率</strong>。将触发循环 100 次、并行化、增加压力、缩小时间窗口、注入睡眠。50% 不稳定率的 bug 是可调试的；1% 则不是——持续提高复现率直到可调试为止。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>When you genuinely cannot build a loop</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>当确实无法构建反馈循环时</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Stop and say so explicitly. List what you tried. Ask the user for: (a) access to whatever environment reproduces it, (b) a captured artifact (HAR file, log dump, core dump, screen recording with timestamps), or (c) permission to add temporary production instrumentation. Do <strong>not</strong> proceed to hypothesise without a loop.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>停下来明确说明。列出你尝试过的方案。向用户请求：(a) 访问能复现的环境，(b) 捕获的产物（HAR 文件、日志转储、核心转储、带时间戳的屏幕录制），或 (c) 添加临时生产环境插桩的权限。<strong>不要</strong>在没有反馈循环的情况下继续假设。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Completion criterion — a tight loop that goes red</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>完成标准——一个能变红的紧凑循环</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Phase 1 is done when the loop is <strong>tight</strong> and <strong>red-capable</strong>: you can name <strong>one command</strong> — a script path, a test invocation, a curl — that you have <strong>already run at least once</strong> (paste the invocation and its output), and that is:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当循环<strong>紧凑</strong>且<strong>能变红</strong>时阶段 1 才算完成：你可以说出<strong>一个命令</strong>——脚本路径、测试调用、curl——你已经<strong>至少运行过一次</strong>（粘贴调用及其输出），并且它满足：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>[ ] <strong>Red-capable</strong> — it drives the actual bug code path and asserts the <strong>user's exact symptom</strong>, so it can go red on this bug and green once fixed. Not &ldquo;runs without erroring&rdquo; — it must be able to <em>catch this specific bug</em>.</li>
+          <li>[ ] <strong>Deterministic</strong> — same verdict every run (flaky bugs: a pinned, high reproduction rate, per above).</li>
+          <li>[ ] <strong>Fast</strong> — seconds, not minutes.</li>
+          <li>[ ] <strong>Agent-runnable</strong> — you can run it unattended; a human in the loop only via <code>scripts/hitl-loop.template.sh</code>.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>[ ] <strong>能变红</strong>——驱动实际的 bug 代码路径，并对<strong>用户的确切症状</strong>进行断言，因此它能在这个 bug 上变红，修复后变绿。不是「运行时无错误」——它必须能<em>捕获这个特定的 bug</em>。</li>
+          <li>[ ] <strong>确定性的</strong>——每次运行结果一致（对于不稳定 bug：固定高复现率，如上所述）。</li>
+          <li>[ ] <strong>快速</strong>——秒级，不是分钟级。</li>
+          <li>[ ] <strong>代理可运行</strong>——你可以无人值守地运行它；只有通过 <code>scripts/hitl-loop.template.sh</code> 才需要人在循环中。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If you catch yourself reading code to build a theory before this command exists, <strong>stop — jumping straight to a hypothesis is the exact failure this skill prevents.</strong> No red-capable command, no Phase 2.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果你发现自己在这个命令存在之前就开始读代码构建理论，<strong>停下来——直接跳到假设正是这个技能要防止的错误。</strong> 没有能变红的命令，就没有阶段 2。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 2 — Reproduce + minimise</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 2 — 复现 + 最小化</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Run the loop. Watch it go red — the bug appears.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>运行循环。看着它变红——bug 出现了。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Confirm:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>确认：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>[ ] The loop produces the failure mode the <strong>user</strong> described — not a different failure that happens to be nearby. Wrong bug = wrong fix.</li>
+          <li>[ ] The failure is reproducible across multiple runs (or, for non-deterministic bugs, reproducible at a high enough rate to debug against).</li>
+          <li>[ ] You have captured the exact symptom (error message, wrong output, slow timing) so later phases can verify the fix actually addresses it.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>[ ] 循环产生了<strong>用户</strong>描述的失败模式——而不是恰好附近的另一个失败。错误的 bug = 错误的修复。</li>
+          <li>[ ] 失败在多次运行中可复现（或对于非确定性 bug，以足够高的比率可复现以便调试）。</li>
+          <li>[ ] 你已经捕获了确切的症状（错误消息、错误输出、缓慢的时间），以便后续阶段可以验证修复是否确实解决了问题。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Minimise</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>最小化</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Once it's red, shrink the repro to the <strong>smallest scenario that still goes red</strong>. Cut inputs, callers, config, data, and steps <strong>one at a time</strong>, re-running the loop after each cut — keep only what's load-bearing for the failure.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一旦变红，将复现缩小到<strong>仍能变红的最小场景</strong>。<strong>一次一个</strong>地减少输入、调用者、配置、数据和步骤，每次减少后重新运行循环——只保留对失败至关重要的部分。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Why bother: a minimal repro shrinks the hypothesis space in Phase 3 (fewer moving parts left to suspect) and becomes the clean regression test in Phase 5.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>为什么要费这个劲：最小化复现缩小了阶段 3 中的假设空间（更少的活动部件值得怀疑），并成为阶段 5 中干净的回归测试。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Done when <strong>every remaining element is load-bearing</strong> — removing any one of them makes the loop go green.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当<strong>每个剩余元素都是必要支撑</strong>时完成——移除其中任何一个都会使循环变绿。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Do not proceed until you have reproduced <strong>and</strong> minimised.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在完成复现<strong>和</strong>最小化之前不要继续。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 3 — Hypothesise</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 3 — 假设</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Generate <strong>3–5 ranked hypotheses</strong> before testing any of them. Single-hypothesis generation anchors on the first plausible idea.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在测试任何一个假设之前，先生成 <strong>3–5 个排序假设</strong>。生成单个假设会让你锚定在第一个看似合理的想法上。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each hypothesis must be <strong>falsifiable</strong>: state the prediction it makes.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个假设必须是<strong>可证伪的</strong>：陈述它做出的预测。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <blockquote><p>Format: &ldquo;If &lt;X&gt; is the cause, then &lt;changing Y&gt; will make the bug disappear / &lt;changing Z&gt; will make it worse.&rdquo;</p></blockquote>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <blockquote><p>格式：「如果 &lt;X&gt; 是原因，那么 &lt;改变 Y&gt; 会使 bug 消失 / &lt;改变 Z&gt; 会使它更严重。」</p></blockquote>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Show the ranked list to the user before testing.</strong> They often have domain knowledge that re-ranks instantly (&ldquo;we just deployed a change to #3&rdquo;), or know hypotheses they've already ruled out. Cheap checkpoint, big time saver. Don't block on it — proceed with your ranking if the user is AFK.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>在测试之前将排序列表展示给用户。</strong> 他们通常拥有领域知识，可以立即重新排序（「我们刚刚部署了一个对 #3 的更改」），或者知道他们已经排除的假设。廉价的检查点，巨大的时间节省。不要阻塞——如果用户 AFK，就用你的排序继续。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 4 — Instrument</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 4 — 插桩</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each probe must map to a specific prediction from Phase 3. <strong>Change one variable at a time.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个探测必须对应阶段 3 中的具体预测。<strong>一次只改变一个变量。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Tool preference:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>工具优先级：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li><strong>Debugger / REPL inspection</strong> if the env supports it. One breakpoint beats ten logs.</li>
+          <li><strong>Targeted logs</strong> at the boundaries that distinguish hypotheses.</li>
+          <li>Never &ldquo;log everything and grep&rdquo;.</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li><strong>调试器 / REPL 检查</strong>——如果环境支持。一个断点胜过十条日志。</li>
+          <li><strong>针对性日志</strong>——在区分假设的边界处。</li>
+          <li>永远不要「打出所有日志然后 grep」。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Tag every debug log</strong> with a unique prefix, e.g. <code>[DEBUG-a4f2]</code>. Cleanup at the end becomes a single grep. Untagged logs survive; tagged logs die.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>为每条调试日志打上唯一前缀标签</strong>，例如 <code>[DEBUG-a4f2]</code>。最后的清理变成一个 grep 命令。未标记的日志存活；标记的日志被清除。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Perf branch.</strong> For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, <code>performance.now()</code>, profiler, query plan), then bisect. Measure first, fix second.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>性能分支。</strong> 对于性能回退，日志通常是错的。相反：建立基线测量（计时测试架、<code>performance.now()</code>、性能分析器、查询计划），然后二分。先测量，后修复。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 5 — Fix + regression test</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 5 — 修复 + 回归测试</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Write the regression test <strong>before the fix</strong> — but only if there is a <strong>correct seam</strong> for it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>在修复之前</strong>编写回归测试——但前提是存在一个<strong>正确的接缝</strong>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A correct seam is one where the test exercises the <strong>real bug pattern</strong> as it occurs at the call site. If the only available seam is too shallow (single-caller test when the bug needs multiple callers, unit test that can't replicate the chain that triggered the bug), a regression test there gives false confidence.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>正确的接缝是指测试能按调用现场的实际方式，演练<strong>真实的 bug 模式</strong>。如果唯一可用的接缝太浅（bug 需要多个调用者时只有单调用者测试，单元测试无法复制触发 bug 的链条），在这样的接缝上写回归测试只会产生虚假的自信。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>If no correct seam exists, that itself is the finding.</strong> Note it. The codebase architecture is preventing the bug from being locked down. Flag this for the next phase.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>如果没有正确的接缝存在，这本身就是发现。</strong> 记下来。代码库架构阻止了 bug 被锁定。标记此问题供下一阶段处理。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If a correct seam exists:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果正确的接缝存在：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li>Turn the minimised repro into a failing test at that seam.</li>
+          <li>Watch it fail.</li>
+          <li>Apply the fix.</li>
+          <li>Watch it pass.</li>
+          <li>Re-run the Phase 1 feedback loop against the original (un-minimised) scenario.</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li>将最小化复现转化为该接缝处的失败测试。</li>
+          <li>看着它失败。</li>
+          <li>应用修复。</li>
+          <li>看着它通过。</li>
+          <li>针对原始（未最小化的）场景重新运行阶段 1 的反馈循环。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Phase 6 — Cleanup + post-mortem</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>阶段 6 — 清理 + 事后分析</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Required before declaring done:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在宣布完成前必须完成：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>[ ] Original repro no longer reproduces (re-run the Phase 1 loop)</li>
+          <li>[ ] Regression test passes (or absence of seam is documented)</li>
+          <li>[ ] All <code>[DEBUG-...]</code> instrumentation removed (<code>grep</code> the prefix)</li>
+          <li>[ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)</li>
+          <li>[ ] The hypothesis that turned out correct is stated in the commit / PR message — so the next debugger learns</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>[ ] 原始复现不再重现（重新运行阶段 1 循环）</li>
+          <li>[ ] 回归测试通过（或接缝不存在已有记录）</li>
+          <li>[ ] 所有 <code>[DEBUG-...]</code> 插桩已移除（用前缀 <code>grep</code>）</li>
+          <li>[ ] 一次性原型已删除（或移动到明确标记的调试位置）</li>
+          <li>[ ] 最终证实正确的假设已在提交/PR 消息中说明——以便下一个调试者学习</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Then ask: what would have prevented this bug?</strong> If the answer involves architectural change (no good test seam, tangled callers, hidden coupling) hand off to the <code>/improve-codebase-architecture</code> skill with the specifics. Make the recommendation <strong>after</strong> the fix is in, not before — you have more information now than when you started.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>然后问：什么可以预防这个 bug？</strong> 如果答案涉及架构变更（没有好的测试接缝、调用者纠结、隐藏的耦合），将具体信息移交给 <code>/improve-codebase-architecture</code> 技能。<strong>在</strong>修复落地<strong>后</strong>给出建议，而不是之前——你现在拥有的信息比开始时更多。</p></div>
+    </div>
+  </div>
+</body>
+</html>

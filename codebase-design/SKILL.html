@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>codebase-design · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #e8e5db;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+      line-height: 1.5;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="DESIGN-IT-TWICE.html">DESIGN-IT-TWICE</a> · <a href="DEEPENING.html">DEEPENING</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>codebase-design</td></tr>
+      <tr><td>description</td><td>Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.</td></tr>
+      <tr><td>触发词</td><td>用于设计深模块的共享词汇表。当用户想要设计或改进模块的接口、寻找加深机会、决定接缝位置、使代码更可测试或更易于 AI 导航，或其他技能需要深模块词汇时使用。</td></tr>
+    </table>
+
+    <h1>codebase-design</h1>
+    <p class="subtitle">Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module's interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Design <strong>deep modules</strong>: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface. Use this language and these principles wherever code is being designed or restructured. The aim is leverage for callers, locality for maintainers, and testability for everyone.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>设计<strong>深模块</strong>：在小接口背后承载大量行为，放置在清晰的接缝处，通过该接口可测试。在任何设计或重构代码的地方使用这套语言和原则。目标是调用方的杠杆收益、维护方的局部性，以及所有人的可测试性。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Glossary</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>词汇表</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Use these terms exactly — don't substitute "component," "service," "API," or "boundary." Consistent language is the whole point.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>严格使用这些术语——不要替换为"组件"、"服务"、"API"或"边界"。统一的语言是整个要义所在。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Module</strong> — anything with an interface and an implementation. Deliberately scale-agnostic: a function, class, package, or tier-spanning slice. <em>Avoid</em>: unit, component, service.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>模块</strong>——任何有接口和实现的东西。有意保持规模无关：一个函数、类、包或跨层切片。<em>避免</em>：单元、组件、服务。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Interface</strong> — everything a caller must know to use the module correctly: the type signature, but also invariants, ordering constraints, error modes, required configuration, and performance characteristics. <em>Avoid</em>: API, signature (too narrow — they refer only to the type-level surface).</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>接口</strong>——调用方正确使用模块所需知道的一切：类型签名，还包括不变性、顺序约束、错误模式、所需配置和性能特征。<em>避免</em>：API、签名（过于狭窄——它们只指类型层面的表面）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Implementation</strong> — what's inside a module, its body of code. Distinct from <strong>Adapter</strong>: a thing can be a small adapter with a large implementation (a Postgres repo) or a large adapter with a small implementation (an in-memory fake). Reach for "adapter" when the seam is the topic; "implementation" otherwise.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>实现</strong>——模块内部的东西，它的代码体。区别于<strong>适配器</strong>：一个东西可以是小适配器大实现（Postgres 仓库）或大适配器小实现（内存 fake）。当话题是接缝时用"适配器"；否则用"实现"。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Depth</strong> — leverage at the interface: the amount of behaviour a caller (or test) can exercise per unit of interface they have to learn. A module is <strong>deep</strong> when a large amount of behaviour sits behind a small interface, <strong>shallow</strong> when the interface is nearly as complex as the implementation.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>深度</strong>——在接口处的杠杆收益：调用方（或测试）每学习一单位接口所能调用的行为量。当大量行为位于小接口背后时，模块是<strong>深</strong>的；当接口几乎和实现一样复杂时是<strong>浅</strong>的。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Seam</strong> <em>(Michael Feathers)</em> — a place where you can alter behaviour without editing in that place; the <em>location</em> at which a module's interface lives. Where to put the seam is its own design decision, distinct from what goes behind it. <em>Avoid</em>: boundary (overloaded with DDD's bounded context).</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>接缝</strong> <em>(Michael Feathers)</em>——可以在不编辑某处的情况下改变行为的地方；模块接口所在的<em>位置</em>。把接缝放在哪里本身就是一个设计决策，与接缝背后放什么不同。<em>避免</em>：边界（与 DDD 的限界上下文过载）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Adapter</strong> — a concrete thing that satisfies an interface at a seam. Describes <em>role</em> (what slot it fills), not substance (what's inside).</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>适配器</strong>——在接缝处满足接口的具体东西。描述<em>角色</em>（填充什么槽位），而不是实质（里面是什么）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Leverage</strong> — what callers get from depth: more capability per unit of interface they learn. One implementation pays back across N call sites and M tests.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>杠杆收益</strong>——调用方从深度中获得的好处：每学习一单位接口获得更多能力。一个实现在 N 个调用点和 M 个测试中回馈。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Locality</strong> — what maintainers get from depth: change, bugs, knowledge, and verification concentrate in one place rather than spreading across callers. Fix once, fixed everywhere.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>局部性</strong>——维护方从深度中获得的好处：变更、错误、知识和验证集中在一个地方，而不是分散在调用方之间。修一次，处处修复。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Deep vs shallow</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>深与浅</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Deep module</strong> = small interface + lots of implementation:</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>深模块</strong> = 小接口 + 大量实现：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>┌─────────────────────┐
+│   Small Interface   │  ← Few methods, simple params
+├─────────────────────┤
+│                     │
+│  Deep Implementation│  ← Complex logic hidden
+│                     │
+└─────────────────────┘</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>┌─────────────────────┐
+│   Small Interface   │  ← Few methods, simple params
+├─────────────────────┤
+│                     │
+│  Deep Implementation│  ← Complex logic hidden
+│                     │
+└─────────────────────┘</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Shallow module</strong> = large interface + little implementation (avoid):</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>浅模块</strong> = 大接口 + 少量实现（避免）：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>┌─────────────────────────────────┐
+│       Large Interface           │  ← Many methods, complex params
+├─────────────────────────────────┤
+│  Thin Implementation            │  ← Just passes through
+└─────────────────────────────────┘</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>┌─────────────────────────────────┐
+│       Large Interface           │  ← Many methods, complex params
+├─────────────────────────────────┤
+│  Thin Implementation            │  ← Just passes through
+└─────────────────────────────────┘</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When designing an interface, ask:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>设计接口时，问：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Can I reduce the number of methods?</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>我能减少方法的数量吗？</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Can I simplify the parameters?</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>我能简化参数吗？</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Can I hide more complexity inside?</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>我能把更多复杂性藏到内部吗？</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Principles</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>原则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Depth is a property of the interface, not the implementation.</strong> A deep module can be internally composed of small, mockable, swappable parts — they just aren't part of the interface. A module can have <strong>internal seams</strong> (private to its implementation, used by its own tests) as well as the <strong>external seam</strong> at its interface.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>深度是接口的属性，而非实现的属性。</strong> 一个深模块内部可以由小的、可模拟的、可替换的部件组成——它们只是不属于接口。模块可以有<strong>内部接缝</strong>（对其实现私有，供其自身测试使用）以及其接口处的<strong>外部接缝</strong>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>The deletion test.</strong> Imagine deleting the module. If complexity vanishes, it was a pass-through. If complexity reappears across N callers, it was earning its keep.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>删除测试。</strong> 想象删除这个模块。如果复杂性消失了，它只是一个透传。如果复杂性在 N 个调用方之间重新出现，那么它在赚取它的价值。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>The interface is the test surface.</strong> Callers and tests cross the same seam. If you want to test <em>past</em> the interface, the module is probably the wrong shape.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>接口就是测试面。</strong> 调用方和测试跨越同一个接缝。如果你想测试<em>越过</em>接口，模块的形状可能不对。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>One adapter means a hypothetical seam. Two adapters means a real one.</strong> Don't introduce a seam unless something actually varies across it.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>一个适配器意味着假设的接缝。两个适配器意味着真正的接缝。</strong> 除非有东西确实在接缝两侧变化，否则不要引入接缝。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Designing for testability</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>为可测试性设计</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Good interfaces make testing natural:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>好的接口让测试变得自然：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Accept dependencies, don't create them.</strong></li>
+      </ol>
+      <pre><code>// Testable
+function processOrder(order, paymentGateway) {}
+
+// Hard to test
+function processOrder(order) {
+  const gateway = new StripeGateway();
+}</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>接收依赖，不要创建依赖。</strong></li>
+      </ol>
+      <pre><code>// 可测试
+function processOrder(order, paymentGateway) {}
+
+// 难测试
+function processOrder(order) {
+  const gateway = new StripeGateway();
+}</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="2">
+        <li><strong>Return results, don't produce side effects.</strong></li>
+      </ol>
+      <pre><code>// Testable
+function calculateDiscount(cart): Discount {}
+
+// Hard to test
+function applyDiscount(cart): void {
+  cart.total -= discount;
+}</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><ol start="2">
+        <li><strong>返回结果，不要产生副作用。</strong></li>
+      </ol>
+      <pre><code>// 可测试
+function calculateDiscount(cart): Discount {}
+
+// 难测试
+function applyDiscount(cart): void {
+  cart.total -= discount;
+}</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="3">
+        <li><strong>Small surface area.</strong> Fewer methods = fewer tests needed. Fewer params = simpler test setup.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol start="3">
+        <li><strong>小的表面积。</strong> 更少的方法 = 更少的测试需求。更少的参数 = 更简单的测试设置。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Relationships</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>关系</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>A <strong>Module</strong> has exactly one <strong>Interface</strong> (the surface it presents to callers and tests).</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>一个<strong>模块</strong>正好有一个<strong>接口</strong>（它呈现给调用方和测试的表面）。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Depth</strong> is a property of a <strong>Module</strong>, measured against its <strong>Interface</strong>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>深度</strong>是<strong>模块</strong>的一个属性，根据其<strong>接口</strong>来衡量。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>A <strong>Seam</strong> is where a <strong>Module</strong>'s <strong>Interface</strong> lives.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>接缝</strong>是<strong>模块</strong>的<strong>接口</strong>所在之处。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>An <strong>Adapter</strong> sits at a <strong>Seam</strong> and satisfies the <strong>Interface</strong>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>适配器</strong>位于<strong>接缝</strong>处并满足<strong>接口</strong>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Depth</strong> produces <strong>Leverage</strong> for callers and <strong>Locality</strong> for maintainers.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>深度</strong>为调用方产生<strong>杠杆收益</strong>，为维护方产生<strong>局部性</strong>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Rejected framings</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>被拒绝的框架</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Depth as ratio of implementation-lines to interface-lines</strong> (Ousterhout): rewards padding the implementation. We use depth-as-leverage instead.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>深度作为实现行数与接口行数的比率</strong>（Ousterhout）：奖励填充实现。我们改用深度即杠杆收益。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>"Interface" as the TypeScript <code>interface</code> keyword or a class's public methods</strong>: too narrow — interface here includes every fact a caller must know.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>将"接口"视为 TypeScript 的 <code>interface</code> 关键字或类的公开方法</strong>：太过狭窄——此处的接口包括调用方必须知道的每个事实。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>"Boundary"</strong>: overloaded with DDD's bounded context. Say <strong>seam</strong> or <strong>interface</strong>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>"边界"</strong>：与 DDD 的限界上下文过载。用<strong>接缝</strong>或<strong>接口</strong>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Going deeper</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>深入</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Deepening a cluster given its dependencies</strong> — see <a href="DEEPENING.html">DEEPENING.md</a>: dependency categories, seam discipline, and replace-don't-layer testing.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>根据依赖关系加深集群</strong>——见 <a href="DEEPENING.html">DEEPENING.md</a>：依赖分类、接缝纪律，以及替换不堆叠的测试策略。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Exploring alternative interfaces</strong> — see <a href="DESIGN-IT-TWICE.html">DESIGN-IT-TWICE.md</a>: spin up parallel sub-agents to design the interface several radically different ways, then compare on depth, locality, and seam placement.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>探索替代接口</strong>——见 <a href="DESIGN-IT-TWICE.html">DESIGN-IT-TWICE.md</a>：启动并行子代理以几种截然不同的方式设计接口，然后根据深度、局部性和接缝位置进行比较。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

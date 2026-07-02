@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>triage · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.8rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="AGENT-BRIEF.html">AGENT-BRIEF</a> · <a href="OUT-OF-SCOPE.html">OUT-OF-SCOPE</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>triage</td></tr>
+      <tr><td>description</td><td>Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.</td></tr>
+      <tr><td>触发词</td><td>将 issue 和外部 PR 通过分诊角色的状态机进行流转——分类、验证、必要时追问，并编写代理就绪的简报。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>triage</h1>
+    <p class="subtitle">Move issues and external PRs through a state machine of triage roles — categorise, verify, grill if needed, and write agent-ready briefs.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Move issues on the project issue tracker through a small state machine of triage roles.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将项目 Issue 跟踪器上的 issue 通过一个小的分诊角色状态机进行流转。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If this repo treats external pull requests as a request surface (see the issue-tracker config), triage covers them too: <strong>a PR is an issue with attached code</strong> — same roles, same states, same machine, with a few deltas marked "for a PR" below. Resolve a bare <code>#42</code> to an issue or PR per the tracker config.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果此仓库将外部拉取请求视为请求面（参见 issue-tracker 配置），分诊同样覆盖它们：<strong>PR 是带代码的 issue</strong>——相同的角色、相同的状态、相同的状态机，下面标注了几处"针对 PR"的差异。根据 tracker 配置将裸 <code>#42</code> 解析为 issue 或 PR。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Every comment or issue posted to the issue tracker during triage <strong>must</strong> start with this disclaimer:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>分诊期间发布到 Issue 跟踪器的每条评论或 issue <strong>必须</strong>以此免责声明开头：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>&gt; *This was generated by AI during triage.*</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>&gt; *此内容由 AI 在分诊期间生成。*</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Reference docs</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>参考文档</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><a href="AGENT-BRIEF.md">AGENT-BRIEF.md</a> — how to write durable agent briefs</li>
+        <li><a href="OUT-OF-SCOPE.md">OUT-OF-SCOPE.md</a> — how the <code>.out-of-scope/</code> knowledge base works</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><a href="AGENT-BRIEF.md">AGENT-BRIEF.md</a> — 如何编写持久的代理简报</li>
+        <li><a href="OUT-OF-SCOPE.md">OUT-OF-SCOPE.md</a> — <code>.out-of-scope/</code> 知识库如何运作</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Roles</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>角色</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Two <strong>category</strong> roles:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>两个<strong>分类</strong>角色：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><code>bug</code> — something is broken</li>
+        <li><code>enhancement</code> — new feature or improvement</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><code>bug</code> — 某个东西坏了</li>
+        <li><code>enhancement</code> — 新功能或改进</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Five <strong>state</strong> roles:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>五个<strong>状态</strong>角色：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><code>needs-triage</code> — maintainer needs to evaluate</li>
+        <li><code>needs-info</code> — waiting on reporter for more information</li>
+        <li><code>ready-for-agent</code> — fully specified, ready for an AFK agent</li>
+        <li><code>ready-for-human</code> — needs human implementation</li>
+        <li><code>wontfix</code> — will not be actioned</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><code>needs-triage</code> — 维护者需要评估</li>
+        <li><code>needs-info</code> — 等待报告人提供更多信息</li>
+        <li><code>ready-for-agent</code> — 已完整说明，可用于 AFK 代理</li>
+        <li><code>ready-for-human</code> — 需要人工实现</li>
+        <li><code>wontfix</code> — 不会被处理</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For a PR, the same states read against the attached code: <code>ready-for-agent</code> means a brief is attached and an agent should take the next step on the diff; <code>ready-for-human</code> means it's ready for a human to merge.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于 PR，相同状态对照附加代码来解读：<code>ready-for-agent</code> 表示已附加简报，代理应对 diff 采取下一步行动；<code>ready-for-human</code> 表示已准备好由人工合并。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Every triaged issue should carry exactly one category role and one state role. If state roles conflict, flag it and ask the maintainer before doing anything else.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个经分诊的 issue 应恰好带有一个分类角色和一个状态角色。如果状态角色冲突，标记出来并在采取任何操作之前询问维护者。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>These are canonical role names — the actual label strings used in the issue tracker may differ. The mapping should have been provided to you - run <code>/setup-matt-pocock-skills</code> if not.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这些是规范角色名称——Issue 跟踪器中实际使用的标签字符串可能不同。映射关系应已提供给你——如果没有，运行 <code>/setup-matt-pocock-skills</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>State transitions: an unlabeled issue normally goes to <code>needs-triage</code> first; from there it moves to <code>needs-info</code>, <code>ready-for-agent</code>, <code>ready-for-human</code>, or <code>wontfix</code>. <code>needs-info</code> returns to <code>needs-triage</code> once the reporter replies. The maintainer can override at any time — flag transitions that look unusual and ask before proceeding.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>状态转换：未标记标签的 issue 通常先进入 <code>needs-triage</code>；然后转为 <code>needs-info</code>、<code>ready-for-agent</code>、<code>ready-for-human</code> 或 <code>wontfix</code>。一旦报告人回复，<code>needs-info</code> 回到 <code>needs-triage</code>。维护者可以随时覆盖——标记看起来不寻常的转换，并在继续前询问。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Invocation</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>调用方式</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The maintainer invokes <code>/triage</code> and describes what they want in natural language. Interpret the request and act. Examples:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>维护者调用 <code>/triage</code> 并用自然语言描述他们想要的内容。解释请求并执行。示例：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>"Show me anything that needs my attention"</li>
+        <li>"Let's look at #42" (issue or PR)</li>
+        <li>"Move #42 to ready-for-agent"</li>
+        <li>"What's ready for agents to pick up?"</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>"显示所有需要我关注的内容"</li>
+        <li>"我们看看 #42"（issue 或 PR）</li>
+        <li>"将 #42 移入 ready-for-agent"</li>
+        <li>"哪些已准备好供代理领取？"</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Show what needs attention</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>展示需要关注的内容</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Query the issue tracker and present three buckets, oldest first:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>查询 Issue 跟踪器并按三个桶展示，最早的优先：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Unlabeled</strong> — never triaged.</li>
+        <li><strong><code>needs-triage</code></strong> — evaluation in progress.</li>
+        <li><strong><code>needs-info</code> with reporter activity since the last triage notes</strong> — needs re-evaluation.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>未标记标签</strong> — 从未经分诊。</li>
+        <li><strong><code>needs-triage</code></strong> — 正在评估中。</li>
+        <li><strong><code>needs-info</code> 且有自上次分诊笔记后的报告人活动</strong> — 需要重新评估。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When PRs are in scope, include external PRs in these buckets and tag each line <code>[PR]</code> or <code>[issue]</code>. Discovery surfaces only <em>external</em> PRs (the tracker config defines who counts as external) — a collaborator's in-flight PR is not triage work. This filter is discovery-only; an explicitly named PR is always triaged regardless of author.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当 PR 在范围内时，将外部 PR 包含在这些桶中，并标记每行为 <code>[PR]</code> 或 <code>[issue]</code>。发现阶段仅展示<em>外部</em> PR（tracker 配置定义了谁算外部）——协作者正在进行的 PR 不属于分诊工作。此过滤仅适用于发现阶段；明确指定的 PR 无论作者如何始终会被分诊。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Show counts and a one-line summary per item. Let the maintainer pick.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>显示每项的数量和一行摘要。让维护者选择。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Triage a specific issue or PR</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>分诊特定 issue 或 PR</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Gather context.</strong> Read the full issue or PR (body, comments, labels, author, dates; for a PR, the diff too). Parse any prior triage notes so you don't re-ask resolved questions. Explore the codebase using the project's domain glossary, respecting ADRs in the area. Run two checks against the codebase: (a) <strong>redundancy</strong> — search for an existing implementation of the requested behavior by domain concept (not just the request's wording), and report where you looked. If found, it's an already-implemented <code>wontfix</code> (step 5). (b) <strong>prior rejection</strong> — read <code>.out-of-scope/*.md</code> and surface any that resembles this request.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>收集上下文。</strong> 阅读完整的 issue 或 PR（正文、评论、标签、作者、日期；对于 PR，还要看 diff）。解析任何之前的分诊笔记，这样你就不必重复询问已解决的问题。使用项目的领域词汇表探索代码库，并尊重该区域的 ADR。对代码库进行两项检查：(a) <strong>冗余</strong>——按领域概念（不仅仅是请求的措辞）搜索请求行为的现有实现，并报告你查找了哪里。如果找到，则是已实现的 <code>wontfix</code>（步骤 5）。(b) <strong>先前拒绝</strong>——阅读 <code>.out-of-scope/*.md</code> 并展示任何与此请求相似的内容。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="2">
+        <li><strong>Recommend.</strong> Tell the maintainer your category and state recommendation with reasoning, plus a brief codebase summary relevant to the request — including whether it's already implemented. Wait for direction.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol start="2">
+        <li><strong>推荐。</strong> 告诉维护者你的分类和状态建议并提供理由，以及与请求相关的简要代码库摘要——包括是否已实现。等待指示。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="3">
+        <li><strong>Verify the claim.</strong> Before any grilling, check that the claim holds up. For a bug, reproduce it from the reporter's steps. For a PR, confirm the diff does what it claims — check it out, run the relevant tests or commands. Report what happened: confirmed (with code path), failed, or insufficient detail (a strong <code>needs-info</code> signal). A confirmed verification makes a much stronger agent brief.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol start="3">
+        <li><strong>验证主张。</strong> 在进行任何 grilling 之前，检查主张是否成立。对于 bug，按照报告人的步骤复现。对于 PR，确认 diff 做了它所声称的事情——检出代码，运行相关测试或命令。报告结果：已验证（附带代码路径）、失败、或细节不足（强烈的 <code>needs-info</code> 信号）。经确认的验证会使代理简报更有力。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="4">
+        <li><strong>Grill (if needed).</strong> If the request needs fleshing out, run the <code>/grilling</code> and <code>/domain-modeling</code> skills together — grill it into shape one question at a time, sharpening domain terms and updating <code>CONTEXT.md</code>/ADRs inline as decisions land.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol start="4">
+        <li><strong>Grill（如需要）。</strong> 如果请求需要充实，同时运行 <code>/grilling</code> 和 <code>/domain-modeling</code> 技能——一次一个问题地追问成型，在决策落地时同步精炼领域术语并更新 <code>CONTEXT.md</code>/ADR。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol start="5">
+        <li><strong>Apply the outcome:</strong>
+          <ul>
+            <li><code>ready-for-agent</code> — post an agent brief comment (<a href="AGENT-BRIEF.md">AGENT-BRIEF.md</a>).</li>
+            <li><code>ready-for-human</code> — same structure as an agent brief, but note why it can't be delegated (judgment calls, external access, design decisions, manual testing).</li>
+            <li><code>needs-info</code> — post triage notes (template below).</li>
+            <li><code>wontfix</code> — close, with the comment depending on <em>why</em>:
+              <ul>
+                <li><strong>Already implemented</strong> — the change already exists in the codebase. Point to where it lives; do <strong>not</strong> write to <code>.out-of-scope/</code> (that KB is for <em>rejected</em> requests, not built ones).</li>
+                <li><strong>Rejected (bug)</strong> — polite explanation, then close.</li>
+                <li><strong>Rejected (enhancement)</strong> — write to <code>.out-of-scope/</code>, link to it from a comment, then close (<a href="OUT-OF-SCOPE.md">OUT-OF-SCOPE.md</a>).</li>
+              </ul>
+            </li>
+            <li><code>needs-triage</code> — apply the role. Optional comment if there's partial progress.</li>
+          </ul>
+        </li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol start="5">
+        <li><strong>应用结果：</strong>
+          <ul>
+            <li><code>ready-for-agent</code> — 发布代理简报评论（<a href="AGENT-BRIEF.md">AGENT-BRIEF.md</a>）。</li>
+            <li><code>ready-for-human</code> — 结构与代理简报相同，但注明为何不能委派（判断性决策、外部访问、设计决策、手动测试）。</li>
+            <li><code>needs-info</code> — 发布分诊笔记（模板见下文）。</li>
+            <li><code>wontfix</code> — 关闭，评论取决于<em>原因</em>：
+              <ul>
+                <li><strong>已实现</strong> — 代码库中已存在该变更。指出其位置；<strong>不要</strong>写入 <code>.out-of-scope/</code>（该知识库用于<em>被拒绝的</em>请求，而非已构建的功能）。</li>
+                <li><strong>已拒绝（bug）</strong> — 礼貌解释，然后关闭。</li>
+                <li><strong>已拒绝（enhancement）</strong> — 写入 <code>.out-of-scope/</code>，在评论中链接到它，然后关闭（<a href="OUT-OF-SCOPE.md">OUT-OF-SCOPE.md</a>）。</li>
+              </ul>
+            </li>
+            <li><code>needs-triage</code> — 应用该角色。如有部分进展，可选择性添加评论。</li>
+          </ul>
+        </li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Quick state override</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>快速状态覆盖</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the maintainer says "move #42 to ready-for-agent", trust them and apply the role directly. Confirm what you're about to do (role changes, comment, close), then act. Skip grilling. If moving to <code>ready-for-agent</code> without a grilling session, ask whether they want to write an agent brief.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果维护者说"将 #42 移入 ready-for-agent"，相信他们并直接应用该角色。确认你将要做的事情（角色变更、评论、关闭），然后执行。跳过 grilling。如果在没有 grilling 的情况下移入 <code>ready-for-agent</code>，询问他们是否想编写代理简报。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Needs-info template</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>Needs-info 模板</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Triage Notes
+
+**What we've established so far:**
+
+- point 1
+- point 2
+
+**What we still need from you (@reporter):**
+
+- question 1
+- question 2</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 分诊笔记
+
+**目前已确定的内容：**
+
+- 要点 1
+- 要点 2
+
+**我们仍需要你（@reporter）提供的内容：**
+
+- 问题 1
+- 问题 2</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Capture everything resolved during grilling under "established so far" so the work isn't lost. Questions must be specific and actionable, not "please provide more info".</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将所有在 grilling 期间已解决的内容记录在"目前已确定"下，这样工作不会丢失。问题必须具体且可操作，不能是"请提供更多信息"。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Resuming a previous session</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>恢复之前的会话</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If prior triage notes exist on the issue or PR, read them, check whether the reporter has answered any outstanding questions, and present an updated picture before continuing. Don't re-ask resolved questions.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果 issue 或 PR 上存在之前的分诊笔记，阅读它们，检查报告人是否已回答了任何待解答的问题，并在继续前呈现更新的情况。不要重复询问已解决的问题。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

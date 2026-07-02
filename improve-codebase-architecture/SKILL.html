@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>improve-codebase-architecture · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="HTML-REPORT.html">HTML-REPORT</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>improve-codebase-architecture</td></tr>
+      <tr><td>description</td><td>Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.</td></tr>
+      <tr><td>触发词</td><td>扫描代码库寻找深化机会，以可视化的 HTML 报告呈现，然后对你选择的任一方案进行追问。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>improve-codebase-architecture</h1>
+    <p class="subtitle">Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Surface architectural friction and propose <strong>deepening opportunities</strong> — refactors that turn shallow modules into deep ones. The aim is testability and AI-navigability.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>揭示架构摩擦并提出<strong>深化机会</strong>——将浅模块重构为深模块的重构方案。目标是可测试性和 AI 可导航性。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>This command is <em>informed</em> by the project's domain model and built on a shared design vocabulary:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>本命令<em>受</em>项目的领域模型启发，并建立在共享的设计词汇之上：</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Run the <code>/codebase-design</code> skill for the architecture vocabulary (<strong>module</strong>, <strong>interface</strong>, <strong>depth</strong>, <strong>seam</strong>, <strong>adapter</strong>, <strong>leverage</strong>, <strong>locality</strong>) and its principles (the deletion test, "the interface is the test surface", "one adapter = hypothetical seam, two = real"). Use these terms exactly in every suggestion — don't drift into "component," "service," "API," or "boundary."</li>
+        <li>The domain language in <code>CONTEXT.md</code> gives names to good seams; ADRs in <code>docs/adr/</code> record decisions this command should not re-litigate.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>运行 <code>/codebase-design</code> 技能获取架构词汇（<strong>模块</strong>、<strong>接口</strong>、<strong>深度</strong>、<strong>接缝</strong>、<strong>适配器</strong>、<strong>杠杆收益</strong>、<strong>局部性</strong>）及其原则（删除测试、"接口即测试面"、"一个适配器 = 假设性接缝，两个 = 真实的"）。在每个建议中精确使用这些术语——不要偏离到"组件""服务""API"或"边界"。</li>
+        <li><code>CONTEXT.md</code> 中的领域语言为好的接缝命名；<code>docs/adr/</code> 中的 ADR 记录了本命令不应重新质疑的决策。</li>
+      </ul></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Process</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>流程</h2></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>1. Explore</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>1. 探索</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Read the project's domain glossary (<code>CONTEXT.md</code>) and any ADRs in the area you're touching first.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>首先阅读项目的领域词汇表（<code>CONTEXT.md</code>）以及你将要触及的区域内任何 ADR。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Then use the Agent tool with <code>subagent_type=Explore</code> to walk the codebase. Don't follow rigid heuristics — explore organically and note where you experience friction:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>然后使用 <code>subagent_type=Explore</code> 的代理工具遍历代码库。不要遵循僵化的启发式方法——有机地探索，记下你遇到摩擦的地方：</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Where does understanding one concept require bouncing between many small modules?</li>
+        <li>Where are modules <strong>shallow</strong> — interface nearly as complex as the implementation?</li>
+        <li>Where have pure functions been extracted just for testability, but the real bugs hide in how they're called (no <strong>locality</strong>)?</li>
+        <li>Where do tightly-coupled modules leak across their seams?</li>
+        <li>Which parts of the codebase are untested, or hard to test through their current interface?</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>理解一个概念需要在多个小模块之间跳转？</li>
+        <li>哪些模块是<strong>浅</strong>的——接口几乎和实现一样复杂？</li>
+        <li>哪些地方的纯函数仅仅为了可测试性而被提取出来，但真正的 bug 隐藏在其调用方式中（没有<strong>局部性</strong>）？</li>
+        <li>哪些地方紧密耦合的模块在接缝处泄露？</li>
+        <li>代码库的哪些部分未经测试，或通过当前接口难以测试？</li>
+      </ul></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Apply the <strong>deletion test</strong> to anything you suspect is shallow: would deleting it concentrate complexity, or just move it? A "yes, concentrates" is the signal you want.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对任何你怀疑是浅的东西应用<strong>删除测试</strong>：删除它会集中复杂性，还是仅仅移动它？答案是"会集中"就是你要的信号。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>2. Present candidates as an HTML report</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>2. 以 HTML 报告呈现候选方案</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Write a self-contained HTML file to the OS temp directory so nothing lands in the repo. Resolve the temp dir from <code>$TMPDIR</code>, falling back to <code>/tmp</code> (or <code>%TEMP%</code> on Windows), and write to <code>&lt;tmpdir&gt;/architecture-review-&lt;timestamp&gt;.html</code> so each run gets a fresh file. Open it for the user — <code>xdg-open &lt;path&gt;</code> on Linux, <code>open &lt;path&gt;</code> on macOS, <code>start &lt;path&gt;</code> on Windows — and tell them the absolute path.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将独立的 HTML 文件写入操作系统临时目录，这样不会在仓库中留下痕迹。从 <code>$TMPDIR</code> 解析临时目录，回退到 <code>/tmp</code>（Windows 上为 <code>%TEMP%</code>），写入 <code>&lt;tmpdir&gt;/architecture-review-&lt;timestamp&gt;.html</code>，这样每次运行都获得新文件。为用户打开它——Linux 上用 <code>xdg-open &lt;path&gt;</code>，macOS 上用 <code>open &lt;path&gt;</code>，Windows 上用 <code>start &lt;path&gt;</code>——并告诉他们绝对路径。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The report uses <strong>Tailwind via CDN</strong> for layout and styling, and <strong>Mermaid via CDN</strong> for diagrams where a graph/flow/sequence reliably communicates the structure. Mix Mermaid with hand-crafted CSS/SVG visuals — use Mermaid when relationships are graph-shaped (call graphs, dependencies, sequences), and hand-built divs/SVG when you want something more editorial (mass diagrams, cross-sections, collapse animations). Each candidate gets a <strong>before/after visualisation</strong>. Be visual.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>报告使用<strong>通过 CDN 加载的 Tailwind</strong> 进行布局和样式设置，使用<strong>通过 CDN 加载的 Mermaid</strong> 处理能用图形/流程/序列可靠传达结构的图表。将 Mermaid 与手工制作的 CSS/SVG 视觉元素混合使用——当关系是图形形状（调用图、依赖关系、序列）时使用 Mermaid，当想要更具编辑性的内容（体量图、剖面图、折叠动画）时使用手工构建的 div/SVG。每个候选方案都有<strong>前后对比可视化</strong>。要有视觉冲击力。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For each candidate, render a card with:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对每个候选方案，渲染一个包含以下内容的卡片：</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Files</strong> — which files/modules are involved</li>
+        <li><strong>Problem</strong> — why the current architecture is causing friction</li>
+        <li><strong>Solution</strong> — plain English description of what would change</li>
+        <li><strong>Benefits</strong> — explained in terms of locality and leverage, and how tests would improve</li>
+        <li><strong>Before / After diagram</strong> — side-by-side, custom-drawn, illustrating the shallowness and the deepening</li>
+        <li><strong>Recommendation strength</strong> — one of <code>Strong</code>, <code>Worth exploring</code>, <code>Speculative</code>, rendered as a badge</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>文件</strong>——涉及哪些文件/模块</li>
+        <li><strong>问题</strong>——当前架构为何造成摩擦</li>
+        <li><strong>方案</strong>——用简明语言描述会变化什么</li>
+        <li><strong>收益</strong>——从局部性和杠杆收益的角度解释，以及测试将如何改善</li>
+        <li><strong>前后对比图</strong>——并排、自定义绘制，展示浅度和深化</li>
+        <li><strong>推荐强度</strong>——<code>Strong</code>、<code>Worth exploring</code>、<code>Speculative</code> 之一，渲染为徽章</li>
+      </ul></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>End the report with a <strong>Top recommendation</strong> section: which candidate you'd tackle first and why.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>以<strong>首选推荐</strong>部分结束报告：你会先处理哪个候选方案以及为什么。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Use CONTEXT.md vocabulary for the domain, and the <code>/codebase-design</code> vocabulary for the architecture.</strong> If <code>CONTEXT.md</code> defines "Order," talk about "the Order intake module" — not "the FooBarHandler," and not "the Order service."</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>使用 CONTEXT.md 的词汇表描述领域，使用 <code>/codebase-design</code> 的词汇表描述架构。</strong> 如果 <code>CONTEXT.md</code> 定义了"Order"，就说"Order intake 模块"——而不是"FooBarHandler"或"Order 服务"。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>ADR conflicts</strong>: if a candidate contradicts an existing ADR, only surface it when the friction is real enough to warrant revisiting the ADR. Mark it clearly in the card (e.g. a warning callout: <em>"contradicts ADR-0007 — but worth reopening because…"</em>). Don't list every theoretical refactor an ADR forbids.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>ADR 冲突</strong>：如果某个候选方案与现有 ADR 矛盾，只有当摩擦足够真实、值得重新审视 ADR 时才提出。在卡片中清晰标记（例如警告提示：<em>"与 ADR-0007 矛盾——但值得重新讨论，因为……"</em>）。不要列出 ADR 禁止的每一个理论上的重构。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>See <a href="HTML-REPORT.html">HTML-REPORT.md</a> for the full HTML scaffold, diagram patterns, and styling guidance.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>参见 <a href="HTML-REPORT.html">HTML-REPORT.md</a> 了解完整的 HTML 脚手架、图表模式及样式指南。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Do NOT propose interfaces yet. After the file is written, ask the user: "Which of these would you like to explore?"</p></div>
+      <div class="col-zh" lang="zh-CN"><p>暂不提出接口。文件写入后，询问用户："你想探索哪一个？"</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>3. Grilling loop</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>3. 追问循环</h3></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Once the user picks a candidate, run the <code>/grilling</code> skill to walk the design tree with them — constraints, dependencies, the shape of the deepened module, what sits behind the seam, what tests survive.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户选定候选方案后，运行 <code>/grilling</code> 技能与他们一起遍历设计树——约束条件、依赖关系、深化模块的形态、接缝背后的内容、哪些测试能存活。</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Side effects happen inline as decisions crystallize — run the <code>/domain-modeling</code> skill to keep the domain model current as you go:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>随着决策逐步明确，副作用会即时发生——运行 <code>/domain-modeling</code> 技能让领域模型在过程中保持最新：</p></div>
+    </div>
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Naming a deepened module after a concept not in <code>CONTEXT.md</code>?</strong> Add the term to <code>CONTEXT.md</code>. Create the file lazily if it doesn't exist.</li>
+        <li><strong>Sharpening a fuzzy term during the conversation?</strong> Update <code>CONTEXT.md</code> right there.</li>
+        <li><strong>User rejects the candidate with a load-bearing reason?</strong> Offer an ADR, framed as: <em>"Want me to record this as an ADR so future architecture reviews don't re-suggest it?"</em> Only offer when the reason would actually be needed by a future explorer to avoid re-suggesting the same thing — skip ephemeral reasons ("not worth it right now") and self-evident ones.</li>
+        <li><strong>Want to explore alternative interfaces for the deepened module?</strong> Run the <code>/codebase-design</code> skill and use its design-it-twice parallel sub-agent pattern.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>将深化模块命名为 <code>CONTEXT.md</code> 中未有的概念？</strong> 将该术语添加到 <code>CONTEXT.md</code>。如果文件不存在，懒加载创建。</li>
+        <li><strong>对话中明确了一个模糊术语？</strong> 立即更新 <code>CONTEXT.md</code>。</li>
+        <li><strong>用户因承载性理由拒绝了候选方案？</strong> 提供 ADR，表述为：<em>"要我把它记录为 ADR，这样以后的架构审查就不会再次推荐它吗？"</em> 只有当理由对未来的探索者避免再次推荐同一方案确实有必要时才提供——跳过临时性理由（"现在不值得"）和不言自明的理由。</li>
+        <li><strong>想探索深化模块的替代接口？</strong> 运行 <code>/codebase-design</code> 技能，使用其双重设计并行子代理模式。</li>
+      </ul></div>
+    </div>
+  </div>
+</body>
+</html>

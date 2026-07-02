@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Agent Briefs · triage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.8rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+    strong { color: var(--ink-blue); }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="SKILL.html">← triage</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Writing Agent Briefs</h1>
+    <p class="subtitle">编写代理简报</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>An agent brief is a structured comment posted on a GitHub issue or PR when it moves to <code>ready-for-agent</code>. It is the authoritative specification that an AFK agent will work from. The original body and discussion are context — the agent brief is the contract.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>代理简报是在 issue 或 PR 移入 <code>ready-for-agent</code> 时发布在 GitHub issue 或 PR 上的结构化评论。它是 AFK 代理将依据的权威规格说明。原始正文和讨论是上下文——代理简报就是契约。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The brief states <strong>what the agent should do</strong>, which stretches to both surfaces: for an issue, that's building the change from nothing; for a PR, it's what's left to do <em>to the existing diff</em> — finish it, close gaps, address review points. Same principles either way; the PR example below shows the difference.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>简报说明<strong>代理应该做什么</strong>，涵盖两种情形：对于 issue，是从零开始构建变更；对于 PR，是对<em>现有 diff</em> 还需要做什么——完成它、填补缺口、处理审查意见。原则相同；下面的 PR 示例展示了区别。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Principles</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>原则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Durability over precision</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>持久性优于精确性</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The issue may sit in <code>ready-for-agent</code> for days or weeks. The codebase will change in the meantime. Write the brief so it stays useful even as files are renamed, moved, or refactored.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>issue 可能在 <code>ready-for-agent</code> 中停留数天或数周。在此期间代码库会发生变化。编写简报时要使其在文件被重命名、移动或重构时仍然有用。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Do</strong> describe interfaces, types, and behavioral contracts</li>
+        <li><strong>Do</strong> name specific types, function signatures, or config shapes that the agent should look for or modify</li>
+        <li><strong>Don't</strong> reference file paths — they go stale</li>
+        <li><strong>Don't</strong> reference line numbers</li>
+        <li><strong>Don't</strong> assume the current implementation structure will remain the same</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>要</strong> 描述接口、类型和行为契约</li>
+        <li><strong>要</strong> 指明代理应查找或修改的特定类型、函数签名或配置形态</li>
+        <li><strong>不要</strong> 引用文件路径——它们会过时</li>
+        <li><strong>不要</strong> 引用行号</li>
+        <li><strong>不要</strong> 假设当前实现结构保持不变</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Behavioral, not procedural</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>行为的，而非过程的</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Describe <strong>what</strong> the system should do, not <strong>how</strong> to implement it. The agent will explore the codebase fresh and make its own implementation decisions.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>描述系统<strong>应该做什么</strong>，而不是<strong>如何</strong>实现。代理会重新探索代码库并自行做出实现决策。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Good:</strong> "The <code>SkillConfig</code> type should accept an optional <code>schedule</code> field of type <code>CronExpression</code>"</li>
+        <li><strong>Bad:</strong> "Open src/types/skill.ts and add a schedule field on line 42"</li>
+        <li><strong>Good:</strong> "When a user runs <code>/triage</code> with no arguments, they should see a summary of issues needing attention"</li>
+        <li><strong>Bad:</strong> "Add a switch statement in the main handler function"</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>好：</strong> "<code>SkillConfig</code> 类型应接受一个可选的 <code>schedule</code> 字段，类型为 <code>CronExpression</code>"</li>
+        <li><strong>差：</strong> "打开 src/types/skill.ts 并在第 42 行添加一个 schedule 字段"</li>
+        <li><strong>好：</strong> "当用户运行不带参数的 <code>/triage</code> 时，应看到需要关注的 issue 摘要"</li>
+        <li><strong>差：</strong> "在主处理函数中添加一个 switch 语句"</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Complete acceptance criteria</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>完整的验收标准</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The agent needs to know when it's done. Every agent brief must have concrete, testable acceptance criteria. Each criterion should be independently verifiable.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>代理需要知道何时完成。每个代理简报必须有具体、可测试的验收标准。每个标准应可独立验证。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Good:</strong> "Running <code>gh issue list --label needs-triage</code> returns issues that have been through initial classification"</li>
+        <li><strong>Bad:</strong> "Triage should work correctly"</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>好：</strong> "运行 <code>gh issue list --label needs-triage</code> 返回经初始分类的 issue"</li>
+        <li><strong>差：</strong> "分诊应能正常工作"</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Explicit scope boundaries</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>明确的范围边界</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>State what is out of scope. This prevents the agent from gold-plating or making assumptions about adjacent features.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>说明哪些不在范围内。这可以防止代理镀金或对相邻功能做出假设。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Template</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>模板</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent Brief
+
+**Category:** bug / enhancement
+**Summary:** one-line description of what needs to happen
+
+**Current behavior:**
+Describe what happens now. For bugs, this is the broken behavior.
+For enhancements, this is the status quo the feature builds on.
+
+**Desired behavior:**
+Describe what should happen after the agent's work is complete.
+Be specific about edge cases and error conditions.
+
+**Key interfaces:**
+- `TypeName` — what needs to change and why
+- `functionName()` return type — what it currently returns vs what it should return
+- Config shape — any new configuration options needed
+
+**Acceptance criteria:**
+- [ ] Specific, testable criterion 1
+- [ ] Specific, testable criterion 2
+- [ ] Specific, testable criterion 3
+
+**Out of scope:**
+- Thing that should NOT be changed or addressed in this issue
+- Adjacent feature that might seem related but is separate</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 代理简报
+
+**分类：** bug / enhancement
+**摘要：** 需要做什么的一行描述
+
+**当前行为：**
+描述当前发生了什么。对于 bug，这是错误的行为。
+对于 enhancement，这是功能所基于的现状。
+
+**期望行为：**
+描述代理工作完成后应该发生什么。
+要具体说明边界情况和错误条件。
+
+**关键接口：**
+- `TypeName` — 需要改变什么以及为什么
+- `functionName()` 返回类型 — 当前返回什么与应该返回什么
+- 配置形态 — 任何需要的新配置选项
+
+**验收标准：**
+- [ ] 具体、可测试的标准 1
+- [ ] 具体、可测试的标准 2
+- [ ] 具体、可测试的标准 3
+
+**超出范围：**
+- 不应在此 issue 中更改或解决的事项
+- 可能看起来相关但独立的相邻功能</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Examples</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>示例</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Good agent brief (bug)</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>好的代理简报（bug）</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent Brief
+
+**Category:** bug
+**Summary:** Skill description truncation drops mid-word, producing broken output
+
+**Current behavior:**
+When a skill description exceeds 1024 characters, it is truncated at exactly
+1024 characters regardless of word boundaries. This produces descriptions
+that end mid-word (e.g. "Use when the user wants to confi").
+
+**Desired behavior:**
+Truncation should break at the last word boundary before 1024 characters
+and append "..." to indicate truncation.
+
+**Key interfaces:**
+- The `SkillMetadata` type's `description` field — no type change needed,
+  but the validation/processing logic that populates it needs to respect
+  word boundaries
+- Any function that reads SKILL.md frontmatter and extracts the description
+
+**Acceptance criteria:**
+- [ ] Descriptions under 1024 chars are unchanged
+- [ ] Descriptions over 1024 chars are truncated at the last word boundary
+      before 1024 chars
+- [ ] Truncated descriptions end with "..."
+- [ ] The total length including "..." does not exceed 1024 chars
+
+**Out of scope:**
+- Changing the 1024 char limit itself
+- Multi-line description support</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 代理简报
+
+**分类：** bug
+**摘要：** 技能描述截断在单词中间断开，产生残缺输出
+
+**当前行为：**
+当技能描述超过 1024 个字符时，无论单词边界如何，都会在恰好
+1024 个字符处截断。这会产生在单词中间结束的描述（例如 "Use when the user wants to confi"）。
+
+**期望行为：**
+截断应在 1024 个字符之前的最后一个单词边界处断开，
+并追加 "..." 以表示截断。
+
+**关键接口：**
+- `SkillMetadata` 类型的 `description` 字段——无需类型更改，
+  但填充它的验证/处理逻辑需要尊重单词边界
+- 任何读取 SKILL.md frontmatter 并提取描述的函数
+
+**验收标准：**
+- [ ] 低于 1024 字符的描述保持不变
+- [ ] 超过 1024 字符的描述在 1024 字符之前的最后一个单词边界处截断
+- [ ] 截断后的描述以 "..." 结尾
+- [ ] 包括 "..." 的总长度不超过 1024 字符
+
+**超出范围：**
+- 更改 1024 字符限制本身
+- 多行描述支持</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Good agent brief (enhancement)</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>好的代理简报（enhancement）</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent Brief
+
+**Category:** enhancement
+**Summary:** Add `.out-of-scope/` directory support for tracking rejected feature requests
+
+**Current behavior:**
+When a feature request is rejected, the issue is closed with a `wontfix` label
+and a comment. There is no persistent record of the decision or reasoning.
+Future similar requests require the maintainer to recall or search for the
+prior discussion.
+
+**Desired behavior:**
+Rejected feature requests should be documented in `.out-of-scope/&lt;concept&gt;.md`
+files that capture the decision, reasoning, and links to all issues that
+requested the feature. When triaging new issues, these files should be
+checked for matches.
+
+**Key interfaces:**
+- Markdown file format in `.out-of-scope/` — each file should have a
+  `# Concept Name` heading, a `**Decision:**` line, a `**Reason:**` line,
+  and a `**Prior requests:**` list with issue links
+- The triage workflow should read all `.out-of-scope/*.md` files early
+  and match incoming issues against them by concept similarity
+
+**Acceptance criteria:**
+- [ ] Closing a feature as wontfix creates/updates a file in `.out-of-scope/`
+- [ ] The file includes the decision, reasoning, and link to the closed issue
+- [ ] If a matching `.out-of-scope/` file already exists, the new issue is
+      appended to its "Prior requests" list rather than creating a duplicate
+- [ ] During triage, existing `.out-of-scope/` files are checked and surfaced
+      when a new issue matches a prior rejection
+
+**Out of scope:**
+- Automated matching (human confirms the match)
+- Reopening previously rejected features
+- Bug reports (only enhancement rejections go to `.out-of-scope/`)</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 代理简报
+
+**分类：** enhancement
+**摘要：** 添加 `.out-of-scope/` 目录支持以跟踪被拒绝的功能请求
+
+**当前行为：**
+当功能请求被拒绝时，issue 会被关闭并标记 `wontfix` 标签
+和一条评论。没有决策或理由的持久记录。
+未来的类似请求需要维护者回忆或搜索之前的讨论。
+
+**期望行为：**
+被拒绝的功能请求应记录在 `.out-of-scope/&lt;concept&gt;.md`
+文件中，捕获决策、理由以及所有请求该功能的 issue 链接。
+在分诊新 issue 时，应检查这些文件是否有匹配。
+
+**关键接口：**
+- `.out-of-scope/` 中的 Markdown 文件格式——每个文件应有一个
+  `# 概念名` 标题、一个 `**Decision:**` 行、一个 `**Reason:**` 行、
+  和一个带有 issue 链接的 `**Prior requests:**` 列表
+- 分诊工作流应在早期读取所有 `.out-of-scope/*.md` 文件
+  并按概念相似度将新 issue 与之匹配
+
+**验收标准：**
+- [ ] 将功能标记为 wontfix 关闭时创建/更新 `.out-of-scope/` 中的文件
+- [ ] 文件包含决策、理由和已关闭 issue 的链接
+- [ ] 如果匹配的 `.out-of-scope/` 文件已存在，新 issue 被追加到其
+  "Prior requests" 列表而不是创建重复文件
+- [ ] 在分诊期间，当新 issue 匹配先前的拒绝时，检查并展示现有
+  `.out-of-scope/` 文件
+
+**超出范围：**
+- 自动匹配（人工确认匹配）
+- 重新打开以前被拒绝的功能
+- Bug 报告（只有 enhancement 拒绝才进入 `.out-of-scope/`）</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Good agent brief (PR)</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>好的代理简报（PR）</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For a PR, "Current behavior" describes the state of the diff, and the brief asks the agent to finish or fix it rather than build from scratch.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于 PR，"当前行为"描述 diff 的状态，简报要求代理完成或修复它，而不是从头构建。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent Brief
+
+**Category:** enhancement
+**Summary:** Finish the contributor's `--json` output flag for `triage list`
+
+**Current behavior:**
+The PR adds a `--json` flag that serializes the issue list to JSON. The happy
+path works and the diff matches the project's command structure. Two gaps
+remain: errors are still printed as human text (not JSON), and the new flag has
+no test coverage.
+
+**Desired behavior:**
+With `--json`, all output — including errors — is well-formed JSON on stdout,
+and the command's exit codes are unchanged. The existing human-readable output
+is untouched when the flag is absent.
+
+**Key interfaces:**
+- The command's error path should emit `{ "error": string }` under `--json`
+  instead of the plain-text error
+- Reuse the existing serializer the PR already added; don't introduce a second
+
+**Acceptance criteria:**
+- [ ] `triage list --json` emits valid JSON for both success and error cases
+- [ ] Exit codes match the non-JSON command
+- [ ] A test covers the `--json` success output and one error case
+- [ ] Default (non-JSON) output is byte-for-byte unchanged
+
+**Out of scope:**
+- Adding `--json` to any other command
+- Changing the JSON shape of the success payload the PR already defined</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 代理简报
+
+**分类：** enhancement
+**摘要：** 完成贡献者为 `triage list` 添加的 `--json` 输出标志
+
+**当前行为：**
+PR 添加了一个将 issue 列表序列化为 JSON 的 `--json` 标志。主路径
+可以工作，diff 符合项目的命令结构。仍有两个缺口：
+错误仍以人类文本（而非 JSON）打印，且新标志没有测试覆盖。
+
+**期望行为：**
+使用 `--json` 时，所有输出——包括错误——都是 stdout 上的格式良好的 JSON，
+且命令的退出码保持不变。当标志不存在时，
+现有的人类可读输出不受影响。
+
+**关键接口：**
+- 命令的错误路径应在 `--json` 下发出 `{ "error": string }`
+  而不是纯文本错误
+- 重用 PR 已添加的现有序列化器；不要引入第二个
+
+**验收标准：**
+- [ ] `triage list --json` 在成功和错误情况下都发出有效的 JSON
+- [ ] 退出码与非 JSON 命令一致
+- [ ] 测试覆盖了 `--json` 的成功输出和一个错误情况
+- [ ] 默认（非 JSON）输出逐字节不变
+
+**超出范围：**
+- 向任何其他命令添加 `--json`
+- 更改 PR 已定义的成功负载的 JSON 结构</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Bad agent brief</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>差的代理简报</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent Brief
+
+**Summary:** Fix the triage bug
+
+**What to do:**
+The triage thing is broken. Look at the main file and fix it.
+The function around line 150 has the issue.
+
+**Files to change:**
+- src/triage/handler.ts (line 150)
+- src/types.ts (line 42)</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 代理简报
+
+**摘要：** 修复分诊 bug
+
+**要做什么：**
+分诊那个东西坏了。查看主文件并修复它。
+第 150 行附近的函数有问题。
+
+**要更改的文件：**
+- src/triage/handler.ts（第 150 行）
+- src/types.ts（第 42 行）</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>This is bad because:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这是一个糟糕的简报，因为：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>No category</li>
+        <li>Vague description ("the triage thing is broken")</li>
+        <li>References file paths and line numbers that will go stale</li>
+        <li>No acceptance criteria</li>
+        <li>No scope boundaries</li>
+        <li>No description of current vs desired behavior</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>没有分类</li>
+        <li>描述模糊（"分诊那个东西坏了"）</li>
+        <li>引用了会过时的文件路径和行号</li>
+        <li>没有验收标准</li>
+        <li>没有范围边界</li>
+        <li>没有描述当前与期望行为的对比</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Good and Bad Tests · tdd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #e8e5db;
+      padding: 0.6rem 0.8rem;
+      border-radius: 3px;
+      overflow-x: auto;
+      margin: 0.35rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a class="back-link" href="SKILL.html">← tdd</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Good and Bad Tests</h1>
+    <div class="subtitle">好测试与坏测试</div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Good Tests</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>好测试</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Integration-style</strong>: Test through real interfaces, not mocks of internal parts.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>集成风格</strong>：通过真实接口测试，而非模拟内部组件。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// GOOD: Tests observable behavior
+test("user can checkout with valid cart", async () =&gt; {
+  const cart = createCart();
+  cart.add(product);
+  const result = await checkout(cart, paymentMethod);
+  expect(result.status).toBe("confirmed");
+});</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 好测试：测试可观察的行为
+test("user can checkout with valid cart", async () =&gt; {
+  const cart = createCart();
+  cart.add(product);
+  const result = await checkout(cart, paymentMethod);
+  expect(result.status).toBe("confirmed");
+});</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Characteristics:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>特征：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Tests behavior users/callers care about</li>
+        <li>Uses public API only</li>
+        <li>Survives internal refactors</li>
+        <li>Describes WHAT, not HOW</li>
+        <li>One logical assertion per test</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>测试用户/调用者关心的行为</li>
+        <li>仅使用公共 API</li>
+        <li>能经受内部重构</li>
+        <li>描述 WHAT（做什么），而非 HOW（怎么做）</li>
+        <li>每个测试一个逻辑断言</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Bad Tests</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>坏测试</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Implementation-detail tests</strong>: Coupled to internal structure.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>实现细节测试</strong>：与内部结构耦合。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// BAD: Tests implementation details
+test("checkout calls paymentService.process", async () =&gt; {
+  const mockPayment = jest.mock(paymentService);
+  await checkout(cart, payment);
+  expect(mockPayment.process).toHaveBeenCalledWith(cart.total);
+});</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 坏测试：测试实现细节
+test("checkout calls paymentService.process", async () =&gt; {
+  const mockPayment = jest.mock(paymentService);
+  await checkout(cart, payment);
+  expect(mockPayment.process).toHaveBeenCalledWith(cart.total);
+});</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Red flags:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>危险信号：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Mocking internal collaborators</li>
+        <li>Testing private methods</li>
+        <li>Asserting on call counts/order</li>
+        <li>Test breaks when refactoring without behavior change</li>
+        <li>Test name describes HOW not WHAT</li>
+        <li>Verifying through external means instead of interface</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>模拟内部协作者</li>
+        <li>测试私有方法</li>
+        <li>对调用次数/顺序断言</li>
+        <li>重构时测试失败但行为未变</li>
+        <li>测试名称描述 HOW（怎么做）而非 WHAT（做什么）</li>
+        <li>通过外部手段而非接口验证</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// BAD: Bypasses interface to verify
+test("createUser saves to database", async () =&gt; {
+  await createUser({ name: "Alice" });
+  const row = await db.query("SELECT * FROM users WHERE name = ?", ["Alice"]);
+  expect(row).toBeDefined();
+});
+
+// GOOD: Verifies through interface
+test("createUser makes user retrievable", async () =&gt; {
+  const user = await createUser({ name: "Alice" });
+  const retrieved = await getUser(user.id);
+  expect(retrieved.name).toBe("Alice");
+});</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 坏测试：绕过接口验证
+test("createUser saves to database", async () =&gt; {
+  await createUser({ name: "Alice" });
+  const row = await db.query("SELECT * FROM users WHERE name = ?", ["Alice"]);
+  expect(row).toBeDefined();
+});
+
+// 好测试：通过接口验证
+test("createUser makes user retrievable", async () =&gt; {
+  const user = await createUser({ name: "Alice" });
+  const retrieved = await getUser(user.id);
+  expect(retrieved.name).toBe("Alice");
+});</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Tautological tests</strong>: Expected value restates the implementation, so the test passes by construction.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>同义反复测试</strong>：期望值重述了实现，因此测试按构造通过。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// BAD: Expected value is recomputed the way the code computes it
+test("calculateTotal sums line items", () =&gt; {
+  const items = [{ price: 10 }, { price: 5 }];
+  const expected = items.reduce((sum, i) =&gt; sum + i.price, 0);
+  expect(calculateTotal(items)).toBe(expected);
+});
+
+// GOOD: Expected value is an independent, known literal
+test("calculateTotal sums line items", () =&gt; {
+  expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15);
+});</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 坏测试：期望值以代码的相同方式重新计算
+test("calculateTotal sums line items", () =&gt; {
+  const items = [{ price: 10 }, { price: 5 }];
+  const expected = items.reduce((sum, i) =&gt; sum + i.price, 0);
+  expect(calculateTotal(items)).toBe(expected);
+});
+
+// 好测试：期望值是独立的已知字面量
+test("calculateTotal sums line items", () =&gt; {
+  expect(calculateTotal([{ price: 10 }, { price: 5 }])).toBe(15);
+});</code></pre></div>
+    </div>
+
+  </div>
+</body>
+</html>

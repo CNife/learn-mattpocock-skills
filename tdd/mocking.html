@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When to Mock · tdd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #e8e5db;
+      padding: 0.6rem 0.8rem;
+      border-radius: 3px;
+      overflow-x: auto;
+      margin: 0.35rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a class="back-link" href="SKILL.html">← tdd</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>When to Mock</h1>
+    <div class="subtitle">何时使用模拟</div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Mock at <strong>system boundaries</strong> only:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>仅在<strong>系统边界</strong>处使用模拟：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>External APIs (payment, email, etc.)</li>
+        <li>Databases (sometimes - prefer test DB)</li>
+        <li>Time/randomness</li>
+        <li>File system (sometimes)</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>外部 API（支付、邮件等）</li>
+        <li>数据库（有时——优先使用测试数据库）</li>
+        <li>时间/随机性</li>
+        <li>文件系统（有时）</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Don't mock:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>不要模拟：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Your own classes/modules</li>
+        <li>Internal collaborators</li>
+        <li>Anything you control</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>你自己的类/模块</li>
+        <li>内部协作者</li>
+        <li>任何你可以控制的东西</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Designing for Mockability</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>为可模拟性而设计</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>At system boundaries, design interfaces that are easy to mock:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在系统边界处，设计易于模拟的接口：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>1. Use dependency injection</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>1. 使用依赖注入</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Pass external dependencies in rather than creating them internally:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将外部依赖传入而非在内部创建：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// Easy to mock
+function processPayment(order, paymentClient) {
+  return paymentClient.charge(order.total);
+}
+
+// Hard to mock
+function processPayment(order) {
+  const client = new StripeClient(process.env.STRIPE_KEY);
+  return client.charge(order.total);
+}</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 易于模拟
+function processPayment(order, paymentClient) {
+  return paymentClient.charge(order.total);
+}
+
+// 难以模拟
+function processPayment(order) {
+  const client = new StripeClient(process.env.STRIPE_KEY);
+  return client.charge(order.total);
+}</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>2. Prefer SDK-style interfaces over generic fetchers</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>2. 优先使用 SDK 风格的接口而非通用请求器</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Create specific functions for each external operation instead of one generic function with conditional logic:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>为每个外部操作创建特定的函数，而不是一个带有条件逻辑的通用函数：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>// GOOD: Each function is independently mockable
+const api = {
+  getUser: (id) =&gt; fetch(`/users/${id}`),
+  getOrders: (userId) =&gt; fetch(`/users/${userId}/orders`),
+  createOrder: (data) =&gt; fetch('/orders', { method: 'POST', body: data }),
+};
+
+// BAD: Mocking requires conditional logic inside the mock
+const api = {
+  fetch: (endpoint, options) =&gt; fetch(endpoint, options),
+};</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>// 好：每个函数都可独立模拟
+const api = {
+  getUser: (id) =&gt; fetch(`/users/${id}`),
+  getOrders: (userId) =&gt; fetch(`/users/${userId}/orders`),
+  createOrder: (data) =&gt; fetch('/orders', { method: 'POST', body: data }),
+};
+
+// 坏：模拟需要在内部使用条件逻辑
+const api = {
+  fetch: (endpoint, options) =&gt; fetch(endpoint, options),
+};</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The SDK approach means:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>SDK 方法意味着：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Each mock returns one specific shape</li>
+        <li>No conditional logic in test setup</li>
+        <li>Easier to see which endpoints a test exercises</li>
+        <li>Type safety per endpoint</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>每个模拟返回一个特定形状</li>
+        <li>测试设置中没有条件逻辑</li>
+        <li>更容易看到测试用到了哪些端点</li>
+        <li>每个端点的类型安全</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

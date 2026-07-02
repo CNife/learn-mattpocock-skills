@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tdd · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    pre {
+      background: #e8e5db;
+      padding: 0.6rem 0.8rem;
+      border-radius: 3px;
+      overflow-x: auto;
+      margin: 0.35rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="tests.html">tests</a> · <a href="mocking.html">mocking</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>tdd</td></tr>
+      <tr><td>description</td><td>Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.</td></tr>
+      <tr><td>触发词</td><td>测试驱动开发。当用户想以测试为先的方式构建功能或修复 bug、提到「红-绿-重构」，或想要集成测试时使用。</td></tr>
+    </table>
+
+    <h1>tdd</h1>
+    <p class="subtitle">Test-driven development. Use when the user wants to build features or fix bugs test-first, mentions "red-green-refactor", or wants integration tests.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>TDD is the red → green loop. This skill is the reference that makes that loop produce tests worth keeping: what a good test is, where tests go, the anti-patterns, and the rules of the loop. Every section applies on every cycle — consult them before and during the loop, not after.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>TDD 是红 → 绿的循环。本技能是让该循环产生值得保留的测试的参考指南：好测试的标准、测试的位置、反模式以及循环规则。每个部分在每个周期都适用——在循环之前和期间查阅它们，而不是之后。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When exploring the codebase, read <code>CONTEXT.md</code> (if it exists) so test names and interface vocabulary match the project's domain language, and respect ADRs in the area you're touching.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>探索代码库时，阅读 <code>CONTEXT.md</code>（如果存在），使测试名称和接口词汇与项目的领域语言匹配，并尊重你触及区域的 ADR。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>What a good test is</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>什么是好测试</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Tests verify behavior through public interfaces, not implementation details. Code can change entirely; tests shouldn't. A good test reads like a specification — "user can checkout with valid cart" tells you exactly what capability exists — and survives refactors because it doesn't care about internal structure.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>测试通过公共接口验证行为，而不是实现细节。代码可以完全改变；测试不应该。一个好的测试读起来像一份规格说明——"用户可以使用有效购物车结账"确切地告诉你存在什么能力——并且能经受重构，因为它不关心内部结构。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>See <a href="tests.html">tests.md</a> for examples and <a href="mocking.html">mocking.md</a> for mocking guidelines.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>参见 <a href="tests.html">tests.md</a> 获取示例，<a href="mocking.html">mocking.md</a> 获取模拟指南。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Seams — where tests go</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>接缝——测试的位置</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A <strong>seam</strong> is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>接缝</strong>是你进行测试的公共边界：一个无需触及内部就能观察行为的接口。测试存在于接缝处，绝不针对内部。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Test only at pre-agreed seams.</strong> Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything — agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>只在预先约定的接缝处测试。</strong> 在编写任何测试之前，写下被测的接缝并与用户确认。没有测试写在未经确认的接缝上。你无法测试所有东西——事先约定接缝，测试工作才能落在关键路径和复杂逻辑上，而不是每种边缘情况。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Ask: "What's the public interface, and which seams should we test?"</p></div>
+      <div class="col-zh" lang="zh-CN"><p>请问："公共接口是什么，我们应该测试哪些接缝？"</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Anti-patterns</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>反模式</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Implementation-coupled</strong> — mocks internal collaborators, tests private methods, or verifies through a side channel (querying the database instead of using the interface). The tell: the test breaks when you refactor but behavior hasn't changed.</li>
+        <li><strong>Tautological</strong> — the assertion recomputes the expected value the way the code does (<code>expect(add(a, b)).toBe(a + b)</code>, a snapshot derived by hand the same way, a constant asserted equal to itself), so it passes by construction and can never disagree with the code. Expected values must come from an independent source of truth — a known-good literal, a worked example, the spec.</li>
+        <li><strong>Horizontal slicing</strong> — writing all tests first, then all implementation. Bulk tests verify <em>imagined</em> behavior: you test the <em>shape</em> of things rather than user-facing behavior, the tests go insensitive to real changes, and you commit to test structure before understanding the implementation. Work in <strong>vertical slices</strong> instead — one test → one implementation → repeat, each test a <strong>tracer bullet</strong> that responds to what the last cycle taught you.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>耦合实现细节</strong>——模拟内部协作者、测试私有方法，或通过旁路通道验证（查询数据库而非使用接口）。征兆：重构时测试失败，但行为并未改变。</li>
+        <li><strong>同义反复</strong>——断言以代码的相同方式重新计算期望值（<code>expect(add(a, b)).toBe(a + b)</code>、以同样方式手工推导的快照、一个断言等于自身的常量），因此它按构造通过，永远无法与代码产生分歧。期望值必须来自独立的真值来源——已知良好的字面量、经过手工计算的示例、规格说明。</li>
+        <li><strong>水平切片</strong>——先写完所有测试，再写所有实现。批量测试验证的是<em>想象中</em>的行为：你测试的是事物的<em>形态</em>而非面向用户的行为，测试对真实变化变得不敏感，并且你在理解实现之前就确定了测试结构。应当使用<strong>垂直切片</strong>——一个测试 → 一个实现 → 重复，每个测试都是一颗<strong>曳光弹</strong>，回应上一周期教会你的东西。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Rules of the loop</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>循环规则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Red before green.</strong> Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.</li>
+        <li><strong>One slice at a time.</strong> One seam, one test, one minimal implementation per cycle.</li>
+        <li><strong>Refactoring is not part of the loop.</strong> It belongs to the review stage (see the <code>review</code> skill), not the red → green implementation cycle.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>红在前，绿在后。</strong> 先写失败的测试，然后只写足够让它通过的代码。不要预测未来的测试或添加推测性的功能。</li>
+        <li><strong>一次一片。</strong> 每个周期一个接缝、一个测试、一个最小实现。</li>
+        <li><strong>重构不属于循环的一部分。</strong> 它属于审查阶段（参见 <code>review</code> 技能），而不是红 → 绿的实现周期。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

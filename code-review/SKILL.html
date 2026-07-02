@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>code-review · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p {
+      margin: 0.6rem 0;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en ol, .col-zh ol,
+    .col-en ul, .col-zh ul {
+      margin: 0.4rem 0 0.4rem 1.4rem;
+    }
+
+    .col-en li, .col-zh li {
+      margin: 0.25rem 0;
+    }
+
+    .col-en h2, .col-zh h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.2rem 0 0.4rem;
+    }
+
+    .col-en h3, .col-zh h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.3rem;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>code-review</td></tr>
+      <tr><td>description</td><td>Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".</td></tr>
+      <tr><td>触发词</td><td>沿两条轴线审查自某个固定点（提交、分支、标签或合并基点）以来的变更——规范轴（代码是否遵循该仓库的已记录编码规范？）和规格轴（代码是否匹配原始 issue/PRD 的要求？）。在两个并行子代理中分别运行这两条审查，并排报告结果。当用户想要审查分支、PR、进行中的变更，或要求审查自某点以来的变更时使用。</td></tr>
+    </table>
+
+    <h1>code-review</h1>
+    <p class="subtitle">Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Two-axis review of the diff between <code>HEAD</code> and a fixed point the user supplies:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对 <code>HEAD</code> 与用户提供的固定点之间 diff 的双轴审查：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Standards</strong> — does the code conform to this repo's documented coding standards?</li>
+          <li><strong>Spec</strong> — does the code faithfully implement the originating issue / PRD / spec?</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>规范（Standards）</strong> — 代码是否遵循该仓库的已记录编码规范？</li>
+          <li><strong>规格（Spec）</strong> — 代码是否忠实地实现了原始 issue / PRD / 规格说明？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Both axes run as <strong>parallel sub-agents</strong> so they don't pollute each other's context, then this skill aggregates their findings.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>两条轴线以<strong>并行的子代理</strong>运行，以免互相污染上下文，随后该技能汇总它们的发现。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The issue tracker should have been provided to you — run <code>/setup-matt-pocock-skills</code> if <code>docs/agents/issue-tracker.md</code> is missing.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>Issue 跟踪器应已提供给你——如果 <code>docs/agents/issue-tracker.md</code> 缺失，请运行 <code>/setup-matt-pocock-skills</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Process</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>流程</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>1. Pin the fixed point</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>1. 固定参考点</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Whatever the user said is the fixed point — a commit SHA, branch name, tag, <code>main</code>, <code>HEAD~5</code>, etc. If they didn't specify one, ask for it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户所说的任何内容即为固定点——一个提交 SHA、分支名、标签、<code>main</code>、<code>HEAD~5</code> 等。如果用户没有指定，请询问。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Capture the diff command once: <code>git diff &lt;fixed-point&gt;...HEAD</code> (three-dot, so the comparison is against the merge-base). Also note the list of commits via <code>git log &lt;fixed-point&gt;..HEAD --oneline</code>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>记录 diff 命令：<code>git diff &lt;fixed-point&gt;...HEAD</code>（三点，因此比较针对合并基点）。同时通过 <code>git log &lt;fixed-point&gt;..HEAD --oneline</code> 记下提交列表。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Before going further, confirm the fixed point resolves (<code>git rev-parse &lt;fixed-point&gt;</code>) and the diff is non-empty. A bad ref or empty diff should fail here — not inside two parallel sub-agents.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在继续之前，确认固定点可解析（<code>git rev-parse &lt;fixed-point&gt;</code>）且 diff 非空。无效引用或空 diff 应在此处失败——而不是在两个并行子代理内部。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>2. Identify the spec source</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>2. 确定规格来源</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Look for the originating spec, in this order:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>按以下顺序查找原始规格说明：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li>Issue references in the commit messages (<code>#123</code>, <code>Closes #45</code>, GitLab <code>!67</code>, etc.) — fetch via the workflow in <code>docs/agents/issue-tracker.md</code>.</li>
+          <li>A path the user passed as an argument.</li>
+          <li>A PRD/spec file under <code>docs/</code>, <code>specs/</code>, or <code>.scratch/</code> matching the branch name or feature.</li>
+          <li>If nothing is found, ask the user where the spec is. If they say there isn't one, the <strong>Spec</strong> sub-agent will skip and report "no spec available".</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li>提交信息中的 Issue 引用（<code>#123</code>、<code>Closes #45</code>、GitLab <code>!67</code> 等）——通过 <code>docs/agents/issue-tracker.md</code> 中的工作流获取。</li>
+          <li>用户通过参数传递的路径。</li>
+          <li><code>docs/</code>、<code>specs/</code> 或 <code>.scratch/</code> 下匹配分支名或功能名的 PRD/规格文件。</li>
+          <li>若未找到，询问用户规格在哪里。若用户表示没有规格，则 <strong>规格</strong>子代理将跳过并在报告中注明"无可用规格"。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>3. Identify the standards sources</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>3. 确定规范来源</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Anything in the repo that documents how code should be written, such as <code>CODING_STANDARDS.md</code> or <code>CONTRIBUTING.md</code>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>仓库中任何记录了代码应如何编写的文件，如 <code>CODING_STANDARDS.md</code> 或 <code>CONTRIBUTING.md</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>On top of whatever the repo documents, the Standards axis always carries the <strong>smell baseline</strong> below — a fixed set of Fowler code smells (<em>Refactoring</em>, ch.3) that applies even when a repo documents nothing. Two rules bind it:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在仓库已记录的内容之上，规范轴始终附带以下<strong>坏味道基线</strong>——一组固定的 Fowler 代码坏味道（<em>Refactoring</em> 第 3 章），即使仓库没有任何文档也同样适用。两条规则约束它：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>The repo overrides.</strong> A documented repo standard always wins; where it endorses something the baseline would flag, suppress the smell.</li>
+          <li><strong>Always a judgement call.</strong> Each smell is a labelled heuristic ("possible Feature Envy"), never a hard violation — and, like any standard here, skip anything tooling already enforces.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>The repo overrides.</strong> 已记录的仓库标准始终优先；若其认可了基线会标记的内容，则压制该坏味道。</li>
+          <li><strong>Always a judgement call.</strong> 每种坏味道都是一个带有标签的启发式判断（例如"可能的 Feature Envy"），而非硬性违规——与本处所有标准一样，跳过工具已强制检查的内容。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each smell reads <em>what it is</em> → <em>how to fix</em>; match it against the diff:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每种坏味道采用<em>是什么</em> → <em>如何修复</em>的格式；将其与 diff 对照匹配：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Mysterious Name</strong> — a function, variable, or type whose name doesn't reveal what it does or holds. → rename it; if no honest name comes, the design's murky.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Mysterious Name</strong> — 函数、变量或类型的名称未能揭示其功能或含义。→ 重命名；若找不到合适的名称，说明设计不清晰。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Duplicated Code</strong> — the same logic shape appears in more than one hunk or file in the change. → extract the shared shape, call it from both.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Duplicated Code</strong> — 同一段逻辑结构在变更中的多个代码块或文件中重复出现。→ 提取共享结构，从两处调用它。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Feature Envy</strong> — a method that reaches into another object's data more than its own. → move the method onto the data it envies.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Feature Envy</strong> — 方法访问另一个对象的数据比访问自己的还多。→ 将该方法移到它"嫉妒"的数据上。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Data Clumps</strong> — the same few fields or params keep travelling together (a type wanting to be born). → bundle them into one type, pass that.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Data Clumps</strong> — 相同的几个字段或参数总是结伴出现（一个渴望诞生的类型）。→ 将它们打包成一个类型，传递该类型。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Primitive Obsession</strong> — a primitive or string standing in for a domain concept that deserves its own type. → give the concept its own small type.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Primitive Obsession</strong> — 使用基本类型或字符串来代表本应拥有专属类型的领域概念。→ 给该概念一个独立的小类型。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Repeated Switches</strong> — the same <code>switch</code>/<code>if</code>-cascade on the same type recurs across the change. → replace with polymorphism, or one map both sites share.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Repeated Switches</strong> — 变更中反复出现针对同一类型的相同 <code>switch</code>/<code>if</code> 级联。→ 用多态替换，或使用两处共享的同一映射表。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Shotgun Surgery</strong> — one logical change forces scattered edits across many files in the diff. → gather what changes together into one module.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Shotgun Surgery</strong> — 一个逻辑变更迫使 diff 中许多文件散落修改。→ 将被修改的内容聚集到一个模块中。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Divergent Change</strong> — one file or module is edited for several unrelated reasons. → split so each module changes for one reason.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Divergent Change</strong> — 一个文件或模块因多种不相关的原因而被修改。→ 拆分，使每个模块只因一种原因而变更。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Speculative Generality</strong> — abstraction, parameters, or hooks added for needs the spec doesn't have. → delete it; inline back until a real need shows.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Speculative Generality</strong> — 为规格说明中不存在的需求而添加的抽象、参数或钩子。→ 删除它；内联回去，直到真实需求出现。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Message Chains</strong> — long <code>a.b().c().d()</code> navigation the caller shouldn't depend on. → hide the walk behind one method on the first object.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Message Chains</strong> — 调用方不应依赖的过长 <code>a.b().c().d()</code> 链条式导航。→ 将遍历过程隐藏到第一个对象的一个方法后面。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Middle Man</strong> — a class or function that mostly just delegates onward. → cut it, call the real target direct.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Middle Man</strong> — 一个主要只是向下委托的类或函数。→ 删掉它，直接调用真正的目标。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Refused Bequest</strong> — a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Refused Bequest</strong> — 子类或实现者忽略或覆写了继承来的大部分内容。→ 放弃继承，改用组合。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>4. Spawn both sub-agents in parallel</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>4. 并行启动两个子代理</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Send a single message with two <code>Agent</code> tool calls. Use the <code>general-purpose</code> subagent for both.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>发送一条包含两个 <code>Agent</code> 工具调用的单次消息。两个都使用 <code>general-purpose</code> 子代理。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Standards sub-agent prompt</strong> — include:</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>规范子代理提示</strong> — 包含：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>The full diff command and commit list.</li>
+          <li>The list of standards-source files you found in step 3, <strong>plus the smell baseline from step 3</strong> pasted in full — the sub-agent has no other access to it.</li>
+          <li>The brief: "Report — per file/hunk where relevant — (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls — documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words."</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>完整的 diff 命令和提交列表。</li>
+          <li>你在步骤 3 中发现的规范来源文件列表，以及<strong>步骤 3 中的坏味道基线</strong>完整粘贴——子代理无法自行获取。</li>
+          <li>指令："报告——按相关文件/代码块——(a) diff 中每处违反已记录标准的地方：引用标准（文件 + 规则）；(b) 任何你发现的基线坏味道：命名它并引用代码块。区分硬性违规与判断性调用——违反已记录标准可以是硬性的，但基线坏味道始终是判断性调用，且已记录的仓库标准优先于基线。跳过工具已强制检查的内容。不超过 400 字。"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Spec sub-agent prompt</strong> — include:</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>规格子代理提示</strong> — 包含：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>The diff command and commit list.</li>
+          <li>The path or fetched contents of the spec.</li>
+          <li>The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>diff 命令和提交列表。</li>
+          <li>规格说明的路径或获取到的内容。</li>
+          <li>指令："报告：(a) 规格说明要求但缺失或不完整的需求；(b) diff 中未经要求的行为（范围蔓延）；(c) 看似已实现但实现方式有问题的需求。对每条发现引用规格说明原文。不超过 400 字。"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the spec is missing, skip the Spec sub-agent and note this in the final report.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果规格说明缺失，则跳过规格子代理并在最终报告中注明。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>5. Aggregate</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>5. 汇总</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Present the two reports under <code>## Standards</code> and <code>## Spec</code> headings, verbatim or lightly cleaned. Do <strong>not</strong> merge or rerank findings — the two axes are deliberately separate (see <em>Why two axes</em>).</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在两个 <code>## Standards</code> 和 <code>## Spec</code> 标题下呈现两份报告，逐字引用或稍加清理。<strong>不要</strong>合并或重新排序发现——两条轴线是有意分开的（参见<em>为何分两条轴线</em>）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>End with a one-line summary: total findings per axis, and the worst issue <em>within each axis</em> (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>以一行摘要结束：每条轴线的发现总数，以及每条轴线<em>内</em>的最严重问题（如有）。不要在轴线之间选择单一胜者——这正是分开报告所要防止的重新排序。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Why two axes</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>为何分两条轴线</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A change can pass one axis and fail the other:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一项变更可能通过一条轴线而失败于另一条：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>Code that follows every standard but implements the wrong thing → <strong>Standards pass, Spec fail.</strong></li>
+          <li>Code that does exactly what the issue asked but breaks the project's conventions → <strong>Spec pass, Standards fail.</strong></li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>符合所有规范却实现错误内容的代码 → <strong>规范通过，规格失败。</strong></li>
+          <li>完全按 issue 要求编码却违反项目约定的代码 → <strong>规格通过，规范失败。</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Reporting them separately stops one axis from masking the other.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>分开报告可防止一条轴线掩盖另一条。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>
