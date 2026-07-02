@@ -12,9 +12,21 @@ disable-model-invocation: true
 
 ### 1. 读源文件
 
-读入待转换的 `SKILL.md`，完整读取。记录 frontmatter 中的 `name`、`description`、`invocation`（取决于 `disable-model-invocation` 字段：`true` → `user-invoked only`，缺失或 `false` → `model-invoked`）。
+读入待转换的 `SKILL.md`，完整读取。提取 frontmatter **所有字段**，保留原始值，不做解释或转化。
 
-**完成标志**：frontmatter 三字段已提取，全文已读入。
+字段按以下顺序和规则排列到表格：
+
+| 字段 | 规则 |
+|---|---|
+| `name` | 原文直出 |
+| `description` | 原文直出 |
+| — | 紧随其后加一行「触发词」列，值为 description 的中文翻译 |
+| `argument-hint` | 如有则原文直出 |
+| — | 紧随其后加一行「参数提示」列，值为 argument-hint 的中文翻译 |
+| `disable-model-invocation` | 如有则直接输出原始值（`true` / `false`），不做任何解释 |
+| 其他未知字段 | 原文直出，不翻译 |
+
+**完成标志**：frontmatter 全部字段已提取，全文已读入。
 
 ### 2. 分段落
 
@@ -112,15 +124,24 @@ body {
 
 #### 3.4 Frontmatter 表格
 
-frontmatter 放在页面最顶部，用 `<table>` 展示，墨蓝左边框：
+frontmatter 放在页面最顶部，用 `<table>` 展示，墨蓝左边框。所有字段按原始值输出，不做解释：
 
 ```html
 <table class="fm-table">
   <tr><td>name</td><td>{name}</td></tr>
   <tr><td>description</td><td>{description}</td></tr>
-  <tr><td>invocation</td><td>user-invoked only (<code>disable-model-invocation: true</code>)</td></tr>
+  <tr><td>触发词</td><td>{description 的中文翻译}</td></tr>
+  <!-- 以下两行仅在 frontmatter 含 argument-hint 时出现 -->
+  <tr><td>argument-hint</td><td>{argument-hint 原文}</td></tr>
+  <tr><td>参数提示</td><td>{argument-hint 的中文翻译}</td></tr>
+  <tr><td>disable-model-invocation</td><td>{原始值，如 true}</td></tr>
 </table>
 ```
+
+注意：
+- 不要在表格中对任何字段值做额外解释（如 `true` → `user-invoked only`）
+- frontmatter 中不存在的字段不要出现在表格中
+- 对于未知/非标准的 frontmatter 字段，原文直出，不翻译
 
 ```css
 .fm-table {
