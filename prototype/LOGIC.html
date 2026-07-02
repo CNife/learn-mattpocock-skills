@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Prototype · prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    strong { color: var(--ink-blue); }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <a class="back-link" href="SKILL.html">← 返回 Prototype 主文档</a>
+
+    <h1>Logic Prototype</h1>
+    <div class="subtitle">逻辑原型</div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A tiny interactive terminal app that lets the user drive a state model by hand. Use this when the question is about <strong>business logic, state transitions, or data shape</strong> — the kind of thing that looks reasonable on paper but only feels wrong once you push it through real cases.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一个小型交互式终端应用，让用户亲手驱动状态模型。当问题涉及<strong>业务逻辑、状态转换或数据结构</strong>时使用——那些在纸上看起来合理，只有通过真实案例推动才会觉得不对劲的事情。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When this is the right shape</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时适用</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>"I'm not sure if this state machine handles the edge case where X then Y."</li>
+        <li>"Does this data model actually let me represent the case where…"</li>
+        <li>"I want to feel out what the API should look like before writing it."</li>
+        <li>Anything where the user wants to <strong>press buttons and watch state change</strong>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>"我不确定这个状态机能否处理 X 然后 Y 的边缘情况。"</li>
+        <li>"这个数据模型真的能让我表达……的情况吗？"</li>
+        <li>"我想在编写之前先感受一下 API 应该长什么样。"</li>
+        <li>任何用户想<strong>按按钮并观察状态变化</strong>的场景。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the question is "what should this look like" — wrong branch. Use <a href="UI.html">UI.md</a>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果问题是"这应该长什么样"——选错分支了。使用 <a href="UI.html">UI.md</a>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Process</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>流程</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>1. State the question</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>1. 陈述问题</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Before writing code, write down what state model and what question you're prototyping. One paragraph, in the prototype's README or a comment at the top of the file. A logic prototype that answers the wrong question is pure waste — make the question explicit so it can be checked later, whether the user is watching now or returning to it AFK.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在写代码之前，写下你要原型化的状态模型和问题。一段话，放在原型的 README 或文件顶部的注释中。回答错误问题的逻辑原型纯粹是浪费——把问题明确写出来，这样以后可以检查，无论用户现在在看，还是离开后回来查看。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>2. Pick the language</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>2. 选择语言</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Use whatever the host project uses. If the project has no obvious runtime (e.g. a docs repo), ask.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>使用宿主项目所用的语言。如果项目没有明显的运行时（如文档仓库），询问。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Match the project's existing conventions for tooling — don't add a new package manager or runtime just for the prototype.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>匹配项目已有的工具链约定——不要仅为原型引入新的包管理器或运行时。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>3. Isolate the logic in a portable module</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>3. 将逻辑隔离到可移植模块中</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Put the actual logic — the bit that's answering the question — behind a small, pure interface that could be lifted out and dropped into the real codebase later. The TUI around it is throwaway; the logic module shouldn't be.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将实际逻辑——回答问题的部分——放在一个小的纯接口后面，以后可以提取出来放到真实的代码库中。周围的 TUI 是可抛弃的；逻辑模块不应该是。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The right shape depends on the question:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>正确的形态取决于问题：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>A pure reducer</strong> — <code>(state, action) =&gt; state</code>. Good when actions are discrete events and state is a single value.</li>
+        <li><strong>A state machine</strong> — explicit states and transitions. Good when "which actions are even legal right now" is part of the question.</li>
+        <li><strong>A small set of pure functions</strong> over a plain data type. Good when there's no implicit current state — just transformations.</li>
+        <li><strong>A class or module with a clear method surface</strong> when the logic genuinely owns ongoing internal state.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>纯 reducer</strong> — <code>(state, action) =&gt; state</code>。适用于操作是离散事件且状态是单一值的情况。</li>
+        <li><strong>状态机</strong>——显式状态和转换。适用于"当前哪些操作是合法的"本身就是问题一部分的情况。</li>
+        <li><strong>一组纯函数</strong>——操作普通数据类型。适用于没有隐式当前状态——只有转换的情况。</li>
+        <li><strong>具有清晰方法面的类或模块</strong>——当逻辑真正拥有持续的内部状态时。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Pick whichever shape best fits the question being asked, <em>not</em> whichever is easiest to wire to a TUI. Keep it pure: no I/O, no terminal code, no <code>console.log</code> for control flow. The TUI imports it and calls into it; nothing flows the other direction.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>选择最适合问题的形态，<em>而不是</em>最容易连接到 TUI 的。保持纯粹：无 I/O，无终端代码，不用 <code>console.log</code> 做控制流。TUI 导入它并调用它；没有反向流动。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>This is what makes the prototype useful past its own lifetime. When the question's been answered, the validated reducer / machine / function set can be lifted into the real module — the TUI shell gets deleted.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这就是让原型在其自身生命周期之外仍然有用的原因。当问题得到回答后，经过验证的 reducer / 状态机 / 函数集可以被提升到真实模块中——TUI 外壳被删除。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>4. Build the smallest TUI that exposes the state</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>4. 构建展示状态的最小 TUI</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Build it as a <strong>lightweight TUI</strong> — on every tick, clear the screen (<code>console.clear()</code> / <code>print("\033[2J\033[H")</code> / equivalent) and re-render the whole frame. The user should always see one stable view, not an ever-growing scrollback.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>以<strong>轻量级 TUI</strong> 的方式构建——每次 tick 时清屏（<code>console.clear()</code> / <code>print("\033[2J\033[H")</code> / 等效方式）并重新渲染整个画面。用户应该始终看到一个稳定的视图，而不是不断增长的滚动回退。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each frame has two parts, in this order:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每帧按顺序包含两部分：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Current state</strong>, pretty-printed and diff-friendly (one field per line, or formatted JSON). Use <strong>bold</strong> for field names or section headers and <strong>dim</strong> for less important context (timestamps, IDs, derived values). Native ANSI escape codes are fine — <code>\x1b[1m</code> bold, <code>\x1b[2m</code> dim, <code>\x1b[0m</code> reset. No need to pull in a styling library unless one is already in the project.</li>
+        <li><strong>Keyboard shortcuts</strong>, listed at the bottom: <code>[a] add user  [d] delete user  [t] tick clock  [q] quit</code>. Bold the key, dim the description, or vice-versa — whatever reads cleanly.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>当前状态</strong>，美观打印且便于比较（每行一个字段，或格式化的 JSON）。字段名或章节标题用<strong>粗体</strong>，次要上下文（时间戳、ID、派生值）用<strong>暗淡</strong>。原生 ANSI 转义码就很好——<code>\x1b[1m</code> 粗体、<code>\x1b[2m</code> 暗淡、<code>\x1b[0m</code> 重置。除非项目中已有，否则无需引入样式库。</li>
+        <li><strong>键盘快捷键</strong>，列在底部：<code>[a] add user  [d] delete user  [t] tick clock  [q] quit</code>。键用粗体、描述用暗淡，或反之——只要清晰可读。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Behaviour:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>行为：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>Initialise state</strong> — a single in-memory object/struct. Render the first frame on start.</li>
+        <li><strong>Read one keystroke (or one line)</strong> at a time, dispatch to a handler that mutates state.</li>
+        <li><strong>Re-render</strong> the full frame after every action — don't append, replace.</li>
+        <li><strong>Loop until quit.</strong></li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>初始化状态</strong>——一个内存中的对象/结构。启动时渲染第一帧。</li>
+        <li><strong>每次读取一个按键（或一行）</strong>，分发到修改状态的处理函数。</li>
+        <li><strong>重新渲染</strong>每次操作后的完整画面——不要追加，要替换。</li>
+        <li><strong>循环直到退出。</strong></li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The whole frame should fit on one screen.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>整个画面应适合一个屏幕。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>5. Make it runnable in one command</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>5. 一条命令可运行</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Add a script to the project's existing task runner (<code>package.json</code> scripts, <code>Makefile</code>, <code>justfile</code>, <code>pyproject.toml</code>). The user should run <code>pnpm run &lt;prototype-name&gt;</code> or equivalent — never need to remember a path.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在项目已有的任务运行器中添加脚本（<code>package.json</code> scripts、<code>Makefile</code>、<code>justfile</code>、<code>pyproject.toml</code>）。用户应该运行 <code>pnpm run &lt;prototype-name&gt;</code> 或等效命令——永远不需要记住路径。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the host project has no task runner, just put the command at the top of the prototype's README.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果宿主项目没有任务运行器，只需把命令放在原型 README 顶部。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>6. Hand it over</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>6. 交出去</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Give the user the run command. They'll drive it themselves; the interesting moments are when they say "wait, that shouldn't be possible" or "huh, I assumed X would be different" — those are the bugs in the <em>idea</em>, which is the whole point. If they want new actions added, add them. Prototypes evolve.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>把运行命令交给用户。他们会自己操作；有趣的是当他们说"等等，那不应该可能"或"呃，我原以为 X 会不一样"的时候——那些是<em>想法</em>中的 bug，而这正是全部意义所在。如果他们想要添加新的操作，就添加。原型会进化。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>7. Capture the answer</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>7. 记录答案</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When the prototype has done its job, the answer to the question is the only thing worth keeping. If the user is around, ask what it taught them. If not, leave a <code>NOTES.md</code> next to the prototype so the answer can be filled in (or filled in by you, if you've watched the session) before the prototype gets deleted.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当原型完成了它的工作，问题的答案是唯一值得保留的。如果用户在附近，问他们学到了什么。如果不在，在原型旁边留下 <code>NOTES.md</code>，以便在原型被删除前填入答案（或者如果你观察了会话，可以由你填入）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Anti-patterns</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>反模式</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Don't add tests.</strong> A prototype that needs tests is no longer a prototype.</li>
+        <li><strong>Don't wire it to the real database.</strong> Use an in-memory store unless the question is specifically about persistence.</li>
+        <li><strong>Don't generalise.</strong> No "what if we wanted to support X later." The prototype answers one question.</li>
+        <li><strong>Don't blur the logic and the TUI together.</strong> If the reducer / state machine references <code>console.log</code>, prompts, or terminal escape codes, it's no longer portable. Keep the TUI as a thin shell over a pure module.</li>
+        <li><strong>Don't ship the TUI shell into production.</strong> The shell is optimised for being driven by hand from a terminal. The logic module behind it is the bit worth keeping.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>不要添加测试。</strong> 需要测试的原型不再是原型。</li>
+        <li><strong>不要连接到真实数据库。</strong> 使用内存存储，除非问题特别关于持久化。</li>
+        <li><strong>不要泛化。</strong> 不要说"如果我们以后想支持 X 呢"。原型只回答一个问题。</li>
+        <li><strong>不要将逻辑和 TUI 混在一起。</strong> 如果 reducer / 状态机引用了 <code>console.log</code>、提示或终端转义码，它就不再可移植了。保持 TUI 作为纯模块上的薄壳。</li>
+        <li><strong>不要将 TUI 外壳发布到生产环境。</strong> 外壳是为从终端手动操作而优化的。它背后的逻辑模块才是值得保留的部分。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>
