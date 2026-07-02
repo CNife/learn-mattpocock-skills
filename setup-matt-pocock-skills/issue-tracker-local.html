@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>issue-tracker-local · setup-matt-pocock-skills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+      line-height: 1.5;
+    }
+    blockquote {
+      border-left: 3px solid var(--warm-mid);
+      padding-left: 1rem;
+      margin: 0.4rem 0;
+      color: var(--text-soft);
+    }
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+    p { margin: 0.35rem 0; }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="SKILL.html">← setup-matt-pocock-skills</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Issue tracker: Local Markdown</h1>
+    <p class="subtitle">此仓库的 Issue 和 PRD 以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Issues and PRDs for this repo live as markdown files in <code>.scratch/</code>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>此仓库的 Issue 和 PRD 以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Conventions</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>约定</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>One feature per directory: <code>.scratch/&lt;feature-slug&gt;/</code></li>
+        <li>The PRD is <code>.scratch/&lt;feature-slug&gt;/PRD.md</code></li>
+        <li>Implementation issues are <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>, numbered from <code>01</code></li>
+        <li>Triage state is recorded as a <code>Status:</code> line near the top of each issue file (see <code>triage-labels.md</code> for the role strings)</li>
+        <li>Comments and conversation history append to the bottom of the file under a <code>## Comments</code> heading</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>每个功能一个目录：<code>.scratch/&lt;feature-slug&gt;/</code></li>
+        <li>PRD 为 <code>.scratch/&lt;feature-slug&gt;/PRD.md</code></li>
+        <li>实现 Issue 为 <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>，从 <code>01</code> 开始编号</li>
+        <li>分诊状态记录在每个 Issue 文件顶部的 <code>Status:</code> 行中（角色字符串见 <code>triage-labels.md</code>）</li>
+        <li>评论和对话历史追加到文件底部 <code>## Comments</code> 标题下</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When a skill says "publish to the issue tracker"</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>当技能说"发布到 Issue 跟踪器"</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Create a new file under <code>.scratch/&lt;feature-slug&gt;/</code> (creating the directory if needed).</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在 <code>.scratch/&lt;feature-slug&gt;/</code> 下创建新文件（如需要则创建目录）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When a skill says "fetch the relevant ticket"</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>当技能说"获取相关工单"</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Read the file at the referenced path. The user will normally pass the path or the issue number directly.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>读取引用路径处的文件。用户通常会直接传递路径或 Issue 编号。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Wayfinding operations</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>导航操作</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Used by <code>/wayfinder</code>. The <strong>map</strong> is a file with one <strong>child</strong> file per ticket.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>由 <code>/wayfinder</code> 使用。<strong>地图</strong>是一个文件，每个工单对应一个<strong>子</strong>文件。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Map</strong>: <code>.scratch/&lt;effort&gt;/map.md</code> — the Notes / Decisions-so-far / Fog body.</li>
+        <li><strong>Child ticket</strong>: <code>.scratch/&lt;effort&gt;/issues/NN-&lt;slug&gt;.md</code>, numbered from <code>01</code>, with the question in the body. A <code>Type:</code> line records the ticket type (<code>research</code>/<code>prototype</code>/<code>grilling</code>/<code>task</code>); a <code>Status:</code> line records <code>claimed</code>/<code>resolved</code>.</li>
+        <li><strong>Blocking</strong>: a <code>Blocked by: NN, NN</code> line near the top. A ticket is unblocked when every file it lists is <code>resolved</code>.</li>
+        <li><strong>Frontier</strong>: scan <code>.scratch/&lt;effort&gt;/issues/</code> for files that are open, unblocked, and unclaimed; first by number wins.</li>
+        <li><strong>Claim</strong>: set <code>Status: claimed</code> and save before any work.</li>
+        <li><strong>Resolve</strong>: append the answer under an <code>## Answer</code> heading, set <code>Status: resolved</code>, then append a context pointer (gist + link) to the map's Decisions-so-far in <code>map.md</code>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>地图</strong>：<code>.scratch/&lt;effort&gt;/map.md</code>——Notes / Decisions-so-far / Fog 正文。</li>
+        <li><strong>子工单</strong>：<code>.scratch/&lt;effort&gt;/issues/NN-&lt;slug&gt;.md</code>，从 <code>01</code> 开始编号，正文中包含问题。<code>Type:</code> 行记录工单类型（<code>research</code>/<code>prototype</code>/<code>grilling</code>/<code>task</code>）；<code>Status:</code> 行记录 <code>claimed</code>/<code>resolved</code>。</li>
+        <li><strong>阻塞</strong>：顶部附近的 <code>Blocked by: NN, NN</code> 行。当其列出的每个文件都为 <code>resolved</code> 时，工单即解除阻塞。</li>
+        <li><strong>前沿</strong>：扫描 <code>.scratch/&lt;effort&gt;/issues/</code> 中开放、未阻塞且未认领的文件；按编号第一个胜出。</li>
+        <li><strong>认领</strong>：在任何工作之前设置 <code>Status: claimed</code> 并保存。</li>
+        <li><strong>解决</strong>：在 <code>## Answer</code> 标题下追加答案，设置 <code>Status: resolved</code>，然后将上下文指针（gist + 链接）追加到 <code>map.md</code> 中地图的 Decisions-so-far。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>writing-great-skills · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+
+    p { margin: 0.35rem 0; }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="GLOSSARY.html">GLOSSARY</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>writing-great-skills</td></tr>
+      <tr><td>description</td><td>Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.</td></tr>
+      <tr><td>触发词</td><td>编写与编辑技能的参考——使技能具备可预测性的词汇与原则。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>writing-great-skills</h1>
+    <p class="subtitle">Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A skill exists to wrangle determinism out of a stochastic system. <strong>Predictability</strong> — the agent taking the same <em>process</em> every run, not producing the same output — is the root virtue; every lever below serves it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>技能的存在，是为了从随机系统中提取确定性。<strong>可预测性</strong>——代理每次运行采取相同的<em>过程</em>，而非产出相同的输出——是根本美德；下述每个杠杆都服务于它。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Bold terms</strong> are defined in <a href="GLOSSARY.html">GLOSSARY.md</a>; look them up there for the full meaning.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>粗体术语</strong>在 <a href="GLOSSARY.html">GLOSSARY.md</a> 中定义；请查阅该文件获取完整含义。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Invocation</h2><p>Two choices, trading different costs:</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>调用</h2><p>两种选择，各付不同的代价：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+<li>A <strong>model-invoked</strong> skill keeps a <strong>description</strong>, so the agent can fire it autonomously <em>and</em> other skills can reach it (you can still type its name too). It contributes to <strong>context load</strong> — the description sits in the window every turn. Mechanics: omit <code>disable-model-invocation</code>, and write a model-facing description with rich trigger phrasing ("Use when the user wants…, mentions…").</li>
+<li>A <strong>user-invoked</strong> skill strips the description from the agent's reach: only you, typing its name, can invoke it — and no other skill can. Zero context load, but it spends <strong>cognitive load</strong>: <em>you</em> are the index that must remember it exists. Mechanics: set <code>disable-model-invocation: true</code>; the <code>description</code> becomes human-facing — a one-line summary, trigger lists stripped.</li>
+</ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+<li><strong>模型调用</strong>技能保留 <strong>description</strong>，使代理可以自主触发它，<em>并且</em>其他技能可以触达它（你仍然可以输入它的名字）。它贡献<strong>上下文负载</strong>——描述每回合都留在窗口中。机制：省略 <code>disable-model-invocation</code>，编写面向模型的描述，包含丰富的触发措辞（"当用户想要……、提到……时使用"）。</li>
+<li><strong>用户调用</strong>技能将描述从代理的触达范围中剥离：只有你，通过输入它的名字，才能调用它——其他技能无法触达。零上下文负载，但它消耗<strong>认知负载</strong>：<em>你</em>自己必须充当索引来记住它的存在。机制：设置 <code>disable-model-invocation: true</code>；<code>description</code> 变成面向人类的——一行摘要，去掉触发词列表。</li>
+</ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Pick model-invocation only when the agent must reach the skill on its own, or another skill must. If it only ever fires by hand, make it user-invoked and pay no context load.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>只有当代理必须自主触达该技能，或其他技能必须触达它时，才选择模型调用。如果它只能手动触发，就做成用户调用，不付上下文负载。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When user-invoked skills multiply past what you can remember, that piled-up cognitive load is cured by a <strong>router skill</strong>: one user-invoked skill that names the others and when to reach for each.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当用户调用技能多到你记不住时，堆积的认知负载可以通过一个<strong>路由器技能</strong>来治愈：一个用户调用技能，它列出其他技能以及何时使用每一个。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Writing the description</h2><p>A model-invoked <strong>description</strong> does two jobs — state what the skill is, and list the <strong>branches</strong> that should trigger it. Every word increases <strong>context load</strong>, so a description earns even harder pruning than the body:</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>编写描述</h2><p>模型调用的<strong>描述</strong>承担两项工作——说明技能是什么，以及列出应触发它的<strong>分支</strong>。每个词都增加<strong>上下文负载</strong>，因此描述比正文更需要严格修剪：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+<li><strong>Front-load the skill's leading word</strong> — the description is where it does its invocation work.</li>
+<li><strong>One trigger per branch.</strong> Synonyms that rename a single branch are <strong>duplication</strong> — "build features using TDD … asks for test-first development" is one branch written twice. Collapse them; keep only genuinely distinct branches.</li>
+<li><strong>Cut identity that's already in the body.</strong> Keep the description to triggers, plus any "when another skill needs…" reach clause.</li>
+</ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+<li><strong>将技能的前导词前置</strong>——描述是它执行调用工作的地方。</li>
+<li><strong>每个分支一个触发词。</strong>重命名同一分支的同义词是<strong>重复</strong>——"用 TDD 构建功能……要求测试优先开发"是一个分支写了两次。合并它们；只保留真正不同的分支。</li>
+<li><strong>删掉已在正文中的身份信息。</strong>描述只保留触发词，加上任何"当其他技能需要……"的触达子句。</li>
+</ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Information hierarchy</h2><p>A skill is built from two content types — <strong>steps</strong> and <strong>reference</strong> — that mix freely: a skill can be all steps, all reference, or both. The core decision is which to use and where each sits on the <strong>information hierarchy</strong>, a ladder ranked by how immediately the agent needs the material:</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>信息层级</h2><p>技能由两种内容类型构建——<strong>步骤</strong>和<strong>参考</strong>——可自由混合：技能可以全是步骤、全是参考，或两者兼有。核心决策是使用哪种类型，以及每种类型在<strong>信息层级</strong>上的位置——一个按代理对材料的即时需求程度排列的阶梯：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+<li><strong>In-skill step</strong> — an ordered action in <code>SKILL.md</code>, the primary tier: what the agent does, in order. Each step ends on a <strong>completion criterion</strong>, the condition that tells the agent the work is done. Make it <em>checkable</em> (can the agent tell done from not-done?) and, where it matters, <em>exhaustive</em> ("every modified model accounted for", not "produce a change list") — a vague criterion invites <strong>premature completion</strong>.</li>
+<li><strong>In-skill reference</strong> — a definition, rule, or fact in <code>SKILL.md</code>, consulted on demand. Often a legitimately flat peer-set (every rule of a review on one rung) — a fine arrangement, not a smell. <em>This skill is all reference.</em></li>
+<li><strong>External reference</strong> — reference pushed out of <code>SKILL.md</code> into a separate file, reached by a <strong>context pointer</strong>, loaded only when the pointer fires. (Spans <em>disclosed</em> reference — a sibling file like <code>GLOSSARY.md</code>, still part of the skill — through fully <strong>external reference</strong> that lives outside the skill system and any skill can point at.)</li>
+</ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+<li><strong>技能内步骤</strong>——<code>SKILL.md</code> 中的有序操作，主要层级：代理按顺序执行的操作。每个步骤以<strong>完成标准</strong>结束，即告诉代理工作已完成的条件。使其<em>可检查</em>（代理能否区分完成与未完成？）并在重要之处<em>穷尽</em>（"每个修改过的模型都已计入"，而非"生成变更列表"）——模糊的标准会招致<strong>过早完成</strong>。</li>
+<li><strong>技能内参考</strong>——<code>SKILL.md</code> 中按需查阅的定义、规则或事实。通常是合理的扁平对等集合（审查的每条规则在同一层级上）——这是很好的安排，不是问题。<em>本技能全是参考。</em></li>
+<li><strong>外部参考</strong>——从 <code>SKILL.md</code> 推入单独文件的参考，通过<strong>上下文指针</strong>触达，仅在指针触发时加载。（涵盖<em>已披露</em>的参考——如 <code>GLOSSARY.md</code> 这样的兄弟文件，仍属于技能的一部分——直到完全<strong>外部参考</strong>，即存在于技能系统之外、任何技能都可以指向的文件。）</li>
+</ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A demanding completion criterion drives thorough <strong>legwork</strong> — the digging the agent does within the work — whether the skill has steps or not, since "every rule applied" binds flat reference just as "every step done" binds a sequence.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>要求严格的完成标准驱动彻底的<strong>基础工作</strong>——代理在工作中进行的深入调查——无论技能是否有步骤，因为"每条规则都已应用"约束扁平参考，正如"每个步骤都已完成"约束序列。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Push too little down and the top bloats; push too much and you hide material the agent actually needs. That tension is the whole decision.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>推下去太少则顶层膨胀；推下去太多则隐藏了代理实际需要的材料。这种张力就是全部决策。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Progressive disclosure</strong> is the move down the ladder — out of <code>SKILL.md</code> into a linked file — so the top stays legible. Mechanics: a linked <code>.md</code> file in the skill folder, named for what it holds (this skill discloses its full definitions to <code>GLOSSARY.md</code>). Some skills are used in more than one way, and each distinct way is a <strong>branch</strong> — different runs taking different paths through the skill. Branching is the cleanest disclosure test: inline what every branch needs, and push behind a pointer what only some branches reach. A <strong>context pointer</strong>'s <em>wording</em>, not its target, decides when and how reliably the agent reaches the material.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>渐进式披露</strong>是沿阶梯向下移动——从 <code>SKILL.md</code> 移入链接文件——以保持顶层可读。机制：技能文件夹中的一个链接 <code>.md</code> 文件，以其内容命名（本技能将完整定义披露到 <code>GLOSSARY.md</code>）。有些技能有多种使用方式，每种不同的方式是一个<strong>分支</strong>——不同的运行在技能中走不同的路径。分支是最清晰的披露测试：内联每个分支都需要的内容，将只有某些分支触达的内容推到指针后面。<strong>上下文指针</strong>的<em>措辞</em>，而非其目标，决定了代理何时以及多可靠地触达材料。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Where the ladder decides <em>how far down</em> a piece sits, <strong>co-location</strong> decides <em>what sits beside it</em> once there: keep a concept's definition, rules, and caveats under one heading rather than scattered, so reading one part brings its neighbours with it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>阶梯决定一段内容<em>放在多深</em>，<strong>共置</strong>决定它到达后<em>与什么相邻</em>：将概念的定义、规则和注意事项放在同一标题下，而非分散各处，这样阅读一部分时就能连带看到其邻近内容。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When to split</h2><p><strong>Granularity</strong> is how finely you divide skills, and each cut spends one of the two loads, so split only when the cut earns it. Two cuts:</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时拆分</h2><p><strong>粒度</strong>是你划分技能的精细程度，每次切分都会消耗两种负载之一，因此只有当切分值得时才进行。两种切分方式：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+<li><strong>By invocation</strong> — split off a <strong>model-invoked</strong> skill when you have a distinct <strong>leading word</strong> that should trigger it on its own, or another skill must reach it. You pay <strong>context load</strong> for the new always-loaded <strong>description</strong>, so that independent reach has to be worth it.</li>
+<li><strong>By sequence</strong> — split a run of <strong>steps</strong> when the steps still ahead (a step's <strong>post-completion steps</strong>) tempt the agent to rush the one in front of it (<strong>premature completion</strong>). Keeping them out of view encourages the agent to do more <strong>legwork</strong> on the current task.</li>
+</ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+<li><strong>按调用方式</strong>——当你有一个独特的<strong>前导词</strong>应独立触发它，或另一个技能必须触达它时，拆分出一个<strong>模型调用</strong>技能。你为新的始终加载的<strong>描述</strong>付出<strong>上下文负载</strong>，因此这种独立触达必须值得。</li>
+<li><strong>按序列</strong>——当后面的步骤（某步骤的<strong>完成后步骤</strong>）诱使代理匆忙完成当前步骤（<strong>过早完成</strong>）时，拆分一系列<strong>步骤</strong>。将它们隐藏在视野之外，鼓励代理对当前任务做更多<strong>基础工作</strong>。</li>
+</ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Pruning</h2><p>Keep each meaning in a <strong>single source of truth</strong>: one authoritative place, so changing the behaviour is a one-place edit.</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>修剪</h2><p>将每个含义保存在<strong>单一真相源</strong>中：一个权威位置，这样改变行为只需改一处。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Check every line for <strong>relevance</strong>: does it still bear on what the skill does?</p></div>
+      <div class="col-zh" lang="zh-CN"><p>检查每一行的<strong>相关性</strong>：它是否仍然与技能的功能有关？</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Then hunt <strong>no-ops</strong> sentence by sentence, not just line by line: run the no-op test on each sentence in isolation, and when one fails, delete the whole sentence rather than trim words from it. Be aggressive — most prose that fails should go, not be rewritten.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>然后逐句排查<strong>无操作</strong>，而非逐行：对每个句子单独进行无操作测试，当一个句子未通过时，删除整个句子而非删减其中的词句。要激进——大多数未通过的散文应该直接删除，而非改写。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Leading words</h2><p>A <strong>leading word</strong> is a compact concept already living in the model's pretraining that the agent thinks with while running the skill (e.g. <em>lesson</em>, <em>fog of war</em>, <em>tracer bullets</em>). Repeated throughout the text (though not necessarily - a strong leading word might only be needed once), it accumulates a distributed definition and anchors a whole region of behaviour in the fewest tokens, by recruiting priors the model already holds.</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>前导词</h2><p><strong>前导词</strong>是已经存在于模型预训练中的紧凑概念，代理在运行技能时用它来思考（例如 <em>lesson</em>、<em>fog of war</em>、<em>tracer bullets</em>）。在整个文本中重复出现（虽然不一定——一个强的前导词可能只需出现一次），它通过招募模型已有的先验，用最少的 token 积累分布式定义并锚定整个行为区域。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>It serves predictability twice. In the body it anchors <em>execution</em>: the agent reaches for the same behaviour every time the word appears. In the description it anchors <em>invocation</em>: when the same word lives in your prompts, docs, and code, the agent links that shared language to the skill and fires it more reliably.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>它以两种方式服务于可预测性。在正文中它锚定<em>执行</em>：代理每次看到该词时都会采取相同的行为。在描述中它锚定<em>调用</em>：当同一个词出现在你的提示、文档和代码中时，代理将这种共享语言与技能关联起来，更可靠地触发它。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Hunt for opportunities to refactor skills to use leading words. A triad spelled out at three sites (<strong>duplication</strong>), a description spending a sentence to gesture at one idea — each is a passage begging to <strong>collapse</strong> into a single token. Examples include:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>寻找机会重构技能以使用前导词。在三处展开的三元组（<strong>重复</strong>），用一句话指向一个概念的描述——每一段都渴望<strong>压缩</strong>成单个 token。示例包括：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+<li>"fast, deterministic, low-overhead" -&gt; <em>tight</em> — one quality restated across a phase — into a single pretrained word (a <em>tight</em> loop).</li>
+<li>"a loop you believe in" -&gt; <em>red</em> — converts a fuzzy gate into a binary observable state (the loop goes <em>red</em> on the bug, or it doesn't).</li>
+</ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+<li>"fast, deterministic, low-overhead" → <em>tight</em>——一个在阶段中反复重述的品质——压缩成单个预训练词（一个<em>紧凑</em>循环）。</li>
+<li>"a loop you believe in" → <em>red</em>——将模糊的门控转化为二进制的可观察状态（循环对 bug 变<em>红</em>，或者不变）。</li>
+</ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>You win twice over: fewer tokens, <em>and</em> a sharper hook for the agent to hang its thinking on. Assume every skill is carrying restatements that leading words retire — go find them.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>你赢得两次：更少的 token，<em>以及</em>更锐利的钩子让代理挂住思维。假设每个技能都携带着前导词可以淘汰的重述——去找出来。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Failure modes</h2><p>Use these to diagnose issues the user may be having with the skill.</p></div>
+      <div class="col-zh" lang="zh-CN"><h2>失败模式</h2><p>用这些来诊断用户在技能使用中可能遇到的问题。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+<li><strong>Premature completion</strong> — ending a step before it's genuinely done, attention slipping to <em>being done</em>. Defence, in order: sharpen the completion criterion first (cheap, local); only if it is irreducibly fuzzy <em>and</em> you observe the rush, hide the post-completion steps by splitting (the sequence cut).</li>
+<li><strong>Duplication</strong> — the same meaning in more than one place. Costs maintenance and tokens, and inflates a meaning's prominence on the ladder past its real rank.</li>
+<li><strong>Sediment</strong> — stale layers that settle because adding feels safe and removing feels risky. The default fate of any skill without a pruning discipline.</li>
+<li><strong>Sprawl</strong> — a skill simply too long, even when every line is live and unique. Hurts readability and maintainability and wastes tokens. The cure is the ladder: disclose <strong>reference</strong> behind pointers, and split by <strong>branch</strong> or sequence so each path carries only what it needs.</li>
+<li><strong>No-op</strong> — a line the model already obeys by default, so you pay load to say nothing. The test: does it change behaviour versus the default? A weak leading word (<em>be thorough</em> when the agent is already thorough-ish) is a no-op; the fix is a stronger word (<em>relentless</em>), not a different technique.</li>
+</ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+<li><strong>过早完成</strong>——在步骤真正完成前就结束，注意力滑向<em>完成</em>。防御按顺序：先锐化完成标准（便宜、局部）；只有当它不可约地模糊<em>且</em>你观察到匆忙时，才通过拆分来隐藏完成后步骤（序列切分）。</li>
+<li><strong>重复</strong>——同一个含义出现在多个地方。消耗维护和 token，并在层级上将含义的突出度膨胀到超过其真实排名。</li>
+<li><strong>沉淀</strong>——陈旧的层次因为添加感觉安全、删除感觉冒险而沉降。任何缺乏修剪纪律的技能默认的命运。</li>
+<li><strong>蔓延</strong>——技能单纯太长，即使每行都活跃且独特。损害可读性和可维护性，浪费 token。治愈方法是阶梯：将<strong>参考</strong>披露到指针后面，按<strong>分支</strong>或序列拆分，使每条路径只携带所需内容。</li>
+<li><strong>无操作</strong>——模型默认已经遵守的一行，所以你付出负载却什么也没说。测试：它是否改变了与默认行为相比的行为？弱前导词（当代理已经足够彻底时的<em>be thorough</em>）就是无操作；修复方法是更强的词（<em>relentless</em>），而非不同的技术。</li>
+</ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

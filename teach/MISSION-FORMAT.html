@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MISSION-FORMAT · teach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+
+    p { margin: 0.35rem 0; }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-link"><a href="SKILL.html">← teach</a> · <a href="../index.html">技能图谱</a></div>
+
+    <h1>MISSION-FORMAT</h1>
+    <p class="subtitle">MISSION.md 的格式规范</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Template</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>模板</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><code>MISSION.md</code> lives at the workspace root. It captures the <em>reason</em> the user is learning this topic. Every teaching decision — what to teach next, which resources to surface, which exercises to design — should trace back to this document.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><code>MISSION.md</code> 位于工作区根目录。它记录用户学习该主题的<em>原因</em>。每一个教学决策——下一步教什么、展示哪些资源、设计哪些练习——都应追溯到这份文档。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Template</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>模板</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Rules</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>规则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>One mission per workspace.</strong> If the user wants to learn two unrelated things, that is two workspaces.</li>
+        <li><strong>Concrete over abstract.</strong> "Run a half marathon by October" beats "get fitter." "Ship a Rust CLI to my team" beats "learn Rust."</li>
+        <li><strong>Push back on vagueness.</strong> If the user cannot articulate why, interview them before writing anything. A bad mission is worse than no mission.</li>
+        <li><strong>Revise when reality shifts.</strong> Missions change. When the user's goal moves, update this file — don't leave a stale mission steering future sessions.</li>
+        <li><strong>Keep it short.</strong> If <code>MISSION.md</code> runs past a screen, it has stopped being a compass and started being a plan.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>每个工作区一个使命。</strong>如果用户想学两个不相关的东西，那就是两个工作区。</li>
+        <li><strong>具体胜于抽象。</strong>"10 月前跑完半程马拉松"比"变得更健康"好。"给团队交付一个 Rust CLI"比"学 Rust"好。</li>
+        <li><strong>拒绝模糊。</strong>如果用户无法清晰表达原因，在写任何内容之前先追问他们。一个糟糕的使命比没有使命更糟。</li>
+        <li><strong>现实变化时修订。</strong>使命会变。当用户的目标改变时，更新此文件——不要让过时的使命误导未来的会话。</li>
+        <li><strong>保持简短。</strong>如果 <code>MISSION.md</code> 超过一屏，它就不再是指南针，而变成了计划。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

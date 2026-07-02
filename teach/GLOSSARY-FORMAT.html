@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLOSSARY-FORMAT · teach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+
+    p { margin: 0.35rem 0; }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-link"><a href="SKILL.html">← teach</a> · <a href="../index.html">技能图谱</a></div>
+
+    <h1>GLOSSARY-FORMAT</h1>
+    <p class="subtitle">GLOSSARY.md 的格式规范</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><code>GLOSSARY.md</code> is the canonical language for this teaching workspace. All explainers, exercises, and learning records should adhere to its terminology. Building it is itself part of learning: compressing a concept into a tight definition is evidence the user understands it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><code>GLOSSARY.md</code> 是本教学工作区的规范用语。所有讲解、练习和学习记录都应遵循其中的术语。构建术语表本身就是学习的一部分：将一个概念压缩成一个简洁的定义，就是用户理解它的证据。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Rules</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>规则</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Add a term only when the user understands it.</strong> The glossary is a record of compressed knowledge, not a dictionary the user reads to learn. If the user has just been introduced to a concept, wait until they can use it correctly before promoting it here.</li>
+        <li><strong>Be opinionated.</strong> When several words exist for the same concept, pick the best one and list the rest as aliases to avoid. This is how language compresses.</li>
+        <li><strong>Keep definitions tight.</strong> One or two sentences. Define what the term IS, not what it does or how to do it.</li>
+        <li><strong>Use the glossary's own terms inside definitions.</strong> Once a term is in the glossary, prefer it everywhere — including inside other definitions. This is what makes complex terms easier to grasp later.</li>
+        <li><strong>Group under subheadings</strong> when natural clusters emerge (e.g. <code>## Anatomy</code>, <code>## Programming</code>). A flat list is fine when terms cohere.</li>
+        <li><strong>Flag ambiguities explicitly.</strong> If a term is used loosely in the wider field, note the resolution: "In this workspace, 'set' always means a working set — warm-ups are tracked separately."</li>
+        <li><strong>Revise as understanding deepens.</strong> A definition the user wrote in week one may be wrong by week six. Update in place; do not leave stale entries.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>只在用户理解了一个术语时才添加。</strong>术语表是压缩知识的记录，而非用户用来学习的词典。如果用户刚接触一个概念，等到他们能正确使用后再将其收录到这里。</li>
+        <li><strong>要有主见。</strong>当同一个概念有多个词汇时，选最好的那个，其余列为应避免的别名。这就是语言压缩的方式。</li>
+        <li><strong>定义要简洁。</strong>一到两句话。定义术语<em>是什么</em>，而非它做什么或怎么做。</li>
+        <li><strong>在定义中使用术语表自身的术语。</strong>一旦一个术语进入术语表，就在所有地方优先使用它——包括在其他定义内部。这就是让复杂术语在日后更容易理解的原因。</li>
+        <li><strong>当出现自然聚类时按子标题分组</strong>（例如 <code>## Anatomy</code>、<code>## Programming</code>）。当术语内聚时，平铺列表也可以。</li>
+        <li><strong>明确标记歧义。</strong>如果一个术语在更广泛的领域中使用得比较松散，注明本工作区的界定："在本工作区中，'set' 始终指正式组——热身组单独记录。"</li>
+        <li><strong>随着理解深入而修订。</strong>用户第一周写的定义到第六周可能就错了。就地更新；不要留下过时的条目。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

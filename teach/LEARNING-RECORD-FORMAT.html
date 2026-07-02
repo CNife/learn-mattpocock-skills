@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEARNING-RECORD-FORMAT · teach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+
+    p { margin: 0.35rem 0; }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-link"><a href="SKILL.html">← teach</a> · <a href="../index.html">技能图谱</a></div>
+
+    <h1>LEARNING-RECORD-FORMAT</h1>
+    <p class="subtitle">学习记录的格式规范</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Learning records live in <code>./learning-records/</code> and use sequential numbering: <code>0001-slug.md</code>, <code>0002-slug.md</code>, etc. Create the directory lazily — only when the first record is written.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>学习记录存放在 <code>./learning-records/</code> 中，使用顺序编号：<code>0001-slug.md</code>、<code>0002-slug.md</code> 等。按需创建目录——仅在写入第一条记录时才创建。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>They are the teaching equivalent of ADRs: they capture non-obvious lessons, key insights, and stated prior knowledge that will steer future sessions. They are used to calculate the zone of proximal development. They are titled <code>0001-&lt;dash-case-name&gt;.md</code>, where the number increments each time.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>它们是教学中 ADR 的等价物：记录不那么显而易见的经验教训、关键洞察和已声明的先验知识，这些将指导未来的会话。它们用于计算最近发展区。文件命名为 <code>0001-&lt;dash-case-name&gt;.md</code>，编号依次递增。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>That is the whole format. A learning record can be a single paragraph. The value is recording <em>that</em> this is now known and <em>why</em> it changes what to teach next — not in filling out sections.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这就是完整的格式。学习记录可以只是一个段落。其价值在于记录<em>这件事</em>现在已被掌握，以及<em>为什么</em>它会改变接下来要教的内容——而不在于填写各种章节。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Optional sections</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>可选章节</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Only include these when they add genuine value. Most records won't need them.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>仅在这些章节确实能增加价值时才包含。大多数记录不需要它们。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Status</strong> frontmatter (<code>active | superseded by LR-NNNN</code>) — useful when an earlier understanding turns out to be wrong and is replaced.</li>
+        <li><strong>Evidence</strong> — how the user demonstrated the understanding (a question answered, an exercise completed, prior experience cited). Useful when the claim might be revisited.</li>
+        <li><strong>Implications</strong> — what this unlocks or rules out for future sessions. Worth recording when non-obvious.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>状态</strong>前置信息（<code>active | superseded by LR-NNNN</code>）——当早期理解被证明是错误并被替代时有用。</li>
+        <li><strong>证据</strong>——用户如何展示了该理解（回答了一个问题、完成了一个练习、引用了以往经验）。当该结论可能被重新审视时有用。</li>
+        <li><strong>影响</strong>——这为未来会话解锁或排除了什么。当结果不明显时值得记录。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Numbering</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>编号</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Scan <code>./learning-records/</code> for the highest existing number and increment by one.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>扫描 <code>./learning-records/</code> 找到现有的最高编号，然后加一。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When to write a learning record</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>何时写学习记录</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Write one when any of these is true:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当以下任一情况成立时写一条：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ol>
+        <li><strong>The user demonstrated genuine understanding of something non-trivial</strong> — not just exposure, but evidence they can use the concept correctly. This sets a new floor for what to teach next.</li>
+        <li><strong>The user disclosed prior knowledge</strong> — "I already know X." Record it so future sessions don't re-teach it. Also record the <em>depth</em> claimed.</li>
+        <li><strong>A misconception was corrected</strong> — the user previously believed something wrong and now sees why. These are high-value: they predict future stumbling blocks for related topics.</li>
+        <li><strong>The mission shifted in response to learning</strong> — the user discovered they cared about something different than they thought. Cross-link to <code>MISSION.md</code> and update it.</li>
+      </ol></div>
+      <div class="col-zh" lang="zh-CN"><ol>
+        <li><strong>用户展示了对某个非平凡内容的真正理解</strong>——不仅仅是接触过，而是有证据表明他们能正确使用该概念。这为接下来教什么设定了新的底线。</li>
+        <li><strong>用户透露了先验知识</strong>——"我已经知道 X。"记录下来，以免未来会话重复教授。同时记录所声称的<em>深度</em>。</li>
+        <li><strong>一个误解被纠正了</strong>——用户之前相信了错误的东西，现在明白了原因。这些是高价值的：它们能预测相关主题未来的绊脚石。</li>
+        <li><strong>使命因学习而转变</strong>——用户发现他们关心的东西与之前的想法不同。交叉链接到 <code>MISSION.md</code> 并更新它。</li>
+      </ol></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>What does <em>not</em> qualify</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>什么情况<em>不</em>算</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Material that was merely covered. Coverage is not learning. Wait for evidence.</li>
+        <li>Anything already captured tersely in <code>GLOSSARY.md</code> as a term definition. Don't duplicate.</li>
+        <li>Session-by-session activity logs. Learning records are not a journal — they are decision-grade insights.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>仅仅是被覆盖过的材料。覆盖不等于学习。等待证据。</li>
+        <li>已在 <code>GLOSSARY.md</code> 中作为术语定义简洁记录的内容。不要重复。</li>
+        <li>逐会话的活动日志。学习记录不是日记——它们是决策级的洞察。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Supersession</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>替代</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When a later record contradicts an earlier one (the user's understanding deepened or corrected), mark the old record <code>Status: superseded by LR-NNNN</code> rather than deleting it. The history of how understanding evolved is itself useful signal.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当后来的记录与早期记录矛盾时（用户的理解深化或纠正了），将旧记录标记为 <code>Status: superseded by LR-NNNN</code>，而非删除。理解如何演变的历程本身就是有用的信号。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

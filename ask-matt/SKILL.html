@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ask Matt · skill router</title>
+<title>ask-matt · skill router</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
@@ -49,6 +49,13 @@
     max-width: 1360px;
     margin: 0 auto;
     padding: 0 2rem 5rem;
+  }
+
+  /* back-link navigation */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
   }
 
   /* frontmatter table */
@@ -171,11 +178,6 @@
     }
     .col-zh { padding: 0.3rem 0; }
   }
-    .back-link {
-      display: inline-block;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-    }
 </style>
 </head>
 <body>
@@ -267,7 +269,7 @@
   </div>
   <div class="col-zh" lang="zh-CN">
     <ul>
-      <li><strong>是</strong> → <code>/to-prd</code>（将对话转成 PRD）→ <code>/to-issues</code>（将 PRD 拆分为独立的可抓取 issue）。由于每个 issue 是独立的，<strong>每个之间都要清除上下文</strong>：每个 issue 开一个全新会话，传入 PRD 和单个 issue 来启动 <code>/implement</code>。</li>
+      <li><strong>是</strong> → <code>/to-prd</code>（将对话转成 PRD）→ <code>/to-issues</code>（将 PRD 拆分为独立可领取的 issue）。由于各 issue 相互独立，<strong>每个之间清除上下文</strong>：每个 issue 开一个全新会话，传入 PRD 和单个 issue 来启动 <code>/implement</code>。</li>
       <li><strong>否</strong> → 就在同一个上下文窗口中用 <code>/implement</code>。</li>
     </ul>
   </div>
@@ -278,7 +280,7 @@
     <p>Either way, <code>/implement</code> builds each issue by driving <code>/tdd</code> internally — one red-green slice at a time — then closes out by running <code>/code-review</code>, a two-axis review (Standards + Spec) of the diff, before committing. Reach for <code>/tdd</code> on its own when you just want to build a concrete behaviour test-first without a full spec, and <code>/code-review</code> on its own whenever you want to review a branch or PR against a fixed point.</p>
   </div>
   <div class="col-zh" lang="zh-CN">
-    <p>无论哪种方式，<code>/implement</code> 内部都会驱动 <code>/tdd</code> 来构建每个 issue — 一次一个红-绿切片 — 然后在提交前运行 <code>/code-review</code> 对 diff 进行双轴审查（标准 + 规格）。当你想在没有完整规格的前提下以测试为先构建具体行为时，直接使用 <code>/tdd</code>；当你想针对某个固定点审查分支或 PR 时，直接使用 <code>/code-review</code>。</p>
+    <p>无论哪种方式，<code>/implement</code> 内部都会驱动 <code>/tdd</code> 来构建每个 issue — 一次一个红-绿切片 — 然后在提交前运行 <code>/code-review</code> 对 diff 进行双轴审查（规范 + 规格）。当你想在没有完整规格的前提下以测试为先构建具体行为时，直接使用 <code>/tdd</code>；当你想针对某个固定点审查分支或 PR 时，直接使用 <code>/code-review</code>。</p>
   </div>
 </div>
 
@@ -289,7 +291,7 @@
 
 <div class="pair">
   <div class="col-en" lang="en"><p>Keep steps 1–3 in <strong>one unbroken context window</strong> — don't compact or clear until after <code>/to-issues</code> — so the grilling, PRD, and issues all build on the same thinking. Each <code>/implement</code> then starts fresh, working from the issue.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>将步骤 1-3 保持在<strong>一个不间断的上下文窗口</strong>中 — 在 <code>/to-issues</code> 完成之前不要压缩或清空 — 这样访谈、PRD 和 issue 都基于同一套思路。之后每个 <code>/implement</code> 则从 issue 开始，使用干净的上下文。</p></div>
+  <div class="col-zh" lang="zh-CN"><p>将步骤 1–3 保持在<strong>一个不间断的上下文窗口</strong>中 — 在 <code>/to-issues</code> 完成之前不要压缩或清空 — 这样访谈、PRD 和 issue 都基于同一套思路。之后每个 <code>/implement</code> 则从 issue 开始，使用全新的上下文。</p></div>
 </div>
 
 <div class="pair">
@@ -301,7 +303,7 @@
 
 <div class="pair">
   <div class="col-en" lang="en"><p>A starting situation that generates work, then merges onto the main flow.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>一种起点情境，产生工作，然后汇入主干流程。</p></div>
+  <div class="col-zh" lang="zh-CN"><p>一种产生工作的起点情境，然后汇入主干流程。</p></div>
 </div>
 
 <div class="pair">
@@ -311,13 +313,13 @@
   </div>
   <div class="col-zh" lang="zh-CN">
     <h3>Bug 和请求堆积 → <code>/triage</code></h3>
-    <p>它将 issue 推进分诊角色，生成 agent 可直接处理的 issue，供后续 <code>/implement</code> 使用。</p>
+    <p>它将 issue 推进各分诊角色，生成代理可直接处理的 issue，供后续 <code>/implement</code> 领取。</p>
   </div>
 </div>
 
 <div class="pair">
   <div class="col-en" lang="en"><p>Triage is only for issues <strong>you didn't create</strong> — bug reports, incoming feature requests, anything that arrives raw. Issues that <code>/to-issues</code> produced are already agent-ready, so <strong>don't triage them</strong>.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>分诊仅适用于<strong>不是你创建的</strong> issue — bug 报告、外来的功能请求、所有原始输入。由 <code>/to-issues</code> 产生的 issue 已经是 agent-ready 的，所以<strong>不要对它们做分诊</strong>。</p></div>
+  <div class="col-zh" lang="zh-CN"><p>分诊仅适用于<strong>不是你创建的</strong> issue — bug 报告、外来的功能请求、所有原始输入。由 <code>/to-issues</code> 产生的 issue 已经是代理可直接处理的，所以<strong>不要对它们做分诊</strong>。</p></div>
 </div>
 
 <div class="pair">
@@ -327,7 +329,7 @@
   </div>
   <div class="col-zh" lang="zh-CN">
     <h3>出了故障 → <code>/diagnosing-bugs</code></h3>
-    <p>针对那些棘手的：一眼看不透的 bug、间歇性不稳定、在两个已知正常状态之间悄悄潜入的回归。它拒绝在没有<strong>紧反馈回路</strong> — 一个已经对<em>这个</em> bug 变红的命令 — 之前进行理论推测，然后用回归测试来修复。当真正的发现是没有好的接缝来锁定这个 bug 时，它的复盘会将问题移交给 <code>/improve-codebase-architecture</code>。</p>
+    <p>针对那些棘手的：一眼看不透的 bug、间歇性不稳定、在两个已知正常状态之间悄悄潜入的回归。它拒绝在没有<strong>紧密反馈循环</strong> — 一个已经对<em>这个</em> bug 变红的命令 — 之前进行理论推测，然后用回归测试来修复。当真正的发现是没有好的接缝来锁定这个 bug 时，它的复盘会将问题移交给 <code>/improve-codebase-architecture</code>。</p>
   </div>
 </div>
 
@@ -340,7 +342,7 @@
 
 <div class="pair">
   <div class="col-en" lang="en"><p><code>/improve-codebase-architecture</code> — run whenever you have a spare moment to keep the codebase good for agents to operate in. It surfaces <strong>deepening opportunities</strong>; picking one <em>generates an idea</em> you can take into the main flow at <code>/grill-with-docs</code>. It's the survey that finds the candidates; <code>/codebase-design</code> (below) is the bench you design the chosen one on.</p></div>
-  <div class="col-zh" lang="zh-CN"><p><code>/improve-codebase-architecture</code> — 有空的时候就运行，保持代码库对 agent 友好。它揭示<strong>深化机会</strong>；选择一个就会<em>生成一个想法</em>，你可以带入主干流程的 <code>/grill-with-docs</code>。它是发现候选者的侦察；<code>/codebase-design</code>（见下文）是设计选中对象的工作台。</p></div>
+  <div class="col-zh" lang="zh-CN"><p><code>/improve-codebase-architecture</code> — 有空的时候就运行，保持代码库对代理友好。它揭示<strong>深化机会</strong>；选择一个就会<em>生成一个想法</em>，你可以带入主干流程的 <code>/grill-with-docs</code>。它是发现候选者的侦察；<code>/codebase-design</code>（见下文）是设计选中对象的工作台。</p></div>
 </div>
 
 <h2 id="vocabulary">Vocabulary underneath</h2>
@@ -368,7 +370,7 @@
   </div>
   <div class="col-zh" lang="zh-CN">
     <h3><code>/codebase-design</code></h3>
-    <p>深度模块的词汇（module、interface、depth、seam、adapter、leverage、locality），用于设计模块的<em>形状</em>：在一个干净的接缝后面，用小接口承载大量行为。<code>/tdd</code> 和 <code>/improve-codebase-architecture</code> 都使用这套词汇。</p>
+    <p>深模块的词汇（module、interface、depth、seam、adapter、leverage、locality），用于设计模块的<em>形状</em>：在一个干净的接缝后面，用小接口承载大量行为。<code>/tdd</code> 和 <code>/improve-codebase-architecture</code> 都使用这套词汇。</p>
   </div>
 </div>
 
@@ -388,11 +390,11 @@
 <div class="pair">
   <div class="col-en" lang="en">
     <h3><code>/compact</code> (built-in)</h3>
-    <p>Stay in the <strong>same conversation</strong>, letting the earlier turns be summarized. Use it at <strong>intentional breaks between phases</strong>, when you don't mind losing the verbbatim history. Don't compact mid-phase — the agent can lose its way. <code>/handoff</code> forks; <code>/compact</code> continues.</p>
+    <p>Stay in the <strong>same conversation</strong>, letting the earlier turns be summarized. Use it at <strong>intentional breaks between phases</strong>, when you don't mind losing the verbatim history. Don't compact mid-phase — the agent can lose its way. <code>/handoff</code> forks; <code>/compact</code> continues.</p>
   </div>
   <div class="col-zh" lang="zh-CN">
     <h3><code>/compact</code>（内置命令）</h3>
-    <p>停留在<strong>同一对话</strong>中，将前面的轮次总结压缩。在<strong>阶段之间有意识的停顿处</strong>使用，当你不介意丢失逐字历史时。不要在阶段中间压缩 — agent 会迷失方向。<code>/handoff</code> 是分叉；<code>/compact</code> 是继续。</p>
+    <p>停留在<strong>同一对话</strong>中，将前面的轮次总结压缩。在<strong>阶段之间有意识的停顿处</strong>使用，当你不介意丢失逐字历史时。不要在阶段中间压缩 — 代理会迷失方向。<code>/handoff</code> 是分叉；<code>/compact</code> 是继续。</p>
   </div>
 </div>
 
@@ -427,6 +429,17 @@
 
 <div class="pair">
   <div class="col-en" lang="en">
+    <h3><code>/research</code></h3>
+    <p>Delegate reading legwork to a <strong>background agent</strong>: it investigates a question against <strong>primary sources</strong>, then leaves a cited Markdown file in the repo. Keep working while it reads. The file it produces is something to take <em>into</em> the main flow at <code>/grill-with-docs</code> — research feeds the thinking, it doesn't replace it.</p>
+  </div>
+  <div class="col-zh" lang="zh-CN">
+    <h3><code>/research</code></h3>
+    <p>将阅读跑腿工作委托给<strong>后台代理</strong>：它针对<strong>一手来源</strong>调查一个问题，然后在仓库中留下一份带引用的 Markdown 文件。它阅读时你继续工作。它产出的文件可以带入主干流程的 <code>/grill-with-docs</code> — 研究为思考提供素材，而非取代思考。</p>
+  </div>
+</div>
+
+<div class="pair">
+  <div class="col-en" lang="en">
     <h3><code>/teach</code></h3>
     <p>Learn a concept over multiple sessions, using the current directory as a stateful workspace.</p>
   </div>
@@ -451,7 +464,7 @@
 
 <div class="pair">
   <div class="col-en" lang="en"><p><code>/setup-matt-pocock-skills</code> — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.</p></div>
-  <div class="col-zh" lang="zh-CN"><p><code>/setup-matt-pocock-skills</code> — 在第一次运行工程流程之前执行，配置其他技能所依赖的问题追踪器、分诊标签和文档布局。也支持自定义问题追踪器。</p></div>
+  <div class="col-zh" lang="zh-CN"><p><code>/setup-matt-pocock-skills</code> — 在第一次运行工程流程之前执行，配置其他技能所依赖的 issue 跟踪器、分诊标签和文档布局。也支持自定义 issue 跟踪器。</p></div>
 </div>
 
 </div><!-- /.container -->

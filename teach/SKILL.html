@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>teach · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+
+    p { margin: 0.35rem 0; }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-link"><a href="../index.html">← 技能图谱</a> · <a href="MISSION-FORMAT.html">使命格式</a> · <a href="RESOURCES-FORMAT.html">资源格式</a> · <a href="LEARNING-RECORD-FORMAT.html">学习记录格式</a> · <a href="GLOSSARY-FORMAT.html">术语表格式</a></div>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>teach</td></tr>
+      <tr><td>description</td><td>Teach the user a new skill or concept, within this workspace.</td></tr>
+      <tr><td>触发词</td><td>在工作区内教授用户一项新技能或概念。</td></tr>
+      <tr><td>argument-hint</td><td>What would you like to learn about?</td></tr>
+      <tr><td>参数提示</td><td>你想学什么？</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>teach</h1>
+    <p class="subtitle">Teach the user a new skill or concept, within this workspace.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The user has asked you to teach them something. This is a stateful request - they intend to learn the topic over multiple sessions.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户请求你教授他们一些内容。这是一个有状态的请求——他们打算在多个会话中学习这个主题。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Teaching Workspace</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>教学工作区</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Treat the current directory as a teaching workspace. The state of their learning is captured in this directory in several files:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将当前目录视为一个教学工作区。他们的学习状态记录在该目录下的多个文件中：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><code>MISSION.md</code>: A document capturing the <em>reason</em> the user is interested in the topic. This should be used to ground all teaching. Use the format in <a href="MISSION-FORMAT.html">MISSION-FORMAT.md</a>.</li>
+        <li><code>./reference/*.html</code>: A directory of reference materials. These are the compressed learnings from the lessons - cheat sheets, reference algorithms, syntax, yoga poses, glossaries. They are the raw units of learning. They should be beautiful documents which print out well, and are designed for quick reference.</li>
+        <li><code>RESOURCES.md</code>: A list of resources which can be explored to ground your teaching in contextual knowledge, or to acquire knowledge and wisdom. Use the format in <a href="RESOURCES-FORMAT.html">RESOURCES-FORMAT.md</a>.</li>
+        <li><code>./learning-records/*.md</code>: A directory of learning records, which capture what the user has learned. These are loosely equivalent to architectural decision records in software development - they capture non-obvious lessons and key insights that may need to be revised later, or drive future sessions. These should be used to calculate the zone of proximal development. They are titled <code>0001-&lt;dash-case-name&gt;.md</code>, where the number increments each time. Use the format in <a href="LEARNING-RECORD-FORMAT.html">LEARNING-RECORD-FORMAT.md</a>.</li>
+        <li><code>./lessons/*.html</code>: A directory of lessons. A <strong>lesson</strong> is a single, self-contained HTML output that teaches one tightly-scoped thing tied to the mission. This is the primary unit of teaching in this workspace.</li>
+        <li><code>./assets/*</code>: Reusable <strong>components</strong> shared across lessons. See <a href="#assets">Assets</a>.</li>
+        <li><code>NOTES.md</code>: A scratchpad for you to jot down user preferences, or working notes.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><code>MISSION.md</code>：记录用户对该主题感兴趣<em>原因</em>的文档。所有教学都应以此为基础。使用 <a href="MISSION-FORMAT.html">MISSION-FORMAT.md</a> 中的格式。</li>
+        <li><code>./reference/*.html</code>：参考资料目录。这些是课程中压缩后的学习成果——速查表、参考算法、语法、瑜伽体式、术语表。它们是最基本的学习单元。它们应当是精美的文档，便于打印，且为快速查阅而设计。</li>
+        <li><code>RESOURCES.md</code>：资源列表，可用于探索以获取上下文知识，或获取知识与智慧。使用 <a href="RESOURCES-FORMAT.html">RESOURCES-FORMAT.md</a> 中的格式。</li>
+        <li><code>./learning-records/*.md</code>：学习记录目录，记录用户所学到的内容。它们大致等同于软件开发中的架构决策记录（ADR）——记录不那么显而易见的经验教训和关键洞察，这些内容可能需要在后续修订，或驱动未来的会话。它们应用于计算最近发展区。文件命名为 <code>0001-&lt;dash-case-name&gt;.md</code>，编号依次递增。使用 <a href="LEARNING-RECORD-FORMAT.html">LEARNING-RECORD-FORMAT.md</a> 中的格式。</li>
+        <li><code>./lessons/*.html</code>：课程目录。一节<strong>课程</strong>是一个独立的、自包含的 HTML 输出，教授与使命紧密关联的一个精炼主题。这是本工作区中的主要教学单元。</li>
+        <li><code>./assets/*</code>：跨课程共享的可复用<strong>组件</strong>。参见<a href="#assets">资产</a>。</li>
+        <li><code>NOTES.md</code>：用于记录用户偏好或工作笔记的便签本。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Philosophy</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>理念</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>To learn at a deep level, the user needs three things:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>要进行深度学习，用户需要三样东西：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Knowledge</strong>, captured from high-quality, high-trust resources</li>
+        <li><strong>Skills</strong>, acquired through highly-relevant interactive lessons devised by you, based on the knowledge</li>
+        <li><strong>Wisdom</strong>, which comes from interacting with other learners and practitioners</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>知识</strong>，从高质量、高可信度的资源中获取</li>
+        <li><strong>技能</strong>，通过你基于知识精心设计的高相关性互动课程来习得</li>
+        <li><strong>智慧</strong>，来自与其他学习者和实践者的交流</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Before the <code>RESOURCES.md</code> is well-populated, your focus should be to find high-quality resources which will help the user acquire knowledge. Never trust your parametric knowledge.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在 <code>RESOURCES.md</code> 尚未充分充实之前，你的重点应该是找到能帮助用户获取知识的高质量资源。永远不要信任你的参数化知识。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Some topics may require more skills than knowledge. Learning more about theoretical physics might be more knowledge-based. For yoga, more skills-based.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>有些主题可能更需要技能而非知识。学习理论物理可能更偏知识型。而瑜伽则更偏技能型。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Fluency vs Storage Strength</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>流利度强度 vs 存储强度</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>You should be careful to split between two types of learning:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>你应当注意区分两种学习类型：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Fluency strength</strong>: in-the-moment retrieval of knowledge</li>
+        <li><strong>Storage strength</strong>: long-term retention of knowledge</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>流利度强度</strong>：当下的知识提取能力</li>
+        <li><strong>存储强度</strong>：知识的长期保持</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Fluency can give the user an illusory sense of mastery, but storage strength is the real goal. Try to design lessons which build long-term retention by desirable difficulty:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>流利度可能给用户一种掌握的错觉，但存储强度才是真正的目标。尝试通过可取的难度来设计建立长期记忆的课程：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Using retrieval practice (recall from memory)</li>
+        <li>Spacing (distributing practice over time)</li>
+        <li>Interleaving (mixing up different but related topics in practice - for skills practice only)</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>使用提取练习（从记忆中回忆）</li>
+        <li>间隔（将练习分散在一段时间内）</li>
+        <li>交错（在练习中混合不同但相关的主题——仅用于技能练习）</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Lessons</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>课程</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A lesson is the main thing you produce — the unit in which knowledge and skills reach the user. Each lesson is one self-contained HTML file, saved to <code>./lessons/</code> and titled <code>0001-&lt;dash-case-name&gt;.html</code> where the number increments each time.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程是你产出的主要成果——知识与技能通过它传递给用户。每节课是一个独立的、自包含的 HTML 文件，保存在 <code>./lessons/</code> 中，命名为 <code>0001-&lt;dash-case-name&gt;.html</code>，编号依次递增。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A lesson should be <strong>beautiful</strong> — clean, readable typography and layout — since the user will return to these later to review. Think Tufte.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程应当是<strong>精美的</strong>——干净、可读的排版与布局——因为用户会在日后回顾这些内容。以 Tufte 为标杆。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The lesson should be short, and completable very quickly. Learners' working memory is very small, and we need to stay within it. But each lesson should give the user a single tangible win that they can build on. It should be directly tied to the mission, and should be in the user's zone of proximal development.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程应当简短，能快速完成。学习者的工作记忆非常有限，我们需要在其范围内运作。但每节课应给用户一个具体可感的成果，让他们在此基础上继续构建。它应直接与使命相连，并处于用户的最近发展区内。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If possible, open the lesson file for the user by running a CLI command.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果可能的话，通过命令行（CLI）命令为用户打开课程文件。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each lesson should link via HTML anchors to other lessons and reference documents.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每节课应通过 HTML 锚点链接到其他课程和参考文档。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each lesson should recommend a primary source for the user to read or watch. This should be the most high-quality, high-trust resource you found on the topic.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每节课应推荐一个主要资源供用户阅读或观看。这应是你在该主题上找到的最高质量、最高可信度的资源。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each lesson should contain a reminder to ask followup questions to the agent. The agent is their teacher, and can assist with anything that's unclear.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每节课应包含一个提醒，鼓励用户向代理提出后续问题。代理就是他们的老师，可以帮助解答任何不清楚的地方。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3 id="assets">Assets</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3 id="assets">资产</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Lessons are built from reusable <strong>components</strong>, stored in <code>./assets/</code>: stylesheets, quiz widgets, simulators, diagram helpers — anything a second lesson could reuse.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程由可复用的<strong>组件</strong>构建，存储在 <code>./assets/</code> 中：样式表、测验小部件、模拟器、图表辅助工具——任何第二节课可以复用的东西。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Reuse is the default, not the exception. Before authoring a lesson, read <code>./assets/</code> and build from the components already there. When a lesson needs something new and reusable, write it as a component in <code>./assets/</code> and link to it — never inline code a future lesson would duplicate.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>复用是默认行为，而非例外。在编写课程之前，先阅读 <code>./assets/</code> 并从已有组件中构建。当课程需要新的可复用内容时，将其写成 <code>./assets/</code> 中的组件并链接到它——绝不要内联编码未来课程会重复的内容。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A shared stylesheet is the first component every workspace earns: every lesson links it, so the lessons look like one consistent course rather than a pile of one-offs. As the workspace grows, so should the component library.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>共享样式表是每个工作区首先应获得的组件：每节课都链接它，使课程看起来像一门连贯的课程，而非一堆零散的作品。随着工作区的增长，组件库也应同步扩展。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>The Mission</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>使命</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Every lesson should be tied into the mission - the reason that the user is interested in learning about the topic.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每节课都应和使命相连——即用户想要学习该主题的原因。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If the user is unclear about the mission, or the <code>MISSION.md</code> is not populated, your first job should be to question the user on why they want to learn this.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果用户对使命不清楚，或者 <code>MISSION.md</code> 尚未填写，你的首要任务应该是追问用户为什么想学这个。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Failing to understand the mission will mean knowledge acquisition is not grounded in real-world goals. Lessons will feel too abstract. You will have no way of judging what the user should do next.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>不理解使命意味着知识获取无法扎根于现实目标。课程会显得过于抽象。你将无法判断用户下一步应该做什么。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Missions may change as the user develops more skills and knowledge. This is normal - make sure to update the <code>MISSION.md</code> and add a learning record to capture the change. Confirm with the user before changing the mission.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>使命可能会随着用户技能和知识的增长而变化。这是正常的——确保更新 <code>MISSION.md</code> 并添加学习记录来记录这一变化。在更改使命前需与用户确认。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Zone Of Proximal Development</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>最近发展区</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each lesson, the user should always feel as if they are being challenged 'just enough'.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每节课中，用户都应始终感到被"恰到好处地"挑战。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The user may specify an exact thing they want to learn. If they don't, figure out their zone of proximal development by:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户可能会指定他们想学的具体内容。如果没有，通过以下方式确定他们的最近发展区：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Reading their <code>learning-records</code></li>
+        <li>Figuring out the right thing to teach them based on their mission</li>
+        <li>Teach the most relevant thing that fits in their zone of proximal development</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>阅读他们的<code>learning-records</code>（学习记录）</li>
+        <li>根据其使命确定应该教什么</li>
+        <li>教授最相关的、适合其最近发展区的内容</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Knowledge</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>知识</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Lessons should be designed around a skill the user is going to learn. The knowledge in the lesson should be only what's required to acquire that skill. You teach the knowledge first, then get the user to practice the skills via an interactive feedback loop.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程应围绕用户将要学习的技能来设计。课程中的知识应仅限于获取该技能所需的内容。先教授知识，然后通过互动反馈循环让用户练习技能。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Knowledge should first be gathered from trusted resources. Use <code>RESOURCES.md</code> to keep track of them. Lessons should be littered with citations - links to external resources to back up any claim made. This increases the trustworthiness of the lesson.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>知识应首先从可信资源中获取。使用 <code>RESOURCES.md</code> 来跟踪这些资源。课程中应布满引用——指向外部资源的链接，以支撑所提出的每个观点。这能提高课程的可信度。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For acquiring knowledge, difficulty is the enemy. It eats working memory you need for understanding.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于知识获取而言，难度是敌人。它会消耗理解所需的工作记忆。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Skills</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>技能</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If knowledge is all about acquisition, skills are about durability and flexibility. Make the knowledge stick.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果知识关乎获取，那么技能关乎持久性和灵活性。让知识真正扎根。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For skill acquisition, difficulty is the tool. Effortful retrieval is what builds storage strength. Skills should be taught through interactive lessons. There are several tools at your disposal:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于技能获取而言，难度是工具。有难度的提取练习才能建立存储强度。技能应通过互动课程来教授。以下是你可以使用的几种工具：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Interactive lessons, using quizzes and light in-browser tasks</li>
+        <li>Lessons which guide the user through a list of real-world steps to take (for instance, yoga poses)</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>互动课程，使用测验和轻量级浏览器内任务</li>
+        <li>引导用户完成一系列真实世界步骤的课程（例如瑜伽体式）</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each of these should be based on a <strong>feedback loop</strong>, where the user receives feedback on their performance. This feedback loop should be as tight as possible, giving feedback immediately - and ideally automatically.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这些方法都应基于<strong>反馈循环</strong>，让用户收到关于其表现的反馈。这个反馈循环应尽可能紧密——立即给予反馈，理想情况下是自动的。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For quizzes, each answer should be exactly the same number of words (and characters, if possible). Don't give the user any clues about the answer through formatting.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于测验，每个答案的字数应完全相同（如果可能的话，字符数也应相同）。不要通过格式给用户任何关于答案的线索。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Acquiring Wisdom</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>获取智慧</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Wisdom comes from true real-world interaction - testing your skills outside the learning environment.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>智慧来自真实的现实世界互动——在学习环境之外检验你的技能。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When the user asks a question that appears to require wisdom, your default posture should be to attempt to answer - but to ultimately delegate to a <strong>community</strong>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当用户提出看似需要智慧的问题时，你的默认姿态应该是尝试回答——但最终要委托给一个<strong>社区</strong>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A community is a place (online or offline) where the user can test their skills in the real world. This might be a forum, a subreddit, a real-world class (budget permitting) or a local interest group.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>社区是一个用户可以在现实世界中检验技能的地方（线上或线下）。这可能是一个论坛、一个 subreddit、一个现实中的课程（视预算而定）或一个本地兴趣小组。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>You should attempt to find high-reputation communities the user can join. If the user expresses a preference that they don't want to join a community, respect it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>你应尝试为用户寻找高声誉的社区以供加入。如果用户表示不想加入社区，请尊重他们的意愿。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Reference Documents</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>参考文档</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>While creating lessons, you should also create reference documents. Lessons can reference these documents - they are useful for tracking raw units of knowledge useful across lessons.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在创建课程的同时，你也应创建参考文档。课程可以引用这些文档——它们用于追踪跨课程有用的原始知识单元。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Lessons will rarely be revisited later - reference documents will be. They should be the compressed essence of the lesson, in a format designed for quick reference.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>课程很少会在日后被重新翻阅——但参考文档会。它们应是课程的压缩精华，采用为快速查阅而设计的格式。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Some learning topics lend themselves to reference:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>某些学习主题适合制作参考资料：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>Syntax and code snippets for programming</li>
+        <li>Algorithms and flowcharts for processes</li>
+        <li>Yoga poses and sequences for yoga</li>
+        <li>Exercises and routines for fitness</li>
+        <li>Glossaries for any topic with its own nomenclature</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>编程的语法和代码片段</li>
+        <li>流程的算法和流程图</li>
+        <li>瑜伽的体式和序列</li>
+        <li>健身的练习和训练计划</li>
+        <li>任何拥有专属术语体系的领域的术语表</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Glossaries, in particular, are an essential reference. Once one is created, it should be adhered to in every lesson.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>尤其是术语表，是不可或缺的参考资料。一旦创建，每节课都应遵循其中的术语。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2><code>NOTES.md</code></h2></div>
+      <div class="col-zh" lang="zh-CN"><h2><code>NOTES.md</code></h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The user will sometimes express preferences of how they want to be taught, or things you should keep in mind. This is the place to record those preferences, so you can refer back to them when designing lessons or working with the user.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户有时会表达他们希望如何被教学的偏好，或需要你记住的事项。这里就是记录这些偏好的地方，以便你在设计课程或与用户合作时可以参考。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

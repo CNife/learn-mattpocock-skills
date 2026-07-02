@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>setup-matt-pocock-skills · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+      line-height: 1.5;
+    }
+    blockquote {
+      border-left: 3px solid var(--warm-mid);
+      padding-left: 1rem;
+      margin: 0.4rem 0;
+      color: var(--text-soft);
+    }
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+    p { margin: 0.35rem 0; }
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="issue-tracker-github.html">issue-tracker-github</a> · <a href="issue-tracker-gitlab.html">issue-tracker-gitlab</a> · <a href="issue-tracker-local.html">issue-tracker-local</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>setup-matt-pocock-skills</td></tr>
+      <tr><td>description</td><td>Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.</td></tr>
+      <tr><td>触发词</td><td>为本仓库配置工程技能——设置 Issue 跟踪器、分诊标签词汇表和领域文档布局。在首次使用其他工程技能之前运行一次。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>setup-matt-pocock-skills</h1>
+    <p class="subtitle">Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Scaffold the per-repo configuration that the engineering skills assume:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>搭建工程技能所需的逐仓库配置：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Issue tracker</strong> — where issues live (GitHub by default; local markdown is also supported out of the box)</li>
+        <li><strong>Triage labels</strong> — the strings used for the five canonical triage roles</li>
+        <li><strong>Domain docs</strong> — where <code>CONTEXT.md</code> and ADRs live, and the consumer rules for reading them</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>Issue 跟踪器</strong>——Issue 存放位置（默认 GitHub；也开箱支持本地 markdown）</li>
+        <li><strong>分诊标签</strong>——用于五个标准分诊角色的字符串</li>
+        <li><strong>领域文档</strong>——<code>CONTEXT.md</code> 和 ADR 的存放位置，以及读取它们的使用规则</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>这是一个提示驱动的技能，不是确定性脚本。探索、展示发现、与用户确认，然后写入。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Process</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>流程</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>1. Explore</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>1. 探索</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Look at the current repo to understand its starting state. Read whatever exists; don't assume:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>查看当前仓库以了解其初始状态。读取任何已存在的内容；不要假设：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><code>git remote -v</code> and <code>.git/config</code> — is this a GitHub repo? Which one?</li>
+        <li><code>AGENTS.md</code> and <code>CLAUDE.md</code> at the repo root — does either exist? Is there already an <code>## Agent skills</code> section in either?</li>
+        <li><code>CONTEXT.md</code> and <code>CONTEXT-MAP.md</code> at the repo root</li>
+        <li><code>docs/adr/</code> and any <code>src/*/docs/adr/</code> directories</li>
+        <li><code>docs/agents/</code> — does this skill's prior output already exist?</li>
+        <li><code>.scratch/</code> — sign that a local-markdown issue tracker convention is already in use</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><code>git remote -v</code> 和 <code>.git/config</code>——这是 GitHub 仓库吗？哪个？</li>
+        <li>仓库根目录的 <code>AGENTS.md</code> 和 <code>CLAUDE.md</code>——是否存在？其中是否已有 <code>## Agent skills</code> 部分？</li>
+        <li>仓库根目录的 <code>CONTEXT.md</code> 和 <code>CONTEXT-MAP.md</code></li>
+        <li><code>docs/adr/</code> 和任何 <code>src/*/docs/adr/</code> 目录</li>
+        <li><code>docs/agents/</code>——此技能的先前输出是否已存在？</li>
+        <li><code>.scratch/</code>——表明本地 markdown Issue 跟踪器约定已在使用</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>2. Present findings and ask</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>2. 展示发现并询问</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Summarise what's present and what's missing. Then walk the user through the three decisions <strong>one at a time</strong> — present a section, get the user's answer, then move to the next. Don't dump all three at once.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>总结已有什么和缺少什么。然后<strong>逐一</strong>引导用户完成三个决策——展示一个部分，获得用户回答，再进行下一个。不要一次全部抛出。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Assume the user does not know what these terms mean. Each section starts with a short explainer (what it is, why these skills need it, what changes if they pick differently). Then show the choices and the default.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>假设用户不了解这些术语的含义。每个部分以简短的解释开始（它是什么、为什么这些技能需要它、选择不同会有什么变化）。然后展示选项和默认值。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Section A — Issue tracker.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>A 部分——Issue 跟踪器。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><blockquote><p>Explainer: The "issue tracker" is where issues live for this repo. Skills like <code>to-issues</code>, <code>triage</code>, <code>to-prd</code>, and <code>qa</code> read from and write to it — they need to know whether to call <code>gh issue create</code>, write a markdown file under <code>.scratch/</code>, or follow some other workflow you describe. Pick the place you actually track work for this repo.</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释："Issue 跟踪器"是这个仓库中 Issue 存放的地方。<code>to-issues</code>、<code>triage</code>、<code>to-prd</code> 和 <code>qa</code> 等技能从中读取和写入——它们需要知道是调用 <code>gh issue create</code>、在 <code>.scratch/</code> 下写 markdown 文件，还是遵循你描述的其他工作流。选择你实际用来跟踪此仓库工作的地方。</p></blockquote></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Default posture: these skills were designed for GitHub. If a <code>git remote</code> points at GitHub, propose that. If a <code>git remote</code> points at GitLab (<code>gitlab.com</code> or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>默认立场：这些技能是为 GitHub 设计的。如果 <code>git remote</code> 指向 GitHub，则提议 GitHub。如果 <code>git remote</code> 指向 GitLab（<code>gitlab.com</code> 或自托管主机），则提议 GitLab。否则（或用户偏好），提供：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>GitHub</strong> — issues live in the repo's GitHub Issues (uses the <code>gh</code> CLI)</li>
+        <li><strong>GitLab</strong> — issues live in the repo's GitLab Issues (uses the <a href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI)</li>
+        <li><strong>Local markdown</strong> — issues live as files under <code>.scratch/&lt;feature&gt;/</code> in this repo (good for solo projects or repos without a remote)</li>
+        <li><strong>Other</strong> (Jira, Linear, etc.) — ask the user to describe the workflow in one paragraph; the skill will record it as freeform prose</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>GitHub</strong>——Issue 存放在仓库的 GitHub Issues 中（使用 <code>gh</code> CLI）</li>
+        <li><strong>GitLab</strong>——Issue 存放在仓库的 GitLab Issues 中（使用 <a href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI）</li>
+        <li><strong>本地 markdown</strong>——Issue 以文件形式存放在仓库的 <code>.scratch/&lt;feature&gt;/</code> 下（适合独立项目或没有远程的仓库）</li>
+        <li><strong>其他</strong>（Jira、Linear 等）——请用户用一段话描述工作流；技能会将其记录为自由文本</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If — and only if — the user picked <strong>GitHub</strong> or <strong>GitLab</strong>, ask one follow-up:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当且仅当用户选择了 <strong>GitHub</strong> 或 <strong>GitLab</strong> 时，追问一个问题：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><blockquote><p>Explainer: Open-source repos often receive feature requests as pull requests, not just issues — a PR is an issue with attached code. If you turn this on, <code>/triage</code> pulls <em>external</em> PRs into the same queue and runs them through the same labels and states as issues (collaborators' in-flight PRs are left alone). Leave it off if PRs aren't a request surface for you.</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：开源项目通常通过 pull request 接收功能请求，而不仅仅是 Issue——PR 是附带代码的 Issue。如果启用此选项，<code>/triage</code> 会将<em>外部</em> PR 拉入同一队列，并使用与 Issue 相同的标签和状态处理（协作者正在进行的 PR 则保持不变）。如果 PR 不是你的请求入口，则保持关闭。</p></blockquote></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>PRs as a request surface</strong> — yes / no (default: no). Record the answer in <code>docs/agents/issue-tracker.md</code>. For local-markdown and other trackers, skip this question — there are no PRs.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>PR 作为请求入口</strong>——是 / 否（默认：否）。将答案记录在 <code>docs/agents/issue-tracker.md</code> 中。对于本地 markdown 和其他跟踪器，跳过此问题——没有 PR。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Section B — Triage label vocabulary.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>B 部分——分诊标签词汇表。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><blockquote><p>Explainer: When the <code>triage</code> skill processes an incoming issue, it moves it through a state machine — needs evaluation, waiting on reporter, ready for an AFK agent to pick up, ready for a human, or won't fix. To do that, it needs to apply labels (or the equivalent in your issue tracker) that match strings <em>you've actually configured</em>. If your repo already uses different label names (e.g. <code>bug:triage</code> instead of <code>needs-triage</code>), map them here so the skill applies the right ones instead of creating duplicates.</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：当 <code>triage</code> 技能处理传入的 Issue 时，它会通过状态机移动——需要评估、等待报告者、准备好让离线代理接管、准备好由人工处理，或不会修复。为此，它需要应用与<em>你实际配置的</em>字符串匹配的标签（或 Issue 跟踪器中的等效项）。如果你的仓库已使用不同的标签名称（例如 <code>bug:triage</code> 而非 <code>needs-triage</code>），在此映射它们，以便技能应用正确的标签而不是创建重复的。</p></blockquote></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The five canonical roles:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>五个标准角色：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><code>needs-triage</code> — maintainer needs to evaluate</li>
+        <li><code>needs-info</code> — waiting on reporter</li>
+        <li><code>ready-for-agent</code> — fully specified, AFK-ready (an agent can pick it up with no human context)</li>
+        <li><code>ready-for-human</code> — needs human implementation</li>
+        <li><code>wontfix</code> — will not be actioned</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><code>needs-triage</code>——维护者需要评估</li>
+        <li><code>needs-info</code>——等待报告者</li>
+        <li><code>ready-for-agent</code>——完全指定，AFK 就绪（代理可以在无人工上下文的情况下接手）</li>
+        <li><code>ready-for-human</code>——需要人工实现</li>
+        <li><code>wontfix</code>——不会被处理</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Default: each role's string equals its name. Ask the user if they want to override any. If their issue tracker has no existing labels, the defaults are fine.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>默认值：每个角色的字符串等于其名称。询问用户是否要覆盖任何设置。如果其 Issue 跟踪器没有现有标签，默认值即可。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Section C — Domain docs.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>C 部分——领域文档。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><blockquote><p>Explainer: Some skills (<code>improve-codebase-architecture</code>, <code>diagnosing-bugs</code>, <code>tdd</code>) read a <code>CONTEXT.md</code> file to learn the project's domain language, and <code>docs/adr/</code> for past architectural decisions. They need to know whether the repo has one global context or multiple (e.g. a monorepo with separate frontend/backend contexts) so they look in the right place.</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：一些技能（<code>improve-codebase-architecture</code>、<code>diagnosing-bugs</code>、<code>tdd</code>）读取 <code>CONTEXT.md</code> 文件来学习项目的领域语言，以及 <code>docs/adr/</code> 了解过去的架构决策。它们需要知道仓库是有一个全局上下文还是多个（例如前后端上下文分离的单体仓库），以便在正确的位置查找。</p></blockquote></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Confirm the layout:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>确认布局：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Single-context</strong> — one <code>CONTEXT.md</code> + <code>docs/adr/</code> at the repo root. Most repos are this.</li>
+        <li><strong>Multi-context</strong> — <code>CONTEXT-MAP.md</code> at the root pointing to per-context <code>CONTEXT.md</code> files (typically a monorepo).</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>单上下文</strong>——仓库根目录一个 <code>CONTEXT.md</code> + <code>docs/adr/</code>。大多数仓库是这种。</li>
+        <li><strong>多上下文</strong>——根目录的 <code>CONTEXT-MAP.md</code> 指向每个上下文的 <code>CONTEXT.md</code> 文件（通常是单体仓库）。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>3. Confirm and edit</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>3. 确认并编辑</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Show the user a draft of:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>向用户展示以下草稿：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>The <code>## Agent skills</code> block to add to whichever of <code>CLAUDE.md</code> / <code>AGENTS.md</code> is being edited (see step 4 for selection rules)</li>
+        <li>The contents of <code>docs/agents/issue-tracker.md</code>, <code>docs/agents/triage-labels.md</code>, <code>docs/agents/domain.md</code></li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>要添加到正在编辑的 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 中的 <code>## Agent skills</code> 块（选择规则见步骤 4）</li>
+        <li><code>docs/agents/issue-tracker.md</code>、<code>docs/agents/triage-labels.md</code>、<code>docs/agents/domain.md</code> 的内容</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Let them edit before writing.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>让他们在写入前编辑。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>4. Write</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>4. 写入</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Pick the file to edit:</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>选择要编辑的文件：</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li>If <code>CLAUDE.md</code> exists, edit it.</li>
+        <li>Else if <code>AGENTS.md</code> exists, edit it.</li>
+        <li>If neither exists, ask the user which one to create — don't pick for them.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li>如果 <code>CLAUDE.md</code> 存在，编辑它。</li>
+        <li>否则如果 <code>AGENTS.md</code> 存在，编辑它。</li>
+        <li>如果都不存在，询问用户要创建哪一个——不要替他们选择。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Never create <code>AGENTS.md</code> when <code>CLAUDE.md</code> already exists (or vice versa) — always edit the one that's already there.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当 <code>CLAUDE.md</code> 已存在时不要创建 <code>AGENTS.md</code>（反之亦然）——始终编辑已存在的那个。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If an <code>## Agent skills</code> block already exists in the chosen file, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果所选文件中已存在 <code>## Agent skills</code> 块，就地更新其内容而不是追加重复项。不要覆盖用户对周围部分的编辑。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The block:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>该块：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Agent skills
+
+### Issue tracker
+
+[one-line summary of where issues are tracked, plus whether external PRs are a triage surface]. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+[one-line summary of the label vocabulary]. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+[one-line summary of layout — "single-context" or "multi-context"]. See `docs/agents/domain.md`.</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## Agent skills
+
+### Issue tracker
+
+[一行摘要：Issue 在哪里跟踪，以及外部 PR 是否为分诊入口]。见 `docs/agents/issue-tracker.md`。
+
+### Triage labels
+
+[一行摘要：标签词汇表]。见 `docs/agents/triage-labels.md`。
+
+### Domain docs
+
+[一行摘要：布局——"single-context" 或 "multi-context"]。见 `docs/agents/domain.md`。</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Then write the three docs files using the seed templates in this skill folder as a starting point:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>然后使用此技能文件夹中的种子模板作为起点，写入三个文档文件：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><a href="./issue-tracker-github.html">issue-tracker-github.md</a> — GitHub issue tracker</li>
+        <li><a href="./issue-tracker-gitlab.html">issue-tracker-gitlab.md</a> — GitLab issue tracker</li>
+        <li><a href="./issue-tracker-local.html">issue-tracker-local.md</a> — local-markdown issue tracker</li>
+        <li><a href="./triage-labels.html">triage-labels.md</a> — label mapping</li>
+        <li><a href="./domain.html">domain.md</a> — domain doc consumer rules + layout</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><a href="./issue-tracker-github.html">issue-tracker-github.md</a>——GitHub Issue 跟踪器</li>
+        <li><a href="./issue-tracker-gitlab.html">issue-tracker-gitlab.md</a>——GitLab Issue 跟踪器</li>
+        <li><a href="./issue-tracker-local.html">issue-tracker-local.md</a>——本地 markdown Issue 跟踪器</li>
+        <li><a href="./triage-labels.html">triage-labels.md</a>——标签映射</li>
+        <li><a href="./domain.html">domain.md</a>——领域文档消费规则 + 布局</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>For "other" issue trackers, write <code>docs/agents/issue-tracker.md</code> from scratch using the user's description.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>对于"其他"类型的 Issue 跟踪器，根据用户的描述从头编写 <code>docs/agents/issue-tracker.md</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>5. Done</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>5. 完成</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit <code>docs/agents/*.md</code> directly later — re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>告诉用户设置已完成，以及哪些工程技能现在会读取这些文件。提到他们之后可以直接编辑 <code>docs/agents/*.md</code>——只有当他们想切换 Issue 跟踪器或从头重新开始时才需要重新运行此技能。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

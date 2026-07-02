@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>issue-tracker-gitlab · setup-matt-pocock-skills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+      line-height: 1.5;
+    }
+    blockquote {
+      border-left: 3px solid var(--warm-mid);
+      padding-left: 1rem;
+      margin: 0.4rem 0;
+      color: var(--text-soft);
+    }
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+    p { margin: 0.35rem 0; }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="SKILL.html">← setup-matt-pocock-skills</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Issue tracker: GitLab</h1>
+    <p class="subtitle">此仓库的 Issue 和 PRD 存放在 GitLab Issues 中。所有操作使用 <a href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI。</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Issues and PRDs for this repo live as GitLab issues. Use the <a href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI for all operations.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>此仓库的 Issue 和 PRD 存放在 GitLab Issues 中。所有操作使用 <a href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Conventions</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>约定</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Create an issue</strong>: <code>glab issue create --title "..." --description "..."</code>. Use a heredoc for multi-line descriptions. Pass <code>--description -</code> to open an editor.</li>
+        <li><strong>Read an issue</strong>: <code>glab issue view &lt;number&gt; --comments</code>. Use <code>-F json</code> for machine-readable output.</li>
+        <li><strong>List issues</strong>: <code>glab issue list -F json</code> with appropriate <code>--label</code> filters.</li>
+        <li><strong>Comment on an issue</strong>: <code>glab issue note &lt;number&gt; --message "..."</code>. GitLab calls comments "notes".</li>
+        <li><strong>Apply / remove labels</strong>: <code>glab issue update &lt;number&gt; --label "..."</code> / <code>--unlabel "..."</code>. Multiple labels can be comma-separated or by repeating the flag.</li>
+        <li><strong>Close</strong>: <code>glab issue close &lt;number&gt;</code>. <code>glab issue close</code> does not accept a closing comment, so post the explanation first with <code>glab issue note &lt;number&gt; --message "..."</code>, then close.</li>
+        <li><strong>Merge requests</strong>: GitLab calls PRs "merge requests". Use <code>glab mr create</code>, <code>glab mr view</code>, <code>glab mr note</code>, etc. — the same shape as <code>gh pr ...</code> with <code>mr</code> in place of <code>pr</code> and <code>note</code>/<code>--message</code> in place of <code>comment</code>/<code>--body</code>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>创建 Issue</strong>：<code>glab issue create --title "..." --description "..."</code>。多行描述使用 heredoc。传入 <code>--description -</code> 打开编辑器。</li>
+        <li><strong>读取 Issue</strong>：<code>glab issue view &lt;number&gt; --comments</code>。使用 <code>-F json</code> 获取机器可读输出。</li>
+        <li><strong>列出 Issue</strong>：<code>glab issue list -F json</code>，配合适当的 <code>--label</code> 过滤器。</li>
+        <li><strong>评论 Issue</strong>：<code>glab issue note &lt;number&gt; --message "..."</code>。GitLab 将评论称为"notes"。</li>
+        <li><strong>应用 / 移除标签</strong>：<code>glab issue update &lt;number&gt; --label "..."</code> / <code>--unlabel "..."</code>。多个标签可以用逗号分隔或重复该标志。</li>
+        <li><strong>关闭</strong>：<code>glab issue close &lt;number&gt;</code>。<code>glab issue close</code> 不接受关闭评论，因此先用 <code>glab issue note &lt;number&gt; --message "..."</code> 发布说明，然后关闭。</li>
+        <li><strong>Merge request</strong>：GitLab 将 PR 称为"merge request"。使用 <code>glab mr create</code>、<code>glab mr view</code>、<code>glab mr note</code> 等——与 <code>gh pr ...</code> 结构相同，用 <code>mr</code> 替代 <code>pr</code>，用 <code>note</code>/<code>--message</code> 替代 <code>comment</code>/<code>--body</code>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Infer the repo from <code>git remote -v</code> — <code>glab</code> does this automatically when run inside a clone.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>从 <code>git remote -v</code> 推断仓库——<code>glab</code> 在克隆目录内运行时会自动执行此操作。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Merge requests as a triage surface</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>Merge request 作为分诊入口</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>MRs as a request surface: no.</strong> <em>(Set to <code>yes</code> if this repo treats external merge requests as feature requests; <code>/triage</code> reads this flag.)</em></p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>MR 作为请求入口：否。</strong><em>（如果此仓库将外部 merge request 视为功能请求，则设为 <code>yes</code>；<code>/triage</code> 会读取此标志。）</em></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When set to <code>yes</code>, MRs run through the same labels and states as issues, using the <code>glab mr</code> equivalents:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>设为 <code>yes</code> 时，MR 使用 <code>glab mr</code> 的等效命令，经过与 Issue 相同的标签和状态流转：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Read an MR</strong>: <code>glab mr view &lt;number&gt; --comments</code> and <code>glab mr diff &lt;number&gt;</code> for the diff.</li>
+        <li><strong>List external MRs for triage</strong>: <code>glab mr list -F json</code>, then keep only MRs whose author is not a project member/owner (a contributor's MR, not a maintainer's in-flight work).</li>
+        <li><strong>Comment / label / close</strong>: <code>glab mr note</code>, <code>glab mr update --label</code>/<code>--unlabel</code>, <code>glab mr close</code>.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>读取 MR</strong>：<code>glab mr view &lt;number&gt; --comments</code> 和 <code>glab mr diff &lt;number&gt;</code> 查看差异。</li>
+        <li><strong>列出外部 MR 进行分诊</strong>：<code>glab mr list -F json</code>，然后仅保留作者不是项目成员/所有者的 MR（贡献者的 MR，而非维护者正在进行的工作）。</li>
+        <li><strong>评论 / 标签 / 关闭</strong>：<code>glab mr note</code>、<code>glab mr update --label</code>/<code>--unlabel</code>、<code>glab mr close</code>。</li>
+      </ul></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Unlike GitHub, GitLab numbers issues and MRs separately, so <code>#42</code> is unambiguous once you know which surface the maintainer means.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>与 GitHub 不同，GitLab 对 Issue 和 MR 分别编号，因此一旦你知道维护者指的是哪个入口，<code>#42</code> 就是明确的。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When a skill says "publish to the issue tracker"</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>当技能说"发布到 Issue 跟踪器"</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Create a GitLab issue.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>创建一个 GitLab Issue。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>When a skill says "fetch the relevant ticket"</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>当技能说"获取相关工单"</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Run <code>glab issue view &lt;number&gt; --comments</code>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>运行 <code>glab issue view &lt;number&gt; --comments</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Wayfinding operations</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>导航操作</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Used by <code>/wayfinder</code>. The <strong>map</strong> is a single issue with <strong>child</strong> issues as tickets.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>由 <code>/wayfinder</code> 使用。<strong>地图</strong>是一个单独的 Issue，以<strong>子</strong> Issue 作为工单。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><ul>
+        <li><strong>Map</strong>: a single issue labelled <code>wayfinder:map</code>, holding the Notes / Decisions-so-far / Fog body. <code>glab issue create --label wayfinder:map</code>. (On GitLab tiers with native epics, an epic may hold the map instead; a labelled issue works everywhere.)</li>
+        <li><strong>Child ticket</strong>: an issue carrying <code>Part of #&lt;map&gt;</code> at the top of its description and labels <code>wayfinder:&lt;type&gt;</code> (<code>research</code>/<code>prototype</code>/<code>grilling</code>/<code>task</code>), plus <code>wayfinder:claimed</code> once claimed.</li>
+        <li><strong>Blocking</strong>: GitLab's native <code>/blocked_by #&lt;n&gt;</code> quick action (or a <code>Blocked by: #&lt;n&gt;, #&lt;n&gt;</code> line in the description as fallback). A ticket is unblocked when every issue it lists is closed.</li>
+        <li><strong>Frontier query</strong>: <code>glab issue list -F json</code> scoped to the map's children, drop any with an open blocker or the <code>wayfinder:claimed</code> label; first in map order wins.</li>
+        <li><strong>Claim</strong>: <code>glab issue update &lt;n&gt; --label wayfinder:claimed</code> — the session's first write.</li>
+        <li><strong>Resolve</strong>: <code>glab issue note &lt;n&gt; --message "&lt;answer&gt;"</code>, then <code>glab issue close &lt;n&gt;</code>, then append a context pointer (gist + link) to the map's Decisions-so-far.</li>
+      </ul></div>
+      <div class="col-zh" lang="zh-CN"><ul>
+        <li><strong>地图</strong>：一个标记为 <code>wayfinder:map</code> 的 Issue，包含 Notes / Decisions-so-far / Fog 正文。<code>glab issue create --label wayfinder:map</code>。（在支持原生 epic 的 GitLab 版本中，epic 可以代替承载地图；标记的 Issue 在所有版本中都可用。）</li>
+        <li><strong>子工单</strong>：在描述顶部带有 <code>Part of #&lt;map&gt;</code> 的 Issue，标签为 <code>wayfinder:&lt;type&gt;</code>（<code>research</code>/<code>prototype</code>/<code>grilling</code>/<code>task</code>），加上认领后的 <code>wayfinder:claimed</code>。</li>
+        <li><strong>阻塞</strong>：GitLab 原生的 <code>/blocked_by #&lt;n&gt;</code> 快速操作（或描述中的 <code>Blocked by: #&lt;n&gt;, #&lt;n&gt;</code> 行作为回退）。当其列出的每个 Issue 都关闭时，工单即解除阻塞。</li>
+        <li><strong>前沿查询</strong>：<code>glab issue list -F json</code> 限定在地图的子 Issue 范围内，丢弃任何有开放阻塞或 <code>wayfinder:claimed</code> 标签的；按地图顺序第一个胜出。</li>
+        <li><strong>认领</strong>：<code>glab issue update &lt;n&gt; --label wayfinder:claimed</code>——会话的第一次写入。</li>
+        <li><strong>解决</strong>：<code>glab issue note &lt;n&gt; --message "&lt;answer&gt;"</code>，然后 <code>glab issue close &lt;n&gt;</code>，然后将上下文指针（gist + 链接）追加到地图的 Decisions-so-far。</li>
+      </ul></div>
+    </div>
+
+  </div>
+</body>
+</html>

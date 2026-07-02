@@ -18,7 +18,6 @@
       src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
       font-weight: 500;
     }
-
     :root {
       --parchment: #f5f4ed;
       --ink-blue: #1B365D;
@@ -26,45 +25,58 @@
       --text-soft: #5a4f40;
       --warm-gray: #e1ddcf;
       --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
     }
-
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       background: var(--parchment);
       color: var(--text);
-      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-family: var(--serif);
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      padding: 2rem 1rem;
     }
-
     .container {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 2rem 2rem 4rem;
     }
-
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: var(--ink-blue);
-      margin: 1.5rem 0 0.2rem;
-      letter-spacing: -0.01em;
+      margin: 1.5rem 0 0.3rem;
+      line-height: 1.3;
     }
-
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--text-soft);
-      margin-bottom: 2rem;
-      font-style: italic;
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1.4rem 0 0.3rem;
+      padding-bottom: 0.15rem;
+      border-bottom: 1px solid var(--warm-mid);
     }
-
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink-blue);
+      margin: 1rem 0 0.2rem;
+    }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.8; }
+    code {
+      font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: #e8e5db;
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    strong { color: var(--ink-blue); }
     .fm-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 2rem 0 0;
+      margin: 0 0 0;
       font-size: 0.8rem;
       background: #ece9e0;
       border-left: 3px solid var(--ink-blue);
@@ -81,7 +93,6 @@
       width: 1%;
       padding-right: 1.2rem;
     }
-
     .pair {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -92,46 +103,21 @@
       padding-right: 1.8rem;
       border-right: 1px solid var(--warm-gray);
     }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
     .col-zh {
       padding-left: 1.8rem;
       line-height: 1.85;
     }
-
-    .col-en p, .col-zh p {
-      margin: 0.6rem 0;
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
     }
-
-    .col-en code, .col-zh code {
-      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
-      font-size: 0.88em;
-      background: #e8e5db;
-      padding: 0.1em 0.35em;
-      border-radius: 3px;
-    }
-
-    .col-en ol, .col-zh ol,
-    .col-en ul, .col-zh ul {
-      margin: 0.4rem 0 0.4rem 1.4rem;
-    }
-
-    .col-en li, .col-zh li {
-      margin: 0.25rem 0;
-    }
-
-    .col-en h2, .col-zh h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--ink-blue);
-      margin: 1.2rem 0 0.4rem;
-    }
-
-    .col-en h3, .col-zh h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--ink-blue);
-      margin: 1rem 0 0.3rem;
-    }
-
     @media (max-width: 800px) {
       .pair { grid-template-columns: 1fr; }
       .col-en {
@@ -141,7 +127,6 @@
         margin-bottom: 0.3rem;
       }
       .col-zh { padding: 0.3rem 0; }
-      .container { padding: 1rem 1rem 3rem; }
     }
     .back-link {
       display: inline-block;
@@ -157,7 +142,7 @@
     <table class="fm-table">
       <tr><td>name</td><td>code-review</td></tr>
       <tr><td>description</td><td>Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes — Standards (does the code follow this repo's documented coding standards?) and Spec (does the code match what the originating issue/PRD asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, work-in-progress changes, or asks to "review since X".</td></tr>
-      <tr><td>触发词</td><td>沿两条轴线审查自某个固定点（提交、分支、标签或合并基点）以来的变更——规范轴（代码是否遵循该仓库的已记录编码规范？）和规格轴（代码是否匹配原始 issue/PRD 的要求？）。在两个并行子代理中分别运行这两条审查，并排报告结果。当用户想要审查分支、PR、进行中的变更，或要求审查自某点以来的变更时使用。</td></tr>
+      <tr><td>触发词</td><td>沿两条轴线审查自某个固定点（提交、分支、标签或合并基点）以来的变更——规范轴（代码是否遵循该仓库的已记录编码规范？）和规格轴（代码是否匹配原始 issue/PRD 的要求？）。在两个并行子代理中分别运行这两条审查，并排报告结果。当用户想要审查分支、PR、进行中的变更，或要求"审查自某点以来的变更"时使用。</td></tr>
     </table>
 
     <h1>code-review</h1>
@@ -242,7 +227,7 @@
           <li>提交信息中的 Issue 引用（<code>#123</code>、<code>Closes #45</code>、GitLab <code>!67</code> 等）——通过 <code>docs/agents/issue-tracker.md</code> 中的工作流获取。</li>
           <li>用户通过参数传递的路径。</li>
           <li><code>docs/</code>、<code>specs/</code> 或 <code>.scratch/</code> 下匹配分支名或功能名的 PRD/规格文件。</li>
-          <li>若未找到，询问用户规格在哪里。若用户表示没有规格，则 <strong>规格</strong>子代理将跳过并在报告中注明"无可用规格"。</li>
+          <li>若未找到，询问用户规格在哪里。若用户表示没有规格，则<strong>规格</strong>子代理将跳过并在报告中注明"无可用规格"。</li>
         </ol>
       </div>
     </div>
@@ -271,20 +256,20 @@
       </div>
       <div class="col-zh" lang="zh-CN">
         <ul>
-          <li><strong>The repo overrides.</strong> 已记录的仓库标准始终优先；若其认可了基线会标记的内容，则压制该坏味道。</li>
-          <li><strong>Always a judgement call.</strong> 每种坏味道都是一个带有标签的启发式判断（例如"可能的 Feature Envy"），而非硬性违规——与本处所有标准一样，跳过工具已强制检查的内容。</li>
+          <li><strong>仓库优先。</strong> 已记录的仓库标准始终胜出；若其认可了基线会标记的内容，则压制该坏味道。</li>
+          <li><strong>始终是判断性调用。</strong> 每种坏味道是一个带有标签的启发式判断（如"可能的 Feature Envy"），而非硬性违规——与本处所有标准一样，跳过工具已强制检查的内容。</li>
         </ul>
       </div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p>Each smell reads <em>what it is</em> → <em>how to fix</em>; match it against the diff:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>每种坏味道采用<em>是什么</em> → <em>如何修复</em>的格式；将其与 diff 对照匹配：</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每种坏味道按<em>是什么</em> → <em>如何修复</em>的格式；将其与 diff 对照匹配：</p></div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Mysterious Name</strong> — a function, variable, or type whose name doesn't reveal what it does or holds. → rename it; if no honest name comes, the design's murky.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Mysterious Name</strong> — 函数、变量或类型的名称未能揭示其功能或含义。→ 重命名；若找不到合适的名称，说明设计不清晰。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Mysterious Name</strong> — 函数、变量或类型的名称未能揭示其功能或含义。→ 重命名；若找不到诚实的名称，说明设计不清晰。</p></div>
     </div>
 
     <div class="pair">
@@ -294,7 +279,7 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Feature Envy</strong> — a method that reaches into another object's data more than its own. → move the method onto the data it envies.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Feature Envy</strong> — 方法访问另一个对象的数据比访问自己的还多。→ 将该方法移到它"嫉妒"的数据上。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Feature Envy</strong> — 方法访问另一个对象的数据比访问自己的还多。→ 将该方法移到它所"嫉妒"的数据上。</p></div>
     </div>
 
     <div class="pair">
@@ -314,7 +299,7 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Shotgun Surgery</strong> — one logical change forces scattered edits across many files in the diff. → gather what changes together into one module.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Shotgun Surgery</strong> — 一个逻辑变更迫使 diff 中许多文件散落修改。→ 将被修改的内容聚集到一个模块中。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Shotgun Surgery</strong> — 一个逻辑变更迫使 diff 中许多文件散落修改。→ 将一起变更的内容聚集到一个模块中。</p></div>
     </div>
 
     <div class="pair">
@@ -329,17 +314,17 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Message Chains</strong> — long <code>a.b().c().d()</code> navigation the caller shouldn't depend on. → hide the walk behind one method on the first object.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Message Chains</strong> — 调用方不应依赖的过长 <code>a.b().c().d()</code> 链条式导航。→ 将遍历过程隐藏到第一个对象的一个方法后面。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Message Chains</strong> — 调用方不应依赖的过长 <code>a.b().c().d()</code> 链条式导航。→ 将遍历隐藏到第一个对象的一个方法中。</p></div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Middle Man</strong> — a class or function that mostly just delegates onward. → cut it, call the real target direct.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Middle Man</strong> — 一个主要只是向下委托的类或函数。→ 删掉它，直接调用真正的目标。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Middle Man</strong> — 一个主要只是向下委托的类或函数。→ 去掉它，直接调用真正的目标。</p></div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p><strong>Refused Bequest</strong> — a subclass or implementer that ignores or overrides most of what it inherits. → drop the inheritance, use composition.</p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>Refused Bequest</strong> — 子类或实现者忽略或覆写了继承来的大部分内容。→ 放弃继承，改用组合。</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>Refused Bequest</strong> — 子类或实现者忽略或覆写了其继承的大部分内容。→ 放弃继承，改用组合。</p></div>
     </div>
 
     <div class="pair">
@@ -349,7 +334,7 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><p>Send a single message with two <code>Agent</code> tool calls. Use the <code>general-purpose</code> subagent for both.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>发送一条包含两个 <code>Agent</code> 工具调用的单次消息。两个都使用 <code>general-purpose</code> 子代理。</p></div>
+      <div class="col-zh" lang="zh-CN"><p>发送一条包含两个 <code>Agent</code> 工具调用的消息。两个都使用 <code>general-purpose</code> 子代理。</p></div>
     </div>
 
     <div class="pair">
@@ -368,8 +353,8 @@
       <div class="col-zh" lang="zh-CN">
         <ul>
           <li>完整的 diff 命令和提交列表。</li>
-          <li>你在步骤 3 中发现的规范来源文件列表，以及<strong>步骤 3 中的坏味道基线</strong>完整粘贴——子代理无法自行获取。</li>
-          <li>指令："报告——按相关文件/代码块——(a) diff 中每处违反已记录标准的地方：引用标准（文件 + 规则）；(b) 任何你发现的基线坏味道：命名它并引用代码块。区分硬性违规与判断性调用——违反已记录标准可以是硬性的，但基线坏味道始终是判断性调用，且已记录的仓库标准优先于基线。跳过工具已强制检查的内容。不超过 400 字。"</li>
+          <li>你在步骤 3 中找到的规范来源文件列表，以及<strong>步骤 3 中的坏味道基线</strong>完整粘贴——子代理无法自行获取。</li>
+          <li>指令："报告——按相关文件/代码块——(a) diff 中每处违反已记录标准的地方：引用标准（文件 + 规则）；(b) 你发现的任何基线坏味道：命名它并引用代码块。区分硬性违规与判断性调用——违反已记录标准可以是硬性的，但基线坏味道始终是判断性调用，且已记录的仓库标准优先于基线。跳过工具已强制检查的内容。不超过 400 字。"</li>
         </ul>
       </div>
     </div>
@@ -391,14 +376,14 @@
         <ul>
           <li>diff 命令和提交列表。</li>
           <li>规格说明的路径或获取到的内容。</li>
-          <li>指令："报告：(a) 规格说明要求但缺失或不完整的需求；(b) diff 中未经要求的行为（范围蔓延）；(c) 看似已实现但实现方式有问题的需求。对每条发现引用规格说明原文。不超过 400 字。"</li>
+          <li>指令："报告：(a) 规格说明要求但缺失或不完整的需求；(b) diff 中未经要求的行为（范围蔓延）；(c) 看似已实现但实现看起来有问题的需求。对每条发现引用规格说明原文。不超过 400 字。"</li>
         </ul>
       </div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p>If the spec is missing, skip the Spec sub-agent and note this in the final report.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>如果规格说明缺失，则跳过规格子代理并在最终报告中注明。</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果规格说明缺失，跳过规格子代理并在最终报告中注明。</p></div>
     </div>
 
     <div class="pair">
@@ -408,12 +393,12 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><p>Present the two reports under <code>## Standards</code> and <code>## Spec</code> headings, verbatim or lightly cleaned. Do <strong>not</strong> merge or rerank findings — the two axes are deliberately separate (see <em>Why two axes</em>).</p></div>
-      <div class="col-zh" lang="zh-CN"><p>在两个 <code>## Standards</code> 和 <code>## Spec</code> 标题下呈现两份报告，逐字引用或稍加清理。<strong>不要</strong>合并或重新排序发现——两条轴线是有意分开的（参见<em>为何分两条轴线</em>）。</p></div>
+      <div class="col-zh" lang="zh-CN"><p>在 <code>## Standards</code> 和 <code>## Spec</code> 两个标题下呈现两份报告，逐字引用或稍加清理。<strong>不要</strong>合并或重新排序发现——两条轴线是有意分开的（参见<em>为何分两条轴线</em>）。</p></div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><p>End with a one-line summary: total findings per axis, and the worst issue <em>within each axis</em> (if any). Don't pick a single winner across axes — that's the reranking the separation exists to prevent.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>以一行摘要结束：每条轴线的发现总数，以及每条轴线<em>内</em>的最严重问题（如有）。不要在轴线之间选择单一胜者——这正是分开报告所要防止的重新排序。</p></div>
+      <div class="col-zh" lang="zh-CN"><p>以一行摘要结束：每条轴线的发现总数，以及每条轴线<em>内</em>的最严重问题（如有）。不要在轴线之间选出单一最严重问题——这正是分开所要防止的重新排序。</p></div>
     </div>
 
     <div class="pair">
@@ -435,8 +420,8 @@
       </div>
       <div class="col-zh" lang="zh-CN">
         <ul>
-          <li>符合所有规范却实现错误内容的代码 → <strong>规范通过，规格失败。</strong></li>
-          <li>完全按 issue 要求编码却违反项目约定的代码 → <strong>规格通过，规范失败。</strong></li>
+          <li>遵循所有规范却实现了错误内容的代码 → <strong>规范通过，规格失败。</strong></li>
+          <li>完全按 issue 要求实现却违反项目约定的代码 → <strong>规格通过，规范失败。</strong></li>
         </ul>
       </div>
     </div>
