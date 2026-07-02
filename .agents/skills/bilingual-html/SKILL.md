@@ -51,11 +51,12 @@ disable-model-invocation: true
   <title>{name} · skill router</title>
   <!-- CDN 字体加载 -->
   <style>
+    /* .back-link 导航 */
     /* @font-face + 全部样式 */
   </style>
-</head>
 <body>
   <div class="container">
+    <!-- .back-link 导航 ← index.html 和同技能文件链接 -->
     <!-- frontmatter 表格 -->
     <!-- h1 + subtitle -->
     <!-- 逐段落 pair -->
@@ -119,6 +120,16 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+```
+
+全局导航样式：
+
+```css
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
 }
 ```
 
@@ -218,6 +229,25 @@ frontmatter 放在页面最顶部，用 `<table>` 展示，墨蓝左边框。所
 - 不要使用本地/系统字体回退
 - 不要使用 `Inter`、`system-ui` 等无衬线字体作为正文字体
 - 中文行高 ≥ 1.8
+
+#### 3.8 导航链接
+
+生成 HTML 后必须添加导航链接，规则如下：
+
+**主文档（`SKILL.html`）：**
+- 在 `<div class="container">` 之后、frontmatter 表格之前插入 `.back-link` 导航行
+- 首个链接为 `← <a href="../index.html">技能图谱</a>`
+- 如果该技能有附属 `.md` 文件生成了独立 HTML（如 `LOGIC.html`、`ADR-FORMAT.html`），在 index 链接后追加 ` · <a href="...">标签</a>`，每个附属文件对应一个链接
+
+**附属文档（如 `LOGIC.html`、`ADR-FORMAT.html`）：**
+- 在 `<div class="container">` 之后插入 `.back-link` 导航行
+- 首个链接为 `← <a href="SKILL.html">技能名</a>`（返回主文档）
+- 追加 ` · <a href="../index.html">技能图谱</a>`
+
+**单文件技能（无附属文档）：**
+- 只加 `← <a href="../index.html">技能图谱</a>`
+
+所有导航链接使用 `.back-link` 样式（display: inline-block、margin-bottom: 1rem、font-size: 0.85rem）。
 
 ### 4. 验证
 
