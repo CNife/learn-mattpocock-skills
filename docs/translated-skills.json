@@ -1,0 +1,113 @@
+{
+  "upstream": {
+    "url": "https://github.com/mattpocock/skills.git",
+    "ref": "main"
+  },
+  "skills": {
+    "ask-matt": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-01",
+      "source_path": "skills/engineering/ask-matt"
+    },
+    "code-review": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/code-review"
+    },
+    "codebase-design": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/codebase-design"
+    },
+    "diagnosing-bugs": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/diagnosing-bugs"
+    },
+    "domain-modeling": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-01",
+      "source_path": "skills/engineering/domain-modeling"
+    },
+    "grill-me": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-01",
+      "source_path": "skills/productivity/grill-me"
+    },
+    "grill-with-docs": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-01",
+      "source_path": "skills/engineering/grill-with-docs"
+    },
+    "grilling": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-01",
+      "source_path": "skills/productivity/grilling"
+    },
+    "handoff": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/productivity/handoff"
+    },
+    "implement": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/implement"
+    },
+    "improve-codebase-architecture": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/improve-codebase-architecture"
+    },
+    "prototype": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/prototype"
+    },
+    "research": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/research"
+    },
+    "resolving-merge-conflicts": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/resolving-merge-conflicts"
+    },
+    "setup-matt-pocock-skills": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/setup-matt-pocock-skills"
+    },
+    "tdd": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/tdd"
+    },
+    "teach": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/productivity/teach"
+    },
+    "to-issues": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/to-issues"
+    },
+    "to-prd": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/to-prd"
+    },
+    "triage": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/engineering/triage"
+    },
+    "writing-great-skills": {
+      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
+      "translated_at": "2026-07-02",
+      "source_path": "skills/productivity/writing-great-skills"
+    }
+  }
+}
