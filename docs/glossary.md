@@ -1,6 +1,6 @@
 # 翻译术语锚点表
 
-本表供 `bilingual-html` worker 翻译时统一译法使用。覆盖 9 个待转换技能（diagnosing-bugs、improve-codebase-architecture、triage、to-prd、to-issues、implement、tdd、code-review、codebase-design）中跨技能重复出现、且译法可能分歧的核心术语。
+本表供 `bilingual-html` worker 翻译时统一译法使用。覆盖跨技能重复出现、且译法可能分歧的核心术语；v1.1.0 起新增 to-spec/to-tickets/wayfinder 规划与寻路术语（见第八节）。
 
 **使用规则**：
 - 左栏英文术语出现时，右栏中文译法为强制标准，不得自行改写。
@@ -25,7 +25,7 @@
 | spy | 间谍 | 测试替身语境 |
 | bisect | 二分 | git bisect 场景 |
 | stress-test | 压力测试 | |
-| synthesise / synthesize | 综合 | to-prd 场景 |
+| synthesise / synthesize | 综合 | to-spec 场景 |
 | grill (someone) | 追问 | 作动词「拷问/追问」时 |
 
 ## 二、artifact / 产物类型
@@ -40,14 +40,14 @@
 | Issue | Issue | 首字母大写时保留英文，遵源仓库 CONTEXT.md |
 | Issue tracker | Issue 跟踪器 | 遵源仓库 CONTEXT.md，_Avoid_: backlog manager |
 | PR | 保留英文 | Pull Request，不译 |
-| spec | 规格说明 | |
+| spec | 规格说明 | to-spec 贯穿术语；PRD 仍保留英文 |
 | regression test | 回归测试 | |
 | acceptance criteria | 验收标准 | |
 | user story | 用户故事 | |
 | snapshot | 快照 | 测试语境 |
 | fixture | 固定装置 | 测试输入数据 |
 | seam | 接缝 | codebase-design 核心术语，_Avoid_: boundary |
-| tracer bullet | 曳光弹 | to-issues / tdd 术语 |
+| tracer bullet | 曳光弹 | to-tickets / tdd 术语 |
 
 ## 三、codebase-design 架构词汇（强制统一，禁止替换）
 
@@ -116,3 +116,36 @@
 | throwaway (prototype/harness) | 一次性（原型/测试架） | |
 | feedback loop | 反馈循环 | diagnosing-bugs 核心 |
 | hitl / HITL | 保留英文 | Human-In-The-Loop，不译 |
+
+## 八、v1.1.0 规划 / wayfinder 术语
+
+| 英文 | 中文译法 | 备注 |
+|---|---|---|
+| to-spec | 保留英文 | 技能名/命令，不译 |
+| to-tickets | 保留英文 | 技能名/命令，不译 |
+| wayfinder | 保留英文 | 技能名/命令，不译 |
+| wayfinding | 寻路 | wayfinder 的活动/过程 |
+| ticket | 保留英文 | 上游 CONTEXT.md 将 ticket 标为 _Avoid_（域术语用 Issue），但 to-tickets/wayfinder 技能原文以 ticket 为工作术语；翻译时保留英文以匹配原文，不译「工单/议题」 |
+| map | 地图 | wayfinder:map issue；_Avoid_: 技能图谱（站点 index.html 专属，见 CONTEXT.md） |
+| destination | 目的地 | wayfinder 锚定词 |
+| frontier | 前沿 | 开放、未阻塞、未认领的 ticket--已知边缘 |
+| fog of war | 战争迷雾 | |
+| fog | 迷雾 | |
+| route | 路线 | |
+| Not yet specified | 尚未明确 | 地图章节名；范围内尚未可成 ticket 的迷雾 |
+| Decisions so far | 已作决策 | 地图章节名 |
+| Out of scope | 超出范围 | 地图章节名；同 out-of-scope（第七节） |
+| claim | 认领 | 认领 ticket（通过指派） |
+| child issue | 子 issue | issue 保留英文 |
+| parent issue | 父 issue | |
+| blocking edge | 阻塞边 | to-tickets/wayfinder 术语 |
+| Blocked by | 阻塞于 | ticket 模板章节名 |
+| unblocked | 未阻塞 | |
+| resolution comment | 结论评论 | 关闭 ticket 时发布的答案 |
+| graduate | 转化 | 迷雾/尚未明确转化为 ticket；不译「毕业」（毕业保留给技能桶晋升） |
+| task | 任务 | wayfinder 票型之一；标签 `wayfinder:task` 保留英文 |
+| wide refactor | 大范围重构 | to-tickets 例外切片 |
+| blast radius | 影响半径 | |
+| expand–contract | 扩展-收缩 | 大范围重构序列 |
+| call site | 调用点 | |
+| integration branch | 集成分支 | |
