@@ -152,8 +152,7 @@
 </head>
 <body>
   <div class="container">
-    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="issue-tracker-github.html">issue-tracker-github</a> · <a href="issue-tracker-gitlab.html">issue-tracker-gitlab</a> · <a href="issue-tracker-local.html">issue-tracker-local</a>
-
+    <a class="back-link" href="../index.html">← 技能图谱</a> · <a href="issue-tracker-github.html">issue-tracker-github</a> · <a href="issue-tracker-gitlab.html">issue-tracker-gitlab</a> · <a href="issue-tracker-local.html">issue-tracker-local</a> · <a href="triage-labels.html">分诊标签</a> · <a href="domain.html">领域文档</a>
     <table class="fm-table">
       <tr><td>name</td><td>setup-matt-pocock-skills</td></tr>
       <tr><td>description</td><td>Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.</td></tr>
@@ -161,7 +160,7 @@
       <tr><td>disable-model-invocation</td><td>true</td></tr>
     </table>
 
-    <h1>setup-matt-pocock-skills</h1>
+    <h1>Setup Matt Pocock's Skills</h1>
     <p class="subtitle">Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.</p>
 
     <div class="pair">
@@ -242,8 +241,8 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><blockquote><p>Explainer: The "issue tracker" is where issues live for this repo. Skills like <code>to-issues</code>, <code>triage</code>, <code>to-prd</code>, and <code>qa</code> read from and write to it — they need to know whether to call <code>gh issue create</code>, write a markdown file under <code>.scratch/</code>, or follow some other workflow you describe. Pick the place you actually track work for this repo.</p></blockquote></div>
-      <div class="col-zh" lang="zh-CN"><blockquote><p>解释："Issue 跟踪器"是这个仓库中 Issue 存放的地方。<code>to-issues</code>、<code>triage</code>、<code>to-prd</code> 和 <code>qa</code> 等技能从中读取和写入——它们需要知道是调用 <code>gh issue create</code>、在 <code>.scratch/</code> 下写 markdown 文件，还是遵循你描述的其他工作流。选择你实际用来跟踪此仓库工作的地方。</p></blockquote></div>
+      <div class="col-en" lang="en"><blockquote><p>Explainer: The "issue tracker" is where issues live for this repo. Skills like <code>to-tickets</code>, <code>triage</code>, <code>to-spec</code>, and <code>qa</code> read from and write to it — they need to know whether to call <code>gh issue create</code>, write a markdown file under <code>.scratch/</code>, or follow some other workflow you describe. Pick the place you actually track work for this repo.</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释："Issue 跟踪器"是这个仓库中 Issue 存放的地方。<code>to-tickets</code>、<code>triage</code>、<code>to-spec</code> 和 <code>qa</code> 等技能从中读取和写入——它们需要知道是调用 <code>gh issue create</code>、在 <code>.scratch/</code> 下写 markdown 文件，还是遵循你描述的其他工作流。选择你实际用来跟踪此仓库工作的地方。</p></blockquote></div>
     </div>
 
     <div class="pair">
@@ -292,7 +291,7 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><blockquote><p>Explainer: When the <code>triage</code> skill processes an incoming issue, it moves it through a state machine — needs evaluation, waiting on reporter, ready for an AFK agent to pick up, ready for a human, or won't fix. To do that, it needs to apply labels (or the equivalent in your issue tracker) that match strings <em>you've actually configured</em>. If your repo already uses different label names (e.g. <code>bug:triage</code> instead of <code>needs-triage</code>), map them here so the skill applies the right ones instead of creating duplicates.</p></blockquote></div>
-      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：当 <code>triage</code> 技能处理传入的 Issue 时，它会通过状态机移动——需要评估、等待报告者、准备好让离线代理接管、准备好由人工处理，或不会修复。为此，它需要应用与<em>你实际配置的</em>字符串匹配的标签（或 Issue 跟踪器中的等效项）。如果你的仓库已使用不同的标签名称（例如 <code>bug:triage</code> 而非 <code>needs-triage</code>），在此映射它们，以便技能应用正确的标签而不是创建重复的。</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：当 <code>triage</code> 技能处理传入的 Issue 时，它会通过状态机移动——需要评估、等待报告者、准备好让离线代理接管、准备好由人工处理，或不会修复。为此，它需要应用与你实际配置的字符串匹配的标签（或 Issue 跟踪器中的等效项）。如果你的仓库已使用不同的标签名称（例如 <code>bug:triage</code> 而非 <code>needs-triage</code>），在此映射它们，以便技能应用正确的标签而不是创建重复的。</p></blockquote></div>
     </div>
 
     <div class="pair">

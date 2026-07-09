@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>to-prd · skill router</title>
+  <title>to-spec · skill router</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
@@ -109,27 +109,45 @@
       border-radius: 3px;
     }
 
-    .col-en pre, .col-zh pre {
+    .col-en ol, .col-zh ol,
+    .col-en ul, .col-zh ul {
       margin: 0.6rem 0;
-      white-space: pre-wrap;
-      word-break: break-word;
+      padding-left: 1.5rem;
     }
-    .col-en pre code, .col-zh pre code {
-      display: block;
-      background: #e8e5db;
-      padding: 1rem;
-      border-radius: 3px;
-      font-size: 0.82em;
-      line-height: 1.55;
+    .col-en li, .col-zh li {
+      margin: 0.3rem 0;
     }
-
-    h2 {
+    .col-en blockquote, .col-zh blockquote {
+      margin: 0.6rem 0;
+      padding: 0 1rem;
+      border-left: 3px solid var(--warm-mid);
+      color: var(--text-soft);
+      font-style: italic;
+    }
+    .col-en h2, .col-zh h2 {
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--ink-blue);
-      margin: 0.2rem 0;
+      margin: 1.2rem 0 0.4rem;
     }
-
+    .col-en h3, .col-zh h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.3rem;
+    }
+    .col-en pre, .col-zh pre {
+      background: #e8e5db;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      margin: 0.6rem 0;
+      font-size: 0.85em;
+    }
+    .col-en pre code, .col-zh pre code {
+      background: none;
+      padding: 0;
+    }
     @media (max-width: 800px) {
       .pair { grid-template-columns: 1fr; }
       .col-en {
@@ -152,18 +170,18 @@
   <div class="container">
     <a class="back-link" href="../index.html">← 技能图谱</a>
     <table class="fm-table">
-      <tr><td>name</td><td>to-prd</td></tr>
-      <tr><td>description</td><td>Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.</td></tr>
-      <tr><td>触发词</td><td>将当前对话转化为 PRD 并发布到项目 Issue 跟踪器——无需提问，只需综合已讨论的内容。</td></tr>
+      <tr><td>name</td><td>to-spec</td></tr>
+      <tr><td>description</td><td>Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.</td></tr>
+      <tr><td>触发词</td><td>将当前对话转化为规格说明并发布到项目 Issue 跟踪器——无需提问，只需综合已讨论的内容。</td></tr>
       <tr><td>disable-model-invocation</td><td>true</td></tr>
     </table>
 
-    <h1>to-prd</h1>
-    <p class="subtitle">Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.</p>
+    <h1>to-spec</h1>
+    <p class="subtitle">Turn the current conversation into a spec and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.</p>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>This skill takes the current conversation context and codebase understanding and produces a PRD. Do NOT interview the user — just synthesize what you already know.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>本技能将当前对话上下文和代码库理解综合为一份 PRD。不要向用户提问——只需综合已有信息即可。</p></div>
+      <div class="col-en" lang="en"><p>This skill takes the current conversation context and codebase understanding and produces a spec (you may know this document as a PRD). Do NOT interview the user — just synthesize what you already know.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>本技能将当前对话上下文和代码库理解综合为一份规格说明（你可能知道这种文档叫 PRD）。不要向用户提问——只需综合已有信息即可。</p></div>
     </div>
 
     <div class="pair">
@@ -177,8 +195,8 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the PRD, and respect any ADRs in the area you're touching.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>1. 如果你尚未熟悉代码库，先探索仓库以了解其当前状态。在整个 PRD 中使用项目的领域术语词汇，并尊重你涉及范围内的任何 ADR。</p></div>
+      <div class="col-en" lang="en"><p>1. Explore the repo to understand the current state of the codebase, if you haven't already. Use the project's domain glossary vocabulary throughout the spec, and respect any ADRs in the area you're touching.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>1. 如果你尚未熟悉代码库，先探索仓库以了解其当前状态。在整个规格说明中使用项目的领域术语词汇，并尊重你涉及范围内的任何 ADR。</p></div>
     </div>
 
     <div class="pair">
@@ -192,12 +210,12 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>3. Write the PRD using the template below, then publish it to the project issue tracker. Apply the <code>ready-for-agent</code> triage label — no need for additional triage.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>3. 使用下方模板编写 PRD，然后发布到项目 Issue 跟踪器。应用 <code>ready-for-agent</code> 分诊标签——无需额外分诊。</p></div>
+      <div class="col-en" lang="en"><p>3. Write the spec using the template below, then publish it to the project issue tracker. Apply the <code>ready-for-agent</code> triage label — no need for additional triage.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>3. 使用下方模板编写规格说明，然后发布到项目 Issue 跟踪器。应用 <code>ready-for-agent</code> 分诊标签——无需额外分诊。</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><pre><code>&lt;prd-template&gt;
+      <div class="col-en" lang="en"><pre><code>&lt;spec-template&gt;
 
 ## Problem Statement
 
@@ -245,12 +263,12 @@ A list of testing decisions that were made. Include:
 
 ## Out of Scope
 
-A description of the things that are out of scope for this PRD.
+A description of the things that are out of scope for this spec.
 
 ## Further Notes
 
-Any further notes about the feature.&lt;/prd-template&gt;</code></pre></div>
-      <div class="col-zh" lang="zh-CN"><pre><code>&lt;prd-template&gt;
+Any further notes about the feature.&lt;/spec-template&gt;</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>&lt;spec-template&gt;
 
 ## Problem Statement（问题陈述）
 
@@ -298,11 +316,11 @@ Any further notes about the feature.&lt;/prd-template&gt;</code></pre></div>
 
 ## Out of Scope（超出范围）
 
-对本 PRD 超出范围的描述。
+对本规格说明超出范围的描述。
 
 ## Further Notes（补充说明）
 
-关于该功能的任何补充说明。&lt;/prd-template&gt;</code></pre></div>
+关于该功能的任何补充说明。&lt;/spec-template&gt;</code></pre></div>
     </div>
   </div>
 </body>
