@@ -51,14 +51,12 @@
     padding: 0 2rem 5rem;
   }
 
-  /* back-link navigation */
   .back-link {
     display: inline-block;
     margin-bottom: 1rem;
     font-size: 0.85rem;
   }
 
-  /* frontmatter table */
   .fm-table {
     width: 100%;
     border-collapse: collapse;
@@ -120,7 +118,6 @@
     margin: 1.1rem 0 0.35rem;
   }
 
-  /* paragraph-level pair */
   .pair {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -183,7 +180,7 @@
 <body>
 
 <div class="container">
-    <a class="back-link" href="../index.html">← 技能图谱</a>
+  <a class="back-link" href="../index.html">← 技能图谱</a>
 
 <table class="fm-table">
   <tr><td>name</td><td>ask-matt</td></tr>
@@ -263,24 +260,24 @@
 <div class="pair">
   <div class="col-en" lang="en">
     <ul>
-      <li><strong>Yes</strong> → <code>/to-prd</code> (turn the thread into a PRD) → <code>/to-issues</code> (split the PRD into independently-grabbable issues). Because the issues are independent, <strong>clear context between each one</strong>: start a fresh session per issue and kick off <code>/implement</code> by passing it the PRD and the single issue to work on.</li>
-      <li><strong>No</strong> → <code>/implement</code> right here, in the same context window.</li>
+      <li><strong>Yes</strong> → <strong><code>/to-spec</code></strong> (turn the thread into a spec), then <strong><code>/to-tickets</code></strong> to split it into tracer-bullet tickets, each declaring its <strong>blocking edges</strong>. On a local tracker that's an ordered <code>tickets.md</code> you work by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed — kick off <strong><code>/implement</code></strong> per ticket, <strong>clearing context between each one</strong>.</li>
+      <li><strong>No</strong> → <strong><code>/implement</code></strong> right here, in the same context window.</li>
     </ul>
   </div>
   <div class="col-zh" lang="zh-CN">
     <ul>
-      <li><strong>是</strong> → <code>/to-prd</code>（将对话转成 PRD）→ <code>/to-issues</code>（将 PRD 拆分为独立可领取的 issue）。由于各 issue 相互独立，<strong>每个之间清除上下文</strong>：每个 issue 开一个全新会话，传入 PRD 和单个 issue 来启动 <code>/implement</code>。</li>
-      <li><strong>否</strong> → 就在同一个上下文窗口中用 <code>/implement</code>。</li>
+      <li><strong>是</strong> → <strong><code>/to-spec</code></strong>（将对话转成规格说明），然后 <strong><code>/to-tickets</code></strong> 将其拆分为曳光弹式 ticket，每个 ticket 声明自己的<strong>阻塞边</strong>。在本地跟踪器上，这是一个手工操作的按序 <code>tickets.md</code>；在真实跟踪器上，这些边会成为原生阻塞链接，因此任何已解除阻塞的 ticket 都可以被认领 — 每个 ticket 启动一个 <strong><code>/implement</code></strong>，<strong>每个之间清除上下文</strong>。</li>
+      <li><strong>否</strong> → 就在同一个上下文窗口中用 <strong><code>/implement</code></strong>。</li>
     </ul>
   </div>
 </div>
 
 <div class="pair">
   <div class="col-en" lang="en">
-    <p>Either way, <code>/implement</code> builds each issue by driving <code>/tdd</code> internally — one red-green slice at a time — then closes out by running <code>/code-review</code>, a two-axis review (Standards + Spec) of the diff, before committing. Reach for <code>/tdd</code> on its own when you just want to build a concrete behaviour test-first without a full spec, and <code>/code-review</code> on its own whenever you want to review a branch or PR against a fixed point.</p>
+    <p>Either way, <strong><code>/implement</code></strong> builds each issue by driving <strong><code>/tdd</code></strong> internally — one red-green slice at a time — then closes out by running <strong><code>/code-review</code></strong>, a two-axis review (Standards + Spec) of the diff, before committing. Reach for <strong><code>/tdd</code></strong> on its own when you just want to build a concrete behaviour test-first without a full spec, and <strong><code>/code-review</code></strong> on its own whenever you want to review a branch or PR against a fixed point.</p>
   </div>
   <div class="col-zh" lang="zh-CN">
-    <p>无论哪种方式，<code>/implement</code> 内部都会驱动 <code>/tdd</code> 来构建每个 issue — 一次一个红-绿切片 — 然后在提交前运行 <code>/code-review</code> 对 diff 进行双轴审查（规范 + 规格）。当你想在没有完整规格的前提下以测试为先构建具体行为时，直接使用 <code>/tdd</code>；当你想针对某个固定点审查分支或 PR 时，直接使用 <code>/code-review</code>。</p>
+    <p>无论哪种方式，<strong><code>/implement</code></strong> 内部都会驱动 <strong><code>/tdd</code></strong> 来构建每个 issue — 一次一个红-绿切片 — 然后在提交前运行 <strong><code>/code-review</code></strong> 对 diff 进行双轴审查（规范 + 规格）。当你想在没有完整规格的前提下以测试为先构建具体行为时，直接使用 <strong><code>/tdd</code></strong>；当你想针对某个固定点审查分支或 PR 时，直接使用 <strong><code>/code-review</code></strong>。</p>
   </div>
 </div>
 
@@ -290,13 +287,13 @@
 </div>
 
 <div class="pair">
-  <div class="col-en" lang="en"><p>Keep steps 1–3 in <strong>one unbroken context window</strong> — don't compact or clear until after <code>/to-issues</code> — so the grilling, PRD, and issues all build on the same thinking. Each <code>/implement</code> then starts fresh, working from the issue.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>将步骤 1–3 保持在<strong>一个不间断的上下文窗口</strong>中 — 在 <code>/to-issues</code> 完成之前不要压缩或清空 — 这样访谈、PRD 和 issue 都基于同一套思路。之后每个 <code>/implement</code> 则从 issue 开始，使用全新的上下文。</p></div>
+  <div class="col-en" lang="en"><p>Keep steps 1–3 in <strong>one unbroken context window</strong> — don't compact or clear until after <code>/to-tickets</code> — so the grilling, spec, and tickets all build on the same thinking. Each <code>/implement</code> then starts fresh, working from the ticket.</p></div>
+  <div class="col-zh" lang="zh-CN"><p>将步骤 1–3 保持在<strong>一个不间断的上下文窗口</strong>中 — 在 <code>/to-tickets</code> 完成之前不要压缩或清空 — 这样访谈、规格说明和 ticket 都基于同一套思路。之后每个 <code>/implement</code> 则从 ticket 开始，使用全新的上下文。</p></div>
 </div>
 
 <div class="pair">
-  <div class="col-en" lang="en"><p>The limit on this is the <strong><a href="https://www.aihero.dev/ai-coding-dictionary/smart-zone">smart zone</a></strong>: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before <code>/to-issues</code>, don't push on degraded — <code>/handoff</code> and continue in a fresh thread.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>这里的限制是<strong><a href="https://www.aihero.dev/ai-coding-dictionary/smart-zone">智能区（smart zone）</a></strong>：模型仍能清晰推理的窗口（最新模型约 120k tokens）。如果会话在到达 <code>/to-issues</code> 前就接近这个限制，不要在退化状态下硬撑 — 使用 <code>/handoff</code> 在新线程中继续。</p></div>
+  <div class="col-en" lang="en"><p>The limit on this is the <strong><a href="https://www.aihero.dev/ai-coding-dictionary/smart-zone">smart zone</a></strong>: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before <code>/to-tickets</code>, don't push on degraded — <code>/handoff</code> and continue in a fresh thread.</p></div>
+  <div class="col-zh" lang="zh-CN"><p>这里的限制是<strong><a href="https://www.aihero.dev/ai-coding-dictionary/smart-zone">智能区（smart zone）</a></strong>：模型仍能清晰推理的窗口（最新模型约 120k tokens）。如果会话在到达 <code>/to-tickets</code> 前就接近这个限制，不要在退化状态下硬撑 — 使用 <code>/handoff</code> 在新线程中继续。</p></div>
 </div>
 
 <h2 id="on-ramps">On-ramps</h2>
@@ -318,8 +315,8 @@
 </div>
 
 <div class="pair">
-  <div class="col-en" lang="en"><p>Triage is only for issues <strong>you didn't create</strong> — bug reports, incoming feature requests, anything that arrives raw. Issues that <code>/to-issues</code> produced are already agent-ready, so <strong>don't triage them</strong>.</p></div>
-  <div class="col-zh" lang="zh-CN"><p>分诊仅适用于<strong>不是你创建的</strong> issue — bug 报告、外来的功能请求、所有原始输入。由 <code>/to-issues</code> 产生的 issue 已经是代理可直接处理的，所以<strong>不要对它们做分诊</strong>。</p></div>
+  <div class="col-en" lang="en"><p>Triage is only for issues <strong>you didn't create</strong> — bug reports, incoming feature requests, anything that arrives raw. Tickets that <code>/to-tickets</code> produced are already agent-ready, so <strong>don't triage them</strong>.</p></div>
+  <div class="col-zh" lang="zh-CN"><p>分诊仅适用于<strong>不是你创建的</strong> issue — bug 报告、外来的功能请求、所有原始输入。由 <code>/to-tickets</code> 产生的 ticket 已经是代理可直接处理的，所以<strong>不要对它们做分诊</strong>。</p></div>
 </div>
 
 <div class="pair">
@@ -330,6 +327,17 @@
   <div class="col-zh" lang="zh-CN">
     <h3>出了故障 → <code>/diagnosing-bugs</code></h3>
     <p>针对那些棘手的：一眼看不透的 bug、间歇性不稳定、在两个已知正常状态之间悄悄潜入的回归。它拒绝在没有<strong>紧密反馈循环</strong> — 一个已经对<em>这个</em> bug 变红的命令 — 之前进行理论推测，然后用回归测试来修复。当真正的发现是没有好的接缝来锁定这个 bug 时，它的复盘会将问题移交给 <code>/improve-codebase-architecture</code>。</p>
+  </div>
+</div>
+
+<div class="pair">
+  <div class="col-en" lang="en">
+    <h3>A huge, foggy effort — a greenfield project or a huge feature build, too big for one session → <code>/wayfinder</code></h3>
+    <p>When the way from here to the destination isn't visible yet, it charts a <strong>shared map</strong> of investigation tickets on the issue tracker and resolves them one at a time — producing <strong>decisions, not deliverables</strong> — until the fog is pushed back and the way is clear. Then it merges onto the main flow at <strong><code>/to-spec</code></strong> (or, if the effort turned out small enough, straight to <strong><code>/implement</code></strong>). Where <strong><code>/grill-with-docs</code></strong> sharpens an idea you can hold in one session, wayfinder is for the idea you can't.</p>
+  </div>
+  <div class="col-zh" lang="zh-CN">
+    <h3>庞大而模糊的任务 — 绿地项目或大型功能构建，一个会话装不下 → <code>/wayfinder</code></h3>
+    <p>当从这里到目的地的路径尚不清晰时，它会在 issue 跟踪器上绘制一幅由调查 ticket 组成的<strong>共享地图</strong>，然后逐一解决 — 产出<strong>决策，而非可交付物</strong> — 直到迷雾被推开，前路清晰。然后它汇入主干流程的 <strong><code>/to-spec</code></strong>（或者，如果任务够小，直接进入 <strong><code>/implement</code></strong>）。<strong><code>/grill-with-docs</code></strong> 打磨的是你可以在一个会话中把握的想法，而 wayfinder 是为你无法把握的想法准备的。</p>
   </div>
 </div>
 

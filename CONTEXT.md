@@ -9,7 +9,7 @@ The single landing page (`index.html`) that renders every translated skill as a 
 _Avoid_: homepage, index, landing page (too generic — "skill map" names the diagram metaphor the page actually embodies)
 
 **Mainline**:
-The vertical sequence of skill nodes on the skill map that traces the promoted engineering workflow from idea to shipped code (`ask-matt` → `grill-with-docs` → `prototype`/`handoff` → `to-prd` → `to-issues` → `implement`/`tdd` → `code-review`). Mainline nodes sit on the highway's center road.
+The vertical sequence of skill nodes on the skill map that traces the promoted engineering workflow from idea to shipped code (`ask-matt` → `grill-with-docs` → `prototype`/`handoff` → `to-spec` → `to-tickets` → `implement`/`tdd` → `code-review`). Mainline nodes sit on the highway's center road.
 _Avoid_: flow, pipeline, workflow (those describe the process; "mainline" names the visual spine on the map)
 
 **Foundation layer**:

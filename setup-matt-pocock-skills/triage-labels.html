@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>triage-labels · setup-matt-pocock-skills</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+      --serif: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.8rem 0 0.2rem;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    h2, h3, h4, h5, h6 {
+      color: var(--ink-blue);
+      margin-top: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 { font-size: 1.2rem; border-bottom: 1px solid var(--warm-mid); padding-bottom: 0.15rem; }
+    h3 { font-size: 1.05rem; }
+    a { color: var(--ink-blue); text-decoration: underline; }
+    a:hover { opacity: 0.7; }
+    strong { color: var(--ink-blue); }
+    code {
+      background: #ece9e0;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      font-size: 0.85em;
+    }
+    pre {
+      background: #ece9e0;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid var(--warm-mid);
+      overflow-x: auto;
+      margin: 0.4rem 0;
+    }
+    pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      font-size: 0.82em;
+      line-height: 1.5;
+    }
+    table.doctable {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.4rem 0;
+      font-size: 0.85rem;
+    }
+    table.doctable th, table.doctable td {
+      border: 1px solid var(--warm-mid);
+      padding: 0.4rem 0.6rem;
+      vertical-align: top;
+      text-align: left;
+    }
+    table.doctable th {
+      background: #e8e5d9;
+      font-weight: 600;
+      color: var(--ink-blue);
+    }
+    table.doctable td {
+      background: #f3f0e7;
+    }
+    blockquote {
+      border-left: 3px solid var(--warm-mid);
+      padding-left: 1rem;
+      margin: 0.4rem 0;
+      color: var(--text-soft);
+    }
+    ul, ol { padding-left: 1.4rem; margin: 0.35rem 0; }
+    li { margin: 0.15rem 0; }
+    p { margin: 0.35rem 0; }
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-en p, .col-en ul, .col-en ol { margin: 0.35rem 0; }
+    .col-en ul, .col-en ol { padding-left: 1.4rem; }
+    .col-en li { margin: 0.2rem 0; }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+    .col-zh p, .col-zh ul, .col-zh ol { margin: 0.35rem 0; }
+    .col-zh ul, .col-zh ol { padding-left: 1.4rem; }
+    .col-zh li { margin: 0.2rem 0; }
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="SKILL.html">← setup-matt-pocock-skills</a> · <a href="../index.html">技能图谱</a>
+
+    <h1>Triage Labels</h1>
+    <p class="subtitle">五个标准分诊角色在仓库 Issue 跟踪器中的标签字符串映射。</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The skills speak in terms of five canonical triage roles. This file maps those roles to the actual label strings used in this repo's issue tracker.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>技能使用五个标准分诊角色来表述。此文件将这些角色映射到本仓库 Issue 跟踪器中实际使用的标签字符串。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <table class="doctable">
+          <tr><th>Label in mattpocock/skills</th><th>Label in our tracker</th><th>Meaning</th></tr>
+          <tr><td><code>needs-triage</code></td><td><code>needs-triage</code></td><td>Maintainer needs to evaluate this issue</td></tr>
+          <tr><td><code>needs-info</code></td><td><code>needs-info</code></td><td>Waiting on reporter for more information</td></tr>
+          <tr><td><code>ready-for-agent</code></td><td><code>ready-for-agent</code></td><td>Fully specified, ready for an AFK agent</td></tr>
+          <tr><td><code>ready-for-human</code></td><td><code>ready-for-human</code></td><td>Requires human implementation</td></tr>
+          <tr><td><code>wontfix</code></td><td><code>wontfix</code></td><td>Will not be actioned</td></tr>
+        </table>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <table class="doctable">
+          <tr><th>mattpocock/skills 中的标签</th><th>我们跟踪器中的标签</th><th>含义</th></tr>
+          <tr><td><code>needs-triage</code></td><td><code>needs-triage</code></td><td>维护者需要评估此 Issue</td></tr>
+          <tr><td><code>needs-info</code></td><td><code>needs-info</code></td><td>等待报告者提供更多信息</td></tr>
+          <tr><td><code>ready-for-agent</code></td><td><code>ready-for-agent</code></td><td>完全指定，AFK 代理可接手</td></tr>
+          <tr><td><code>ready-for-human</code></td><td><code>ready-for-human</code></td><td>需要人工实现</td></tr>
+          <tr><td><code>wontfix</code></td><td><code>wontfix</code></td><td>不会被处理</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>When a skill mentions a role (e.g. "apply the AFK-ready triage label"), use the corresponding label string from this table.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>当技能提及某个角色时（例如"应用 AFK-ready 分诊标签"），请使用此表中对应的标签字符串。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Edit the right-hand column to match whatever vocabulary you actually use.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>编辑右侧列以匹配你实际使用的词汇。</p></div>
+    </div>
+
+  </div>
+</body>
+</html>

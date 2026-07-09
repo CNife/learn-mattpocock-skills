@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>to-tickets · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p {
+      margin: 0.6rem 0;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en ol, .col-zh ol,
+    .col-en ul, .col-zh ul {
+      margin: 0.6rem 0;
+      padding-left: 1.5rem;
+    }
+    .col-en li, .col-zh li {
+      margin: 0.3rem 0;
+    }
+    .col-en blockquote, .col-zh blockquote {
+      margin: 0.6rem 0;
+      padding: 0 1rem;
+      border-left: 3px solid var(--warm-mid);
+      color: var(--text-soft);
+      font-style: italic;
+    }
+    .col-en h2, .col-zh h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.2rem 0 0.4rem;
+    }
+    .col-en h3, .col-zh h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.3rem;
+    }
+    .col-en pre, .col-zh pre {
+      background: #e8e5db;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.85em;
+      line-height: 1.4;
+      margin: 0.6rem 0;
+    }
+    .col-en pre code, .col-zh pre code {
+      background: none;
+      padding: 0;
+      font-size: 1em;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a>
+    <table class="fm-table">
+      <tr><td>name</td><td>to-tickets</td></tr>
+      <tr><td>description</td><td>Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker — edges as text in a local file, or native blocking links on a real tracker.</td></tr>
+      <tr><td>触发词</td><td>将计划、规格说明或当前会话拆分为一组曳光弹 ticket，每张声明其阻塞边，发布到已配置的跟踪器——以本地文件中的文本形式呈现边，或在真实跟踪器上使用原生阻塞链接。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>to-tickets</h1>
+    <p class="subtitle">Break a plan, spec, or the current conversation into a set of tracer-bullet tickets, each declaring its blocking edges, published to the configured tracker — edges as text in a local file, or native blocking links on a real tracker.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Break a plan, spec, or conversation into a set of <strong>tickets</strong> — tracer-bullet vertical slices, each declaring the tickets that <strong>block</strong> it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将计划、规格说明或对话拆分为一组<strong>ticket</strong>——曳光弹垂直切片，每张声明<strong>阻塞</strong>它的 ticket。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The issue tracker and triage label vocabulary should have been provided to you — run <code>/setup-matt-pocock-skills</code> if not.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>你应该已配备 Issue 跟踪器和分诊标签词汇表——如果没有，运行 <code>/setup-matt-pocock-skills</code>。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Process</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>流程</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>1. Gather context</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>1. 收集上下文</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Work from whatever is already in the conversation context. If the user passes a reference (a spec path, an issue number or URL) as an argument, fetch it and read its full body and comments.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>基于会话上下文中已有的任何信息开展工作。如果用户传递了一个引用（规格说明路径、issue 编号或 URL）作为参数，获取它并读取其完整正文和评论。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>2. Explore the codebase (optional)</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>2. 探索代码库（可选）</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>If you have not already explored the codebase, do so to understand the current state of the code. Ticket titles and descriptions should use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果你尚未探索代码库，请先了解代码的当前状态。Ticket 标题和描述应使用项目的领域术语词汇表，并尊重你所涉及区域的 ADR。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Look for opportunities to prefactor the code to make the implementation easier. &ldquo;Make the change easy, then make the easy change.&rdquo;</p></div>
+      <div class="col-zh" lang="zh-CN"><p>寻找预重构代码的机会，使实现更容易。&ldquo;先让改动变容易，再做容易的改动。&rdquo;</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>3. Draft vertical slices</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>3. 起草垂直切片</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Break the work into <strong>tracer bullet</strong> tickets.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将工作拆分为<strong>曳光弹</strong> ticket。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>Each slice cuts a narrow but COMPLETE path through every layer (schema, API, UI, tests) — vertical, NOT a horizontal slice of one layer</li>
+          <li>A completed slice is demoable or verifiable on its own</li>
+          <li>Each slice is sized to fit in a single fresh context window</li>
+          <li>Any prefactoring should be done first</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>每个切片贯穿每一层（schema、API、UI、测试）但保持狭窄且<strong>完整</strong>——是垂直的，而不是一个层的水平切片</li>
+          <li>完成后的切片可独立演示或验证</li>
+          <li>每个切片的大小适合单个新的上下文窗口</li>
+          <li>任何预重构应首先完成</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Give each ticket its <strong>blocking edges</strong> — the other tickets that must complete before it can start. A ticket with no blockers can start immediately.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>给每个 ticket 设置其<strong>阻塞边</strong>——在它可以开始之前必须完成的其它 ticket。没有阻塞的 ticket 可以立即开始。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Wide refactors are the exception to vertical slicing.</strong> A <strong>wide refactor</strong> is one mechanical change — rename a column, retype a shared symbol — whose <strong>blast radius</strong> fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as <strong>expand–contract</strong>. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify ticket — green is promised only there.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>大范围重构是垂直切片的例外。</strong> <strong>大范围重构</strong>是一种机械性变更——重命名列、重打共享符号——其<strong>影响半径</strong>散布到整个代码库，因此单个编辑会同时破坏数千个调用点，没有任何垂直切片能保持通过。不要强行将其塞入曳光弹；按<strong>扩展-收缩</strong>序列进行。首先扩展：在旧形式旁边添加新形式，这样不会破坏任何东西。然后按影响半径分批迁移调用点（按包、按目录），每批作为自己的 ticket，被扩展阻塞，批与批之间保持 CI 通过，因为旧形式仍然存在。最后收缩：在没有调用者后删除旧形式，此 ticket 被所有迁移批次阻塞。即使批次本身无法独立保持通过，也要保持序列，但让它们共享一个集成分支，所有分支都阻塞一个最终的集成并验证的 ticket——仅在那里保证通过。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>4. Quiz the user</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>4. 追问用户</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Present the proposed breakdown as a numbered list. For each ticket, show:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将提议的拆解呈现为编号列表。对于每个 ticket，展示：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Title</strong>: short descriptive name</li>
+          <li><strong>Blocked by</strong>: which other tickets (if any) must complete first</li>
+          <li><strong>What it delivers</strong>: the end-to-end behaviour this ticket makes work</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>标题</strong>: 简短描述性名称</li>
+          <li><strong>阻塞于</strong>: 哪些其他 ticket（如有）必须先完成</li>
+          <li><strong>交付内容</strong>: 此 ticket 实现的端到端行为</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Ask the user:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>问用户：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li>Does the granularity feel right? (too coarse / too fine)</li>
+          <li>Are the blocking edges correct — does each ticket only depend on tickets that genuinely gate it?</li>
+          <li>Should any tickets be merged or split further?</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li>粒度是否合适？（太粗 / 太细）</li>
+          <li>阻塞边是否正确——每个 ticket 是否只依赖那些真正限制它的 ticket？</li>
+          <li>是否有 ticket 需要合并或进一步拆分？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Iterate until the user approves the breakdown.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>迭代直到用户批准该拆解。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>5. Publish the tickets to the configured tracker</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>5. 将 ticket 发布到已配置的跟踪器</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Publish the approved tickets. <strong>How</strong> depends on the tracker <code>/setup-matt-pocock-skills</code> configured — the tickets are the same either way, only the shape of the blocking edges changes:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>发布已批准的 ticket。<strong>如何发布</strong>取决于 <code>/setup-matt-pocock-skills</code> 配置的跟踪器——ticket 无论哪种方式都一样，只有阻塞边的形式不同：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Local files</strong> → write one <code>tickets.md</code> in the repo root, all tickets in dependency order (blockers first), each with its &ldquo;Blocked by&rdquo; listing the titles it depends on. Use the file template below.</li>
+          <li><strong>A real issue tracker (GitHub, Linear, &hellip;)</strong> → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking / sub-issue relationship where it has one; otherwise set each ticket's &ldquo;Blocked by&rdquo; to the blocking issues. Apply the <code>ready-for-agent</code> triage label unless instructed otherwise — the tickets are agent-grabbable by construction.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>本地文件</strong> → 在仓库根目录写入一个 <code>tickets.md</code>，所有 ticket 按依赖顺序排列（阻塞者优先），每个 ticket 以「阻塞于」列出其依赖的标题。使用下面的文件模板。</li>
+          <li><strong>真实的 Issue 跟踪器（GitHub、Linear、&hellip;）</strong> → 按依赖顺序（阻塞者优先）每个 ticket 发布为一个 issue，以便每个 ticket 的阻塞边可以引用真实标识符。在平台支持的地方使用原生的阻塞/子 issue 关系；否则将每个 ticket 的「阻塞于」设为阻塞它的 issue。除非另有指示，应用 <code>ready-for-agent</code> 分诊标签——ticket 本身的设计就是可被 agent 认领的。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Do NOT close or modify any parent issue.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>不要关闭或修改任何父 issue。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+<pre><code># Tickets: &lt;short name of the work&gt;
+
+A one-line summary of what these tickets build. Reference the source spec if there is one.
+
+Work the <strong>frontier</strong>: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
+
+## &lt;Ticket title&gt;
+
+<strong>What to build:</strong> the end-to-end behaviour this ticket makes work, from the user's perspective — not a layer-by-layer implementation list.
+
+<strong>Blocked by:</strong> the titles of the tickets that gate this one, or &ldquo;None — can start immediately&rdquo;.
+
+- [ ] Acceptance criterion 1
+- [ ] Acceptance criterion 2
+
+## &lt;Ticket title&gt;
+
+...</code></pre>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+<pre><code># Tickets: &lt;工作短名称&gt;
+
+这些 ticket 要构建内容的一行摘要。如有源规格说明，请引用。
+
+从<strong>前沿</strong>开始工作：所有阻塞者都已完成的 ticket。对于纯线性的链，即自上而下。
+
+## &lt;Ticket 标题&gt;
+
+<strong>要构建什么：</strong>此 ticket 实现的端到端行为，从用户视角出发——不是逐层实现列表。
+
+<strong>阻塞于：</strong>限制本 ticket 的标题列表，或「无——可立即开始」。
+
+- [ ] 验收标准 1
+- [ ] 验收标准 2
+
+## &lt;Ticket 标题&gt;
+
+...</code></pre>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+<pre><code>## Parent
+
+A reference to the parent issue on the tracker (if the source was an existing issue, otherwise omit this section).
+
+## What to build
+
+The end-to-end behaviour this ticket makes work, from the user's perspective — not layer-by-layer implementation.
+
+## Acceptance criteria
+
+- [ ] Criterion 1
+- [ ] Criterion 2
+
+## Blocked by
+
+- A reference to each blocking ticket, or &ldquo;None — can start immediately&rdquo;.</code></pre>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+<pre><code>## 父 Issue
+
+跟踪器上父 issue 的引用（如果源是已有 issue；否则省略本部分）。
+
+## 要构建什么
+
+此 ticket 实现的端到端行为，从用户视角出发——不是逐层实现。
+
+## 验收标准
+
+- [ ] 标准 1
+- [ ] 标准 2
+
+## 阻塞于
+
+- 每个阻塞 ticket 的引用，或「无——可立即开始」。</code></pre>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>In either form, avoid specific file paths or code snippets — they go stale fast. Exception: if a prototype produced a snippet that encodes a decision more precisely than prose can (state machine, reducer, schema, type shape), inline it and note briefly that it came from a prototype. Trim to the decision-rich parts — not a working demo, just the important bits.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>无论哪种形式，避免具体的文件路径或代码片段——它们很快过时。例外：如果原型产出的代码片段能比文字更精确地编码一项决策（状态机、reducer、schema、类型形态），将其内联并简要注明来自原型。精简到富含决策的部分——不是一个可工作演示，只是重要的要点。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Work the frontier one ticket at a time with <code>/implement</code>, clearing context between tickets.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>使用 <code>/implement</code> 一次处理一个前沿 ticket，清除 ticket 之间的上下文。</p></div>
+    </div>
+  </div>
+</body>
+</html>

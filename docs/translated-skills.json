@@ -5,8 +5,8 @@
   },
   "skills": {
     "ask-matt": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-01",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/engineering/ask-matt"
     },
     "code-review": {
@@ -40,18 +40,18 @@
       "source_path": "skills/engineering/grill-with-docs"
     },
     "grilling": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-01",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/productivity/grilling"
     },
     "handoff": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/productivity/handoff"
     },
     "implement": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/engineering/implement"
     },
     "improve-codebase-architecture": {
@@ -75,8 +75,8 @@
       "source_path": "skills/engineering/resolving-merge-conflicts"
     },
     "setup-matt-pocock-skills": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/engineering/setup-matt-pocock-skills"
     },
     "tdd": {
@@ -89,24 +89,29 @@
       "translated_at": "2026-07-02",
       "source_path": "skills/productivity/teach"
     },
-    "to-issues": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
-      "source_path": "skills/engineering/to-issues"
+    "to-spec": {
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
+      "source_path": "skills/engineering/to-spec"
     },
-    "to-prd": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
-      "source_path": "skills/engineering/to-prd"
+    "to-tickets": {
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
+      "source_path": "skills/engineering/to-tickets"
     },
     "triage": {
       "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
       "translated_at": "2026-07-02",
       "source_path": "skills/engineering/triage"
     },
+    "wayfinder": {
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
+      "source_path": "skills/engineering/wayfinder"
+    },
     "writing-great-skills": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
+      "source_commit": "d574778",
+      "translated_at": "2026-07-09",
       "source_path": "skills/productivity/writing-great-skills"
     }
   }

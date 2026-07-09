@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wayfinder · skill router</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: "TsangerJinKai02";
+      src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+      font-weight: 500;
+    }
+
+    :root {
+      --parchment: #f5f4ed;
+      --ink-blue: #1B365D;
+      --text: #2c2418;
+      --text-soft: #5a4f40;
+      --warm-gray: #e1ddcf;
+      --warm-mid: #cdc6b4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--parchment);
+      color: var(--text);
+      font-family: "Source Serif 4", "TsangerJinKai02", "Noto Serif SC", "Source Han Serif SC", serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.5rem 0 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .fm-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0 0;
+      font-size: 0.8rem;
+      background: #ece9e0;
+      border-left: 3px solid var(--ink-blue);
+    }
+    .fm-table td {
+      padding: 0.3rem 0.6rem;
+      vertical-align: top;
+      color: var(--text-soft);
+    }
+    .fm-table td:first-child {
+      font-weight: 600;
+      color: var(--ink-blue);
+      white-space: nowrap;
+      width: 1%;
+      padding-right: 1.2rem;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin: 0.45rem 0;
+    }
+    .col-en {
+      padding-right: 1.8rem;
+      border-right: 1px solid var(--warm-gray);
+    }
+    .col-zh {
+      padding-left: 1.8rem;
+      line-height: 1.85;
+    }
+
+    .col-en p, .col-zh p {
+      margin: 0.6rem 0;
+    }
+
+    .col-en code, .col-zh code {
+      font-family: "Source Code Pro", "SF Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: #e8e5db;
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .col-en ol, .col-zh ol,
+    .col-en ul, .col-zh ul {
+      margin: 0.6rem 0;
+      padding-left: 1.5rem;
+    }
+    .col-en li, .col-zh li {
+      margin: 0.3rem 0;
+    }
+    .col-en blockquote, .col-zh blockquote {
+      margin: 0.6rem 0;
+      padding: 0 1rem;
+      border-left: 3px solid var(--warm-mid);
+      color: var(--text-soft);
+      font-style: italic;
+    }
+    .col-en h2, .col-zh h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink-blue);
+      margin: 1.2rem 0 0.4rem;
+    }
+    .col-en h3, .col-zh h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 1rem 0 0.3rem;
+    }
+    .col-en pre, .col-zh pre {
+      background: #e8e5db;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.85em;
+      line-height: 1.4;
+      margin: 0.6rem 0;
+    }
+    .col-en pre code, .col-zh pre code {
+      background: none;
+      padding: 0;
+      font-size: 1em;
+    }
+
+    @media (max-width: 800px) {
+      .pair { grid-template-columns: 1fr; }
+      .col-en {
+        border-right: none;
+        border-bottom: 1px solid var(--warm-gray);
+        padding: 0.3rem 0;
+        margin-bottom: 0.3rem;
+      }
+      .col-zh { padding: 0.3rem 0; }
+      .container { padding: 1rem 1rem 3rem; }
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back-link" href="../index.html">← 技能图谱</a>
+
+    <table class="fm-table">
+      <tr><td>name</td><td>wayfinder</td></tr>
+      <tr><td>description</td><td>Plan a huge chunk of work — more than one agent session can hold — as a shared map of investigation tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.</td></tr>
+      <tr><td>触发词</td><td>将超一个会话容量的大块工作规划为共享调查 ticket 地图，逐个解决直到通往目的地的路径清晰。</td></tr>
+      <tr><td>disable-model-invocation</td><td>true</td></tr>
+    </table>
+
+    <h1>wayfinder</h1>
+    <p class="subtitle">Plan a huge chunk of work — more than one agent session can hold — as a shared map of investigation tickets on your issue tracker, and resolve them one at a time until the way to the destination is clear.</p>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A loose idea has arrived — too big for one agent session, and wrapped in fog: the way from here to the <strong>destination</strong> isn't visible yet. Wayfinding is about finding that way, not charging at the destination. This skill charts the way as a <strong>shared map</strong> on the repo's issue tracker, then works its tickets one at a time until the route is clear.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一个松散的想法已经到来——超出单个 Agent 会话的容量，且包裹在迷雾之中：从这里到<strong>目的地</strong>的路径尚不可见。寻路（wayfinding）是关于找到那条路，而非冲向目的地。该技能在仓库的 issue 跟踪器上将路径描绘为一张<strong>共享地图</strong>，然后逐个处理 ticket，直到路线清晰为止。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The destination varies per effort, and naming it is the first act of charting — it shapes every ticket. It might be a spec to hand off and iterate on, a decision to lock before planning starts, or a change made in place like a data-structure migration. The map is domain-agnostic — engineering work, course content, whatever fits the shape.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>目的地因工作而异，命名它是绘制地图的第一步——它塑造了每个 ticket。它可能是一份待交接和迭代的规格说明、一个在规划开始前就需要锁定的决策、或一个就地完成的变更（如数据结构迁移）。地图是领域无关的——工程工作、课程内容，任何符合其形态的事物。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Plan, don't do</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>规划，而非执行</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Wayfinder is <strong>planning</strong> by default: each ticket resolves a decision, and the map is done when the way is clear — nothing left to decide before someone goes and does the thing. The pull to just do the work is usually the signal you've reached the edge of the map and it's time to hand off. An effort can override this in its <strong>Notes</strong> — carrying execution into the map itself — but absent that, produce decisions, not deliverables.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>Wayfinder 默认是<strong>规划</strong>：每个 ticket 解决一个决策，地图在路线清晰时完成——在有人去执行之前没有需要决定的遗留事项。那种只想直接开干的冲动，通常是你已到达地图边缘、可以交接的信号。一项工作可以在其 <strong>Notes</strong> 中覆盖此规则——将执行带入地图本身——但若无此声明，产出的是决策，而非交付物。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Refer by name</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>指名引用</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Every map and ticket is an issue, so it has a <strong>name</strong> — its title. In everything the human reads — narration, the map's Decisions-so-far — refer to it by that name, never by a bare id, number, or slug. A wall of <code>#42, #43, #44</code> is illegible; names read at a glance. The id and URL don't vanish — a name wraps its link — but they ride <em>inside</em> the name, never stand in for it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个地图和 ticket 都是一个 issue，因此它有一个<strong>名称</strong>——它的标题。在人类阅读的所有内容中——叙述、地图的「已作决策」——都以该名称引用，绝不使用裸 ID、编号或短链接。满眼的 <code>#42, #43, #44</code> 难以辨认；名称则一目了然。ID 和 URL 并未消失——名称包裹着它的链接——但它们承载在名称<em>之内</em>，绝不取而代之。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>The Map</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>地图</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The map is a single issue on this repo's issue tracker, labelled <code>wayfinder:map</code> — the canonical artifact. Its tickets are child issues of the map.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>地图是本仓库 issue 跟踪器上的一个 issue，标有 <code>wayfinder:map</code> 标签——它是规范制品。其 ticket 是地图的子 issue。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The map is an <strong>index</strong>, not a store. It lists the decisions made and points at the tickets that hold their detail; a decision lives in exactly one place — its ticket — so the map never restates it, only gists it and links.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>地图是一个<strong>索引</strong>，而非仓库。它列出已作决策并指向持有其细节的 ticket；一个决策只存在于一个地方——它的 ticket——因此地图从不复述，只做摘要和链接。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Where the map, its child tickets, blocking, and frontier queries physically live is tracker-specific.</strong> The issue tracker should have been provided to you — run <code>/setup-matt-pocock-skills</code> if not. Consult the tracker doc's "Wayfinding operations" section for how <em>this</em> repo expresses them. If no tracker has been provided, default to the local-markdown tracker.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>地图、其子 ticket、阻塞关系和前沿查询的物理存储方式因跟踪器而异。</strong> 你应该已配备 issue 跟踪器——如果没有，运行 <code>/setup-matt-pocock-skills</code>。查阅跟踪器文档的「Wayfinding 操作」章节，了解<em>本</em>仓库如何表达它们。如果未提供跟踪器，默认使用本地 markdown 跟踪器。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>The map body</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>地图正文</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The whole map at low resolution, loaded once per session. Open tickets are <strong>not</strong> listed — they are open child issues, found by query.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>整个地图以低分辨率呈现，每个会话加载一次。开放的 ticket <strong>不</strong>列出——它们是开放的子 issue，通过查询获取。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Destination
+
+&lt;what reaching the end of this map looks like — the spec, decision, or change this effort is finding its way to. One or two lines; every session orients to it before choosing a ticket.&gt;
+
+## Notes
+
+&lt;domain; skills every session should consult; standing preferences for this effort&gt;
+
+## Decisions so far
+
+&lt;!-- the index — one line per closed ticket: enough to judge relevance, then zoom the link for the detail the ticket holds --&gt;
+
+- [&lt;closed ticket title&gt;](link) — &lt;one-line gist of the answer&gt;
+
+## Not yet specified
+
+&lt;!-- see "Fog of war": in-scope fog you can't ticket yet; graduates as the frontier advances --&gt;
+
+## Out of scope
+
+&lt;!-- see "Out of scope": work ruled beyond the destination; closed, never graduates --&gt;</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 目的地（Destination）
+
+&lt;到达此地图终点时是什么样的——本工作正在寻找路径的规格说明、决策或变更。一行或两行；每个会话在选择 ticket 之前以其为方向。&gt;
+
+## 备注（Notes）
+
+&lt;领域；每个会话应查阅的技能；本工作的常设偏好&gt;
+
+## 已作决策（Decisions so far）
+
+&lt;!-- 索引——每个已关闭 ticket 一行：足以判断相关性，然后通过链接放大查看 ticket 持有的细节 --&gt;
+
+- [&lt;已关闭 ticket 标题&gt;](link) — &lt;单行答案摘要&gt;
+
+## 尚未明确（Not yet specified）
+
+&lt;!-- 见「战争迷雾」：范围内尚不可成 ticket 的迷雾；随着前沿推进而转化 --&gt;
+
+## 超出范围（Out of scope）
+
+&lt;!-- 见「超出范围」：被裁定超出目的地的工作；已关闭，永不转化 --&gt;</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Tickets</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>Ticket</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each ticket is a <strong>child issue</strong> of the map; the tracker's issue id is its identity. Its body is the question, sized to one 100K token agent session:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个 ticket 是地图的一个<strong>子 issue</strong>；跟踪器的 issue ID 是其标识。其正文是问题本身，大小限定在一个 100K token 的 Agent 会话内：</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><pre><code>## Question
+
+&lt;the decision or investigation this ticket resolves&gt;</code></pre></div>
+      <div class="col-zh" lang="zh-CN"><pre><code>## 问题（Question）
+
+&lt;此 ticket 要解决的决策或调研事项&gt;</code></pre></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Each ticket carries a <code>wayfinder:&lt;type&gt;</code> label — one of <code>research</code>, <code>prototype</code>, <code>grilling</code>, <code>task</code> (see <a href="#ticket-types">Ticket Types</a>).</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个 ticket 带有一个 <code>wayfinder:&lt;type&gt;</code> 标签—— <code>research</code>、<code>prototype</code>、<code>grilling</code> 或 <code>task</code> 之一（见<a href="#ticket-types">票种类型</a>）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>A session <strong>claims</strong> a ticket by assigning it to the dev driving the map, <strong>first</strong>, before any work, so concurrent sessions skip it. That assignee <em>is</em> the claim: an open, unassigned ticket is unclaimed.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>会话通过将 ticket 指派给推动地图的开发人员来<strong>认领</strong>，<strong>首先</strong>执行，在工作之前，以便并发的会话跳过它。该指派人<em>就是</em>认领：一个开放、未指派的 ticket 就是未认领的。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Blocking uses the tracker's <strong>native</strong> dependency relationship — essential because it renders the frontier <em>visually</em> in the tracker's own UI, so the human sees what's takeable without opening the map. Only a tracker that lacks native blocking falls back to a body convention. A ticket is <strong>unblocked</strong> when every ticket blocking it is closed; the <strong>frontier</strong> is the open, unblocked, unclaimed children — the edge of the known.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>阻塞关系使用跟踪器的<strong>原生</strong>依赖关系——这很关键，因为它能在跟踪器自身的 UI 中<em>可视化地</em>呈现前沿，让人无需打开地图就能看到哪些 ticket 可接手。只有缺乏原生阻塞功能的跟踪器才会回退到正文约定。当阻塞它的所有 ticket 都已关闭时，该 ticket 即为<strong>未阻塞</strong>；<strong>前沿</strong>是开放、未阻塞、未认领的子 ticket——已知的边缘。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The answer isn't part of the body — it's recorded on resolution (see <a href="#work-through-the-map">Work through the map</a>). Assets created while resolving a ticket are linked from the issue, not pasted in.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>答案不是正文的一部分——它在解决时记录（见<a href="#work-through-the-map">推进地图</a>）。解决 ticket 过程中创建的资产通过链接关联到 issue 中，而非粘贴进去。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Ticket Types</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>票种类型</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Every ticket is either <strong>HITL</strong> — human in the loop, worked <em>with</em> a human who speaks for themselves — or <strong>AFK</strong>, driven by the agent alone. A HITL ticket only resolves through that live exchange; the agent never stands in for the human's side of it (a grilling agent that answers its own questions has broken this).</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个 ticket 要么是 <strong>HITL</strong>——人在循环中，与<em>有自主表达能力</em>的人一起工作——要么是 <strong>AFK</strong>，由 Agent 单独推动。HITL ticket 只能通过实时交流解决；Agent 永远不能替代人类的立场（一个自己回答自己问题的 grilling Agent 就已经打破了这一规则）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Research</strong> (AFK): Reading documentation, third-party APIs, or local resources like knowledge bases. Creates a markdown summary as a linked asset. Use when knowledge outside the current working directory is required.</li>
+          <li><strong>Prototype</strong> (HITL): Raise the fidelity of the discussion by making a cheap, rough, concrete artifact to react to — an outline, a rough take, a stub, or UI/logic code via the <code>/prototype</code> skill. Links the prototype as an asset. Use when "how should it look" or "how should it behave" is the key question.</li>
+          <li><strong>Grilling</strong> (HITL): Conversation via the <code>/grilling</code> and <code>/domain-modeling</code> skills, one question at a time. The default case.</li>
+          <li><strong>Task</strong> (HITL or AFK): Manual work that must happen before a <em>decision</em> can be made — nothing to decide, prototype, or research, but the discussion is blocked until it's done. Signing up for a service so its API can be judged, provisioning access, moving data so its shape can be seen. This is the one type that <em>does</em> rather than decides — and it earns its place by unblocking a decision, not by delivering the destination. The agent drives it alone where it can (AFK); otherwise it hands the human a precise checklist (HITL). Resolved when the work is done; the answer records what was done and any resulting facts (credentials location, new URLs, row counts) later tickets depend on.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>Research</strong>（AFK）：阅读文档、第三方 API 或本地资源（如知识库）。创建一份 markdown 摘要作为关联资产。当需要当前工作目录之外的知识时使用。</li>
+          <li><strong>Prototype</strong>（HITL）：通过制作一个廉价、粗糙、具体的可反应制品来提升讨论的逼真度——大纲、初稿、桩代码或通过 <code>/prototype</code> 技能创建的 UI/逻辑代码。将原型链接为资产。当「它应该长什么样」或「它应该如何行为」是关键问题时使用。</li>
+          <li><strong>Grilling</strong>（HITL）：通过 <code>/grilling</code> 和 <code>/domain-modeling</code> 技能进行的对话，一次一个问题。默认情况。</li>
+          <li><strong>任务（Task）</strong>（HITL 或 AFK）：在<em>决策</em>可被做出之前必须完成的手动工作——没有需要决定、原型或调研的事项，但讨论被阻塞直到完成。注册一个服务以便评估其 API、配置访问权限、移动数据以观察其形态。这是唯一一种<em>执行</em>而非决策的类型——它通过解锁一个决策来赢得自己的位置，而非通过交付目的地。Agent 可以在能力范围内独立推进（AFK）；否则它交给人类一份精确的检查清单（HITL）。工作完成时即解决；答案记录做了什么事情以及后续 ticket 依赖的任何结果事实（凭据位置、新 URL、行数统计）。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Fog of war</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>战争迷雾</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The map is <em>deliberately</em> incomplete: don't chart what you can't yet see. Beyond the live tickets lies the <strong>fog of war</strong> — the dim view of decisions and investigations you can tell are coming but can't yet pin down, because they hang on questions still open. Resolving a ticket clears the fog ahead of it, graduating whatever's now specifiable into fresh tickets — one at a time, until the way to the destination is clear and no tickets remain.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>地图是<em>刻意</em>不完整的：不要绘制你还看不见的东西。在活跃 ticket 之外是<strong>战争迷雾</strong>——你能感到即将到来但尚无法确定下来的决策和调研的模糊视图，因为它们依赖尚未解决的问题。解决一个 ticket 会清除其前方的迷雾，将现在可明确的事项转化（graduate）为新的 ticket——一次一个，直到通往目的地的路径清晰且不再有 ticket 残留。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The map's <strong>Not yet specified</strong> section is where that dim view is written down: the suspected question, the area to revisit later. It's the undiscovered frontier <em>toward</em> the destination — everything here is in scope, just not sharp enough to ticket. Write as loosely or as fully as the view allows; it doubles as a signpost for collaborators reading where the effort is headed.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>地图的<strong>「尚未明确」</strong>部分就是写下那个模糊视图的地方：存疑的问题，稍后需重新审视的区域。它是通往目的地途中尚未发现的前沿——这里的一切都在范围内，只是还不够清晰到可以创建 ticket。根据视图允许的程度写得松散或完整均可；它同时也为阅读此工作的协作者指明方向。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Fog or ticket?</strong> The test is whether you can state the question precisely now — <em>not</em> whether you can answer it now.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>迷雾还是 ticket？</strong> 判断标准是现在能否精确陈述问题——<em>而非</em>现在能否回答它。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ul>
+          <li><strong>Ticket when</strong> the question is already sharp — even if it's blocked and you can't act on it yet.</li>
+          <li><strong>Not yet specified when</strong> you can't yet phrase it that sharply. Don't pre-slice the fog into ticket-sized pieces: it's coarser than a ticket, and one patch may graduate into several tickets, or none, once the frontier reaches it.</li>
+        </ul>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ul>
+          <li><strong>当</strong>问题已经清晰时创建<strong>ticket</strong>——即使它被阻塞且你还不能着手处理。</li>
+          <li><strong>当</strong>你还不能如此清晰地表述时放在<strong>「尚未明确」</strong>中。不要预先将迷雾切成 ticket 大小的碎片：它比 ticket 更粗粒度，一旦前沿到达它，一个迷雾片可能会转化为多个 ticket，也可能一个都没有。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p><strong>Not yet specified</strong> excludes what's already decided (Decisions so far), what's already a live ticket, and what's out of scope (the next section).</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>「尚未明确」</strong>排除了已经决定的内容（已作决策）、已经是活跃 ticket 的内容以及超出范围的内容（下一节）。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Out of scope</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>超出范围</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Fog only ever gathers <em>toward</em> the destination. The destination fixes the scope, so work beyond it is <strong>out of scope</strong> — it isn't fog, and it doesn't belong in <strong>Not yet specified</strong>. It gets its own <strong>Out of scope</strong> section on the map: work you've consciously ruled out of <em>this</em> effort. Scope, not sharpness, lands it here.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>迷雾只存在于朝向目的地的方向上。目的地固定了范围，因此超出目的地的工作是<strong>超出范围的</strong>——它不是迷雾，也不属于<strong>「尚未明确」</strong>。它在地图上有自己的<strong>「超出范围」</strong>部分：你自觉排除出<em>本</em>工作的工作。是范围，而非清晰度，将其归入此处。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Out-of-scope work never graduates — the frontier stops at the destination — so it returns only if the destination is redrawn, and then as a fresh effort, not a resumption.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>超出范围的工作永远不会转化——前沿止步于目的地——因此它只有在目的地被重新绘制时才会回归，而且是以新的工作而非恢复。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Ruling something out of scope is a scoping act, not a step on the route. When a ticket that already exists turns out to sit past the destination — mis-scoped in while charting, or exposed by a resolution — <strong>close it</strong> (a closed ticket is unambiguously off the frontier) and leave one line in the <strong>Out of scope</strong> section: the gist plus why it's out of scope, linking the closed ticket. It stays out of <strong>Decisions so far</strong>, which records the route actually walked — a scope boundary isn't a step on it.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将某事物裁定为超出范围是一个范围界定行为，而非路线上的一个步骤。当已经存在的 ticket 被发现位于目的地之外时——在绘制地图时错误纳入，或通过解决暴露——<strong>关闭它</strong>（已关闭的 ticket 明确地不在前沿上），并在<strong>「超出范围」</strong>部分留下一行：要点加为什么超出范围，链接到已关闭的 ticket。它不进入<strong>「已作决策」</strong>，后者记录的是实际走过的路线——范围边界不是路线上的一个步骤。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h2>Invocation</h2></div>
+      <div class="col-zh" lang="zh-CN"><h2>调用方式</h2></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>Two modes. Either way, <strong>never resolve more than one ticket per session.</strong></p></div>
+      <div class="col-zh" lang="zh-CN"><p>两种模式。无论哪种，<strong>每个会话绝不解决超过一个 ticket。</strong></p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Chart the map</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>绘制地图</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>User invokes with a loose idea.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户带着一个松散想法调用。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li><strong>Name the destination.</strong> Run a <code>/grilling</code> and <code>/domain-modeling</code> session to pin down what this map is finding its way to — the spec, decision, or change. The destination fixes the scope, so it's settled first.</li>
+          <li><strong>Map the frontier.</strong> Grill again, <strong>breadth-first</strong> this time: fan out across the whole space rather than deep on any one thread, surfacing the open decisions and the first steps takeable now. <strong>If this surfaces no fog</strong> — the way to the destination is already clear, the whole journey small enough for one session — you don't need a map. Stop and ask the user how they'd like to proceed.</li>
+          <li><strong>Create the map</strong> (label <code>wayfinder:map</code>): Destination and Notes filled in, Decisions-so-far empty, the fog sketched into <strong>Not yet specified</strong>.</li>
+          <li><strong>Create the tickets you can specify now</strong> as child issues of the map — then wire blocking edges in a <strong>second pass</strong> (issues need ids before they can reference each other). Wiring sorts them into the frontier and the blocked; everything you can't yet specify stays in the fog — the <strong>Not yet specified</strong> section.</li>
+          <li>Stop — charting the map is one session's work; do not also resolve tickets.</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li><strong>命名目的地。</strong> 运行 <code>/grilling</code> 和 <code>/domain-modeling</code> 会话，确定此地图正在寻找路径的目标——规格说明、决策或变更。目的地固定了范围，因此首先解决它。</li>
+          <li><strong>绘制前沿。</strong> 再次进行追问，这次是<strong>广度优先</strong>：在整个空间中展开，而不是深入任何一个线程，浮现出开放的决策和现在可以采取的第一步。<strong>如果这没有浮现出迷雾</strong>——通往目的地的路径已经清晰，整个旅程小到可以在一个会话中完成——你不需要地图。停下来询问用户希望如何继续。</li>
+          <li><strong>创建地图</strong>（标签 <code>wayfinder:map</code>）：填写目的地和备注，已作决策为空，将迷雾勾勒到<strong>「尚未明确」</strong>中。</li>
+          <li><strong>创建现在能明确的 ticket</strong>作为地图的子 issue——然后在<strong>第二遍</strong>中连线阻塞边（issue 需要先有 ID 才能相互引用）。连线将它们分为前沿和阻塞两类；所有尚不能明确的内容留在迷雾中——<strong>「尚未明确」</strong>部分。</li>
+          <li>停止——绘制地图是一个会话的工作；不要同时解决 ticket。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><h3>Work through the map</h3></div>
+      <div class="col-zh" lang="zh-CN"><h3>推进地图</h3></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>User invokes with a map (URL or number). A ticket is <strong>optional</strong> — without one, you pick the next decision, not the user.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户带地图（URL 或编号）调用。ticket 是<strong>可选的</strong>——如果没有指定，你选择下一个决策，而非用户。</p></div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en">
+        <ol>
+          <li>Load the <strong>map</strong> — the low-res view, not every ticket body.</li>
+          <li>Choose the ticket. If the user named one, use it. Otherwise take the first frontier ticket in order. <strong>Claim it</strong>: assign it to yourself before any work.</li>
+          <li>Resolve it — <strong>zoom as needed</strong>: fetch the full body of any related or closed ticket on demand; invoke the skills the <code>## Notes</code> block names. If in doubt, use <code>/grilling</code> and <code>/domain-modeling</code>.</li>
+          <li>Record the resolution: post the answer as a <strong>resolution comment</strong>, <strong>close</strong> the issue, and <strong>append a context pointer</strong> to the map's Decisions-so-far.</li>
+          <li>Add newly-surfaced tickets (create-then-wire); graduate any fog the answer has made specifiable, clearing each graduated patch from <strong>Not yet specified</strong> so it lives only as its new ticket. If the answer reveals a ticket — this one or another — sits beyond the destination, <strong>rule it out of scope</strong> rather than resolving it on the route. If the decision invalidates other parts of the map, update or delete those tickets.</li>
+        </ol>
+      </div>
+      <div class="col-zh" lang="zh-CN">
+        <ol>
+          <li>加载<strong>地图</strong>——低分辨率视图，而非每个 ticket 的正文。</li>
+          <li>选择 ticket。如果用户指定了某个，使用它。否则按顺序取第一个前沿 ticket。<strong>认领它</strong>：在任何工作之前将其指派给自己。</li>
+          <li>解决它——<strong>按需放大</strong>：获取任何相关或已关闭 ticket 的完整正文；调用 <code>## Notes</code> 块中命名的技能。如有疑问，使用 <code>/grilling</code> 和 <code>/domain-modeling</code>。</li>
+          <li>记录解决结果：将答案发布为<strong>结论评论</strong>，<strong>关闭</strong> issue，并向地图的「已作决策」<strong>追加一个上下文指针</strong>。</li>
+          <li>添加新浮现的 ticket（先创建后连线）；转化答案已使其可明确的迷雾，从<strong>「尚未明确」</strong>中清除每个已转化的迷雾片，使其仅作为新 ticket 存在。如果答案揭示某个 ticket（本 ticket 或其他）位于目的地之外，将其<strong>裁定为超出范围</strong>而非在路径上解决它。如果该决策使地图的其他部分失效，更新或删除那些 ticket。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pair">
+      <div class="col-en" lang="en"><p>The user may run unblocked tickets in parallel, so expect other sessions to be editing the tracker concurrently.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>用户可能并行运行未阻塞的 ticket，因此预期其他会话可能同时编辑跟踪器。</p></div>
+    </div>
+  </div>
+</body>
+</html>
