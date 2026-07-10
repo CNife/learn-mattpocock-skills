@@ -388,24 +388,24 @@ return (
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Once a variant has won, write down which one and why (commit message, ADR, issue, or a <code>NOTES.md</code> next to the prototype if running AFK and the user hasn't responded yet). Then:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>一旦某个变体胜出，记下哪个以及为什么（提交信息、ADR、issue，或如果不在用户身边且用户尚未回复，在原型旁边的 <code>NOTES.md</code> 中记录）。然后：</p></div>
+      <div class="col-en" lang="en"><p>Once a variant has won, capture the answer — which variant and why — then capture the prototype the way the [SKILL](SKILL.html) describes. Fold the winner into the real code and move the rest onto the throwaway branch, not into main:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>一旦某个变体胜出，先捕获答案——哪个变体以及为什么——然后按 [SKILL](SKILL.html) 所述方式捕获原型。将胜出者合入真实代码，其余部分移到一次性分支，而不是 main：</p></div>
     </div>
 
     <div class="pair">
       <div class="col-en" lang="en"><ul>
-        <li><strong>Sub-shape A</strong> — delete the losing variants and the switcher; fold the winner into the existing page.</li>
-        <li><strong>Sub-shape B</strong> — promote the winning variant to a real route, delete the throwaway route and the switcher.</li>
+        <li><strong>Sub-shape A</strong> — fold the winner into the existing page; drop the losing variants and the switcher from main.</li>
+        <li><strong>Sub-shape B</strong> — promote the winning variant to a real route; drop the throwaway route and the switcher from main.</li>
       </ul></div>
       <div class="col-zh" lang="zh-CN"><ul>
-        <li><strong>子形态 A</strong>——删除落选的变体和切换器；将胜出者合入现有页面。</li>
-        <li><strong>子形态 B</strong>——将胜出的变体提升为真实路由，删除可抛弃路由和切换器。</li>
+        <li><strong>子形态 A</strong>——将胜出者合入现有页面；把落选的变体和切换器从 main 中去掉。</li>
+        <li><strong>子形态 B</strong>——将胜出的变体提升为真实路由；把可抛弃路由和切换器从 main 中去掉。</li>
       </ul></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Don't leave variant components or the switcher lying around. They rot fast and confuse the next reader.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>不要让变体组件或切换器散落在各处。它们会迅速腐烂，让后来的读者困惑。</p></div>
+      <div class="col-en" lang="en"><p>The full set of variants is the primary source, so it lands on the throwaway branch, not the bin — variant components and the switcher left in the main branch rot fast and confuse the next reader.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>完整的变体集合是一手来源，所以它落在一次性分支上，而非垃圾桶——留在 main 分支中的变体组件和切换器会迅速腐烂，让后来的读者困惑。</p></div>
     </div>
 
     <div class="pair">

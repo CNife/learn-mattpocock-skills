@@ -209,6 +209,8 @@
         <li><code>docs/adr/</code> and any <code>src/*/docs/adr/</code> directories</li>
         <li><code>docs/agents/</code> — does this skill's prior output already exist?</li>
         <li><code>.scratch/</code> — sign that a local-markdown issue tracker convention is already in use</li>
+        <li>Is the <code>triage</code> skill installed? (a <code>triage</code> skill folder alongside this one, or <code>triage</code> in your available skills.) This decides whether Section B runs at all.</li>
+        <li>Monorepo signals — a <code>pnpm-workspace.yaml</code>, a <code>workspaces</code> field in <code>package.json</code>, or a populated <code>packages/*</code> with its own <code>src/</code>. Present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.</li>
       </ul></div>
       <div class="col-zh" lang="zh-CN"><ul>
         <li><code>git remote -v</code> 和 <code>.git/config</code>——这是 GitHub 仓库吗？哪个？</li>
@@ -217,6 +219,8 @@
         <li><code>docs/adr/</code> 和任何 <code>src/*/docs/adr/</code> 目录</li>
         <li><code>docs/agents/</code>——此技能的先前输出是否已存在？</li>
         <li><code>.scratch/</code>——表明本地 markdown Issue 跟踪器约定已在使用</li>
+        <li>是否已安装 <code>triage</code> 技能？（本技能旁边有 <code>triage</code> 技能文件夹，或可用技能中包含 <code>triage</code>。）这决定了 B 部分是否运行。</li>
+        <li><strong>单体仓库信号</strong>——<code>pnpm-workspace.yaml</code>、<code>package.json</code> 中的 <code>workspaces</code> 字段，或带有自身 <code>src/</code> 的 <code>packages/*</code>。只出现在真正大型的多包仓库中；没有这些信号意味着单上下文，而那几乎是所有仓库的情况。</li>
       </ul></div>
     </div>
 
@@ -226,13 +230,13 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Summarise what's present and what's missing. Then walk the user through the three decisions <strong>one at a time</strong> — present a section, get the user's answer, then move to the next. Don't dump all three at once.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>总结已有什么和缺少什么。然后<strong>逐一</strong>引导用户完成三个决策——展示一个部分，获得用户回答，再进行下一个。不要一次全部抛出。</p></div>
+      <div class="col-en" lang="en"><p>Summarise what's present and what's missing. Then take the sections in order — one section, one answer, then the next.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>总结已有什么和缺少什么。然后按顺序处理各个部分——一个部分、一个答案，再到下一个。</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Assume the user does not know what these terms mean. Each section starts with a short explainer (what it is, why these skills need it, what changes if they pick differently). Then show the choices and the default.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>假设用户不了解这些术语的含义。每个部分以简短的解释开始（它是什么、为什么这些技能需要它、选择不同会有什么变化）。然后展示选项和默认值。</p></div>
+      <div class="col-en" lang="en"><p>Lead each section with the recommended answer so the user can accept it in a word. Give a one-line explainer only when the choice genuinely branches; skip the section entirely when exploration already settled it (Section B when <code>triage</code> isn't installed, Section C when there's no monorepo).</p></div>
+      <div class="col-zh" lang="zh-CN"><p>每个部分以推荐答案开头，让用户一句话就能接受。仅当选项真正分叉时才给出一行解释；如果探索阶段已经确定了，就完全跳过该部分（<code>triage</code> 未安装时跳过 B 部分，没有单体仓库信号时跳过 C 部分）。</p></div>
     </div>
 
     <div class="pair">
@@ -266,85 +270,37 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>If — and only if — the user picked <strong>GitHub</strong> or <strong>GitLab</strong>, ask one follow-up:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>当且仅当用户选择了 <strong>GitHub</strong> 或 <strong>GitLab</strong> 时，追问一个问题：</p></div>
+      <div class="col-en" lang="en"><p>Record the choice in <code>docs/agents/issue-tracker.md</code>. The GitHub and GitLab templates carry a "PRs as a request surface" flag, defaulted <strong>off</strong> — leave it off and don't raise it; a user who wants external PRs in the triage queue can flip the flag in the file later.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>将选择记录在 <code>docs/agents/issue-tracker.md</code> 中。GitHub 和 GitLab 模板带有一个"PR 作为请求入口"标志，默认<strong>关闭</strong>——保持关闭，不要主动提起；想要把外部 PR 纳入分诊队列的用户稍后可在文件中翻转该标志。</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><blockquote><p>Explainer: Open-source repos often receive feature requests as pull requests, not just issues — a PR is an issue with attached code. If you turn this on, <code>/triage</code> pulls <em>external</em> PRs into the same queue and runs them through the same labels and states as issues (collaborators' in-flight PRs are left alone). Leave it off if PRs aren't a request surface for you.</p></blockquote></div>
-      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：开源项目通常通过 pull request 接收功能请求，而不仅仅是 Issue——PR 是附带代码的 Issue。如果启用此选项，<code>/triage</code> 会将<em>外部</em> PR 拉入同一队列，并使用与 Issue 相同的标签和状态处理（协作者正在进行的 PR 则保持不变）。如果 PR 不是你的请求入口，则保持关闭。</p></blockquote></div>
+      <div class="col-en" lang="en"><p><strong>Section B — Triage label vocabulary.</strong> Skip this section entirely if the <code>triage</code> skill isn't installed (exploration told you) — an uninstalled skill needs no labels.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>B 部分——分诊标签词汇表。</strong>如果 <code>triage</code> 技能未安装（探索阶段已告诉你），则完全跳过此部分——未安装的技能不需要标签。</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><ul>
-        <li><strong>PRs as a request surface</strong> — yes / no (default: no). Record the answer in <code>docs/agents/issue-tracker.md</code>. For local-markdown and other trackers, skip this question — there are no PRs.</li>
-      </ul></div>
-      <div class="col-zh" lang="zh-CN"><ul>
-        <li><strong>PR 作为请求入口</strong>——是 / 否（默认：否）。将答案记录在 <code>docs/agents/issue-tracker.md</code> 中。对于本地 markdown 和其他跟踪器，跳过此问题——没有 PR。</li>
-      </ul></div>
+      <div class="col-en" lang="en"><p>If it is installed, ask exactly one question:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>如果已安装，只问一个问题：</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p><strong>Section B — Triage label vocabulary.</strong></p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>B 部分——分诊标签词汇表。</strong></p></div>
+      <div class="col-en" lang="en"><blockquote><p>Do you want to keep the default triage labels? (recommended: <strong>yes</strong>)</p></blockquote></div>
+      <div class="col-zh" lang="zh-CN"><blockquote><p>是否保留默认分诊标签？（推荐：<strong>是</strong>）</p></blockquote></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><blockquote><p>Explainer: When the <code>triage</code> skill processes an incoming issue, it moves it through a state machine — needs evaluation, waiting on reporter, ready for an AFK agent to pick up, ready for a human, or won't fix. To do that, it needs to apply labels (or the equivalent in your issue tracker) that match strings <em>you've actually configured</em>. If your repo already uses different label names (e.g. <code>bug:triage</code> instead of <code>needs-triage</code>), map them here so the skill applies the right ones instead of creating duplicates.</p></blockquote></div>
-      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：当 <code>triage</code> 技能处理传入的 Issue 时，它会通过状态机移动——需要评估、等待报告者、准备好让离线代理接管、准备好由人工处理，或不会修复。为此，它需要应用与你实际配置的字符串匹配的标签（或 Issue 跟踪器中的等效项）。如果你的仓库已使用不同的标签名称（例如 <code>bug:triage</code> 而非 <code>needs-triage</code>），在此映射它们，以便技能应用正确的标签而不是创建重复的。</p></blockquote></div>
+      <div class="col-en" lang="en"><p>The defaults are the five canonical roles, each label string equal to its name: <code>needs-triage</code>, <code>needs-info</code>, <code>ready-for-agent</code>, <code>ready-for-human</code>, <code>wontfix</code>. On <strong>yes</strong>, write them as-is. Only if the user says no — usually because their tracker already uses other names (e.g. <code>bug:triage</code> for <code>needs-triage</code>) — collect the overrides so <code>triage</code> applies existing labels instead of creating duplicates.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>默认值就是五个标准角色，每个标签字符串都等于其名称：<code>needs-triage</code>、<code>needs-info</code>、<code>ready-for-agent</code>、<code>ready-for-human</code>、<code>wontfix</code>。如果回答<strong>是</strong>，原样写入即可。只有当用户说否——通常是因为其跟踪器已使用其它名称（例如 <code>bug:triage</code> 对应 <code>needs-triage</code>）——才收集覆盖项，让 <code>triage</code> 应用已有标签而非创建重复项。</p></div>
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>The five canonical roles:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>五个标准角色：</p></div>
-    </div>
+      <div class="col-en" lang="en"><p><strong>Section C — Domain docs.</strong> Default to <strong>single-context</strong> — one <code>CONTEXT.md</code> + <code>docs/adr/</code> at the repo root. This fits almost every repo; write it without asking.</p>
 
-    <div class="pair">
-      <div class="col-en" lang="en"><ul>
-        <li><code>needs-triage</code> — maintainer needs to evaluate</li>
-        <li><code>needs-info</code> — waiting on reporter</li>
-        <li><code>ready-for-agent</code> — fully specified, AFK-ready (an agent can pick it up with no human context)</li>
-        <li><code>ready-for-human</code> — needs human implementation</li>
-        <li><code>wontfix</code> — will not be actioned</li>
-      </ul></div>
-      <div class="col-zh" lang="zh-CN"><ul>
-        <li><code>needs-triage</code>——维护者需要评估</li>
-        <li><code>needs-info</code>——等待报告者</li>
-        <li><code>ready-for-agent</code>——完全指定，AFK 就绪（代理可以在无人工上下文的情况下接手）</li>
-        <li><code>ready-for-human</code>——需要人工实现</li>
-        <li><code>wontfix</code>——不会被处理</li>
-      </ul></div>
-    </div>
+      <p>Offer <strong>multi-context</strong> — a root <code>CONTEXT-MAP.md</code> pointing to per-context <code>CONTEXT.md</code> files — only when exploration found monorepo signals. Then confirm which layout they want.</p></div>
+      <div class="col-zh" lang="zh-CN"><p><strong>C 部分——领域文档。</strong>默认采用<strong>单上下文</strong>——仓库根目录一个 <code>CONTEXT.md</code> + <code>docs/adr/</code>。这几乎适用于所有仓库；无需询问即可写入。</p>
 
-    <div class="pair">
-      <div class="col-en" lang="en"><p>Default: each role's string equals its name. Ask the user if they want to override any. If their issue tracker has no existing labels, the defaults are fine.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>默认值：每个角色的字符串等于其名称。询问用户是否要覆盖任何设置。如果其 Issue 跟踪器没有现有标签，默认值即可。</p></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><p><strong>Section C — Domain docs.</strong></p></div>
-      <div class="col-zh" lang="zh-CN"><p><strong>C 部分——领域文档。</strong></p></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><blockquote><p>Explainer: Some skills (<code>improve-codebase-architecture</code>, <code>diagnosing-bugs</code>, <code>tdd</code>) read a <code>CONTEXT.md</code> file to learn the project's domain language, and <code>docs/adr/</code> for past architectural decisions. They need to know whether the repo has one global context or multiple (e.g. a monorepo with separate frontend/backend contexts) so they look in the right place.</p></blockquote></div>
-      <div class="col-zh" lang="zh-CN"><blockquote><p>解释：一些技能（<code>improve-codebase-architecture</code>、<code>diagnosing-bugs</code>、<code>tdd</code>）读取 <code>CONTEXT.md</code> 文件来学习项目的领域语言，以及 <code>docs/adr/</code> 了解过去的架构决策。它们需要知道仓库是有一个全局上下文还是多个（例如前后端上下文分离的单体仓库），以便在正确的位置查找。</p></blockquote></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><p>Confirm the layout:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>确认布局：</p></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><ul>
-        <li><strong>Single-context</strong> — one <code>CONTEXT.md</code> + <code>docs/adr/</code> at the repo root. Most repos are this.</li>
-        <li><strong>Multi-context</strong> — <code>CONTEXT-MAP.md</code> at the root pointing to per-context <code>CONTEXT.md</code> files (typically a monorepo).</li>
-      </ul></div>
-      <div class="col-zh" lang="zh-CN"><ul>
-        <li><strong>单上下文</strong>——仓库根目录一个 <code>CONTEXT.md</code> + <code>docs/adr/</code>。大多数仓库是这种。</li>
-        <li><strong>多上下文</strong>——根目录的 <code>CONTEXT-MAP.md</code> 指向每个上下文的 <code>CONTEXT.md</code> 文件（通常是单体仓库）。</li>
-      </ul></div>
+      <p>仅当探索阶段发现了单体仓库信号时，才提供<strong>多上下文</strong>——根目录的 <code>CONTEXT-MAP.md</code> 指向每个上下文的 <code>CONTEXT.md</code> 文件。然后确认他们想要哪种布局。</p></div>
     </div>
 
     <div class="pair">
@@ -360,11 +316,11 @@
     <div class="pair">
       <div class="col-en" lang="en"><ul>
         <li>The <code>## Agent skills</code> block to add to whichever of <code>CLAUDE.md</code> / <code>AGENTS.md</code> is being edited (see step 4 for selection rules)</li>
-        <li>The contents of <code>docs/agents/issue-tracker.md</code>, <code>docs/agents/triage-labels.md</code>, <code>docs/agents/domain.md</code></li>
+        <li>The contents of <code>docs/agents/issue-tracker.md</code>, <code>docs/agents/domain.md</code>, and <code>docs/agents/triage-labels.md</code> (the last only when <code>triage</code> is installed)</li>
       </ul></div>
       <div class="col-zh" lang="zh-CN"><ul>
         <li>要添加到正在编辑的 <code>CLAUDE.md</code> / <code>AGENTS.md</code> 中的 <code>## Agent skills</code> 块（选择规则见步骤 4）</li>
-        <li><code>docs/agents/issue-tracker.md</code>、<code>docs/agents/triage-labels.md</code>、<code>docs/agents/domain.md</code> 的内容</li>
+        <li><code>docs/agents/issue-tracker.md</code>、<code>docs/agents/domain.md</code> 以及 <code>docs/agents/triage-labels.md</code>（最后一项仅当 <code>triage</code> 已安装时）的内容</li>
       </ul></div>
     </div>
 
@@ -416,7 +372,7 @@
 
 ### Issue tracker
 
-[one-line summary of where issues are tracked, plus whether external PRs are a triage surface]. See `docs/agents/issue-tracker.md`.
+[one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
@@ -429,7 +385,7 @@
 
 ### Issue tracker
 
-[一行摘要：Issue 在哪里跟踪，以及外部 PR 是否为分诊入口]。见 `docs/agents/issue-tracker.md`。
+[一行摘要：Issue 在哪里跟踪]。见 `docs/agents/issue-tracker.md`。
 
 ### Triage labels
 
@@ -441,8 +397,12 @@
     </div>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Then write the three docs files using the seed templates in this skill folder as a starting point:</p></div>
-      <div class="col-zh" lang="zh-CN"><p>然后使用此技能文件夹中的种子模板作为起点，写入三个文档文件：</p></div>
+      <div class="col-en" lang="en"><p>Include the <code>### Triage labels</code> sub-block, and write <code>docs/agents/triage-labels.md</code>, only when <code>triage</code> is installed and Section B ran. When it isn't, both are omitted.
+
+Then write the docs files using the seed templates in this skill folder as a starting point:</p></div>
+      <div class="col-zh" lang="zh-CN"><p>只有当 <code>triage</code> 已安装且 B 部分已运行时，才包含 <code>### Triage labels</code> 子块，并写入 <code>docs/agents/triage-labels.md</code>。否则两者都省略。
+
+然后使用此技能文件夹中的种子模板作为起点，写入文档文件：</p></div>
     </div>
 
     <div class="pair">
@@ -450,14 +410,14 @@
         <li><a href="./issue-tracker-github.html">issue-tracker-github.md</a> — GitHub issue tracker</li>
         <li><a href="./issue-tracker-gitlab.html">issue-tracker-gitlab.md</a> — GitLab issue tracker</li>
         <li><a href="./issue-tracker-local.html">issue-tracker-local.md</a> — local-markdown issue tracker</li>
-        <li><a href="./triage-labels.html">triage-labels.md</a> — label mapping</li>
+        <li><a href="./triage-labels.html">triage-labels.md</a> — label mapping (only if <code>triage</code> is installed)</li>
         <li><a href="./domain.html">domain.md</a> — domain doc consumer rules + layout</li>
       </ul></div>
       <div class="col-zh" lang="zh-CN"><ul>
         <li><a href="./issue-tracker-github.html">issue-tracker-github.md</a>——GitHub Issue 跟踪器</li>
         <li><a href="./issue-tracker-gitlab.html">issue-tracker-gitlab.md</a>——GitLab Issue 跟踪器</li>
         <li><a href="./issue-tracker-local.html">issue-tracker-local.md</a>——本地 markdown Issue 跟踪器</li>
-        <li><a href="./triage-labels.html">triage-labels.md</a>——标签映射</li>
+        <li><a href="./triage-labels.html">triage-labels.md</a>——标签映射（仅当 <code>triage</code> 已安装时）</li>
         <li><a href="./domain.html">domain.md</a>——领域文档消费规则 + 布局</li>
       </ul></div>
     </div>

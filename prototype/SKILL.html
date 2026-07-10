@@ -220,10 +220,10 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><ol start="4">
-        <li><strong>Skip the polish.</strong> No tests, no error handling beyond what makes the prototype <em>runnable</em>, no abstractions. The point is to learn something fast and then delete it.</li>
+        <li><strong>Skip the polish.</strong> No tests, no error handling beyond what makes the prototype <em>runnable</em>, no abstractions. The point is to learn something fast.</li>
       </ol></div>
       <div class="col-zh" lang="zh-CN"><ol start="4">
-        <li><strong>跳过打磨。</strong> 不写测试，不处理错误（除非影响原型<em>可运行性</em>），不做抽象。目的是快速学到东西然后删除。</li>
+        <li><strong>跳过打磨。</strong> 不写测试，不处理错误（除非影响原型<em>可运行性</em>），不做抽象。目的是快速学到东西。</li>
       </ol></div>
     </div>
 
@@ -238,21 +238,11 @@
 
     <div class="pair">
       <div class="col-en" lang="en"><ol start="6">
-        <li><strong>Delete or absorb when done.</strong> When the prototype has answered its question, either delete it or fold the validated decision into the real code — don't leave it rotting in the repo.</li>
+        <li><strong>Capture it when done.</strong> Fold any validated decision into the real code, then capture the prototype itself as a <strong>primary source</strong>: commit it to a throwaway branch, out of main, and leave a context pointer to that branch on the implementation issue. Capture the answer too — the verdict and the question it settled — in the issue or a commit. The main branch keeps only the validated decision.</li>
       </ol></div>
       <div class="col-zh" lang="zh-CN"><ol start="6">
-        <li><strong>完成后删除或吸收。</strong> 当原型回答了问题后，要么删除它，要么将验证过的决定合入真实代码——不要让它烂在仓库里。</li>
+        <li><strong>完成后捕获它。</strong> 将任何验证过的决策合入真实代码，然后把原型本身作为<strong>一手来源</strong>捕获：提交到一个一次性分支，离开 main，并在实现 issue 上留下指向该分支的上下文指针。同时捕获答案——结论和它解决的问题——写入 issue 或一次提交。main 分支只保留已验证的决策。</li>
       </ol></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><h2>When done</h2></div>
-      <div class="col-zh" lang="zh-CN"><h2>完成后</h2></div>
-    </div>
-
-    <div class="pair">
-      <div class="col-en" lang="en"><p>The <em>answer</em> is the only thing worth keeping from a prototype. Capture it somewhere durable (commit message, ADR, issue, or a <code>NOTES.md</code> next to the prototype) along with the question it was answering. If the user is around, that capture is a quick conversation; if not, leave the placeholder so they (or you, on the next pass) can fill in the verdict before deleting the prototype.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>从原型中唯一值得保留的是<em>答案</em>。将答案连同它回答的问题一起记录在持久化的地方（提交信息、ADR、issue，或原型旁边的 <code>NOTES.md</code>）。如果用户在附近，这个记录就是一次快速对话；如果不在，留下占位符，让他们（或你，下次回来时）在删除原型前填入结论。</p></div>
     </div>
 
   </div>
