@@ -5,8 +5,8 @@
   },
   "skills": {
     "ask-matt": {
-      "source_commit": "d574778",
-      "translated_at": "2026-07-09",
+      "source_commit": "391a2701dd948f94f56a39f7533f8eea9a859c87",
+      "translated_at": "2026-07-10",
       "source_path": "skills/engineering/ask-matt"
     },
     "code-review": {
@@ -60,8 +60,8 @@
       "source_path": "skills/engineering/improve-codebase-architecture"
     },
     "prototype": {
-      "source_commit": "272f99b22574f50e4266791c86b9302682970e23",
-      "translated_at": "2026-07-02",
+      "source_commit": "391a2701dd948f94f56a39f7533f8eea9a859c87",
+      "translated_at": "2026-07-10",
       "source_path": "skills/engineering/prototype"
     },
     "research": {
@@ -75,8 +75,8 @@
       "source_path": "skills/engineering/resolving-merge-conflicts"
     },
     "setup-matt-pocock-skills": {
-      "source_commit": "d574778",
-      "translated_at": "2026-07-09",
+      "source_commit": "391a2701dd948f94f56a39f7533f8eea9a859c87",
+      "translated_at": "2026-07-10",
       "source_path": "skills/engineering/setup-matt-pocock-skills"
     },
     "tdd": {
@@ -95,8 +95,8 @@
       "source_path": "skills/engineering/to-spec"
     },
     "to-tickets": {
-      "source_commit": "d574778",
-      "translated_at": "2026-07-09",
+      "source_commit": "391a2701dd948f94f56a39f7533f8eea9a859c87",
+      "translated_at": "2026-07-10",
       "source_path": "skills/engineering/to-tickets"
     },
     "triage": {

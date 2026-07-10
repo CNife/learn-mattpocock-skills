@@ -114,6 +114,8 @@
 | out-of-scope | 超出范围 | 既指状态也指目录 |
 | gold-plating | 镀金 | 过度装饰 |
 | throwaway (prototype/harness) | 一次性（原型/测试架） | |
+| throwaway branch | 一次性分支 | prototype 收尾：原型留在一次性分支（离开 main），main 只保留已验证决策 |
+| primary source | 一手来源 | prototype 收尾：结论与验证过的原型作为一手来源，写入 issue/commit |
 | feedback loop | 反馈循环 | diagnosing-bugs 核心 |
 | hitl / HITL | 保留英文 | Human-In-The-Loop，不译 |
 
