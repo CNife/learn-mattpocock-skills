@@ -260,13 +260,13 @@
 <div class="pair">
   <div class="col-en" lang="en">
     <ul>
-      <li><strong>Yes</strong> → <strong><code>/to-spec</code></strong> (turn the thread into a spec), then <strong><code>/to-tickets</code></strong> to split it into tracer-bullet tickets, each declaring its <strong>blocking edges</strong>. On a local tracker that's an ordered <code>tickets.md</code> you work by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed — kick off <strong><code>/implement</code></strong> per ticket, <strong>clearing context between each one</strong>.</li>
+      <li><strong>Yes</strong> → <strong><code>/to-spec</code></strong> (turn the thread into a spec), then <strong><code>/to-tickets</code></strong> to split it into tracer-bullet tickets, each declaring its <strong>blocking edges</strong>. On a local tracker that's one file per ticket under <code>.scratch/&lt;feature&gt;/issues/</code>, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed — kick off <strong><code>/implement</code></strong> per ticket, <strong>clearing context between each one</strong>.</li>
       <li><strong>No</strong> → <strong><code>/implement</code></strong> right here, in the same context window.</li>
     </ul>
   </div>
   <div class="col-zh" lang="zh-CN">
     <ul>
-      <li><strong>是</strong> → <strong><code>/to-spec</code></strong>（将对话转成规格说明），然后 <strong><code>/to-tickets</code></strong> 将其拆分为曳光弹式 ticket，每个 ticket 声明自己的<strong>阻塞边</strong>。在本地跟踪器上，这是一个手工操作的按序 <code>tickets.md</code>；在真实跟踪器上，这些边会成为原生阻塞链接，因此任何已解除阻塞的 ticket 都可以被认领 — 每个 ticket 启动一个 <strong><code>/implement</code></strong>，<strong>每个之间清除上下文</strong>。</li>
+      <li><strong>是</strong> → <strong><code>/to-spec</code></strong>（将对话转成规格说明），然后 <strong><code>/to-tickets</code></strong> 将其拆分为曳光弹式 ticket，每个 ticket 声明自己的<strong>阻塞边</strong>。在本地跟踪器上，这相当于 <code>.scratch/&lt;feature&gt;/issues/</code> 下一个 ticket 一个文件、手工按阻塞者优先处理；在真实跟踪器上，这些边会成为原生阻塞链接，因此任何已解除阻塞的 ticket 都可以被认领 — 每个 ticket 启动一个 <strong><code>/implement</code></strong>，<strong>每个之间清除上下文</strong>。</li>
       <li><strong>否</strong> → 就在同一个上下文窗口中用 <strong><code>/implement</code></strong>。</li>
     </ul>
   </div>

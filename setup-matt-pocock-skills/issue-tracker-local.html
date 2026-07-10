@@ -135,11 +135,11 @@
     <a class="back-link" href="SKILL.html">← setup-matt-pocock-skills</a> · <a href="../index.html">技能图谱</a>
 
     <h1>Issue tracker: Local Markdown</h1>
-    <p class="subtitle">此仓库的 Issue 和 PRD 以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p>
+    <p class="subtitle">此仓库的 Issue 和规格说明（你或许把规格说明称为 PRD）以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p>
 
     <div class="pair">
-      <div class="col-en" lang="en"><p>Issues and PRDs for this repo live as markdown files in <code>.scratch/</code>.</p></div>
-      <div class="col-zh" lang="zh-CN"><p>此仓库的 Issue 和 PRD 以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p></div>
+      <div class="col-en" lang="en"><p>Issues and specs (you may know a spec as a PRD) for this repo live as markdown files in <code>.scratch/</code>.</p></div>
+      <div class="col-zh" lang="zh-CN"><p>此仓库的 Issue 和规格说明（你或许把规格说明称为 PRD）以 markdown 文件形式存放在 <code>.scratch/</code> 中。</p></div>
     </div>
 
     <div class="pair">
@@ -150,15 +150,15 @@
     <div class="pair">
       <div class="col-en" lang="en"><ul>
         <li>One feature per directory: <code>.scratch/&lt;feature-slug&gt;/</code></li>
-        <li>The PRD is <code>.scratch/&lt;feature-slug&gt;/PRD.md</code></li>
-        <li>Implementation issues are <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>, numbered from <code>01</code></li>
+        <li>The spec is <code>.scratch/&lt;feature-slug&gt;/spec.md</code></li>
+        <li>Implementation issues are one file per ticket at <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>, numbered from <code>01</code> — never a single combined tickets file</li>
         <li>Triage state is recorded as a <code>Status:</code> line near the top of each issue file (see <code>triage-labels.md</code> for the role strings)</li>
         <li>Comments and conversation history append to the bottom of the file under a <code>## Comments</code> heading</li>
       </ul></div>
       <div class="col-zh" lang="zh-CN"><ul>
         <li>每个功能一个目录：<code>.scratch/&lt;feature-slug&gt;/</code></li>
-        <li>PRD 为 <code>.scratch/&lt;feature-slug&gt;/PRD.md</code></li>
-        <li>实现 Issue 为 <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>，从 <code>01</code> 开始编号</li>
+        <li>规格说明为 <code>.scratch/&lt;feature-slug&gt;/spec.md</code></li>
+        <li>实现 Issue 每个 ticket 一个文件，位于 <code>.scratch/&lt;feature-slug&gt;/issues/&lt;NN&gt;-&lt;slug&gt;.md</code>，从 <code>01</code> 开始编号——绝不要合并成单一的 tickets 文件</li>
         <li>分诊状态记录在每个 Issue 文件顶部的 <code>Status:</code> 行中（角色字符串见 <code>triage-labels.md</code>）</li>
         <li>评论和对话历史追加到文件底部 <code>## Comments</code> 标题下</li>
       </ul></div>
